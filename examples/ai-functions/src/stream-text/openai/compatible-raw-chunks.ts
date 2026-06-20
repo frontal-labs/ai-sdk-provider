@@ -1,9 +1,9 @@
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {
-  const openaiCompatible = createOpenAICompatible({
+  const frontal = createFrontal({
     baseURL: 'https://api.openai.com/v1',
     name: 'openai-compatible',
     headers: {
@@ -12,7 +12,7 @@ run(async () => {
   });
 
   const result = streamText({
-    model: openaiCompatible.completionModel('gpt-3.5-turbo-instruct'),
+    model: frontal.completionModel('gpt-3.5-turbo-instruct'),
     prompt: 'Hello, World!',
     include: {
       rawChunks: true,

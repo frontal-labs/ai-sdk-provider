@@ -1,4 +1,4 @@
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import {
   type ModelMessage,
   streamText,
@@ -13,7 +13,7 @@ const messages: ModelMessage[] = [];
 run(async () => {
   let toolResponseAvailable = false;
 
-  const togetherai = createOpenAICompatible({
+  const togetherai = createFrontal({
     baseURL: 'https://api.together.xyz/v1',
     name: 'togetherai',
     headers: {

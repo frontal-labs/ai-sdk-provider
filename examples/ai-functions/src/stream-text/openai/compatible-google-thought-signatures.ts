@@ -1,10 +1,10 @@
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import { type ModelMessage, streamText, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
 run(async () => {
-  const googleOpenAI = createOpenAICompatible({
+  const googleOpenAI = createFrontal({
     baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
     name: 'google',
     headers: {

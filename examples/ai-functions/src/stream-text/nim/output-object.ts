@@ -1,10 +1,10 @@
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import { Output, streamText } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
 run(async () => {
-  const nim = createOpenAICompatible({
+  const nim = createFrontal({
     baseURL: 'https://integrate.api.nvidia.com/v1',
     name: 'nim',
     headers: {

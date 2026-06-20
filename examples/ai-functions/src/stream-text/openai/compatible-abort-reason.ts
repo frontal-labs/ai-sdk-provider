@@ -1,9 +1,9 @@
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {
-  const openaiCompatible = createOpenAICompatible({
+  const frontal = createFrontal({
     name: 'openai-compatible',
     baseURL: 'https://api.deepseek.com/v1',
     apiKey: process.env.DEEPSEEK_API_KEY ?? 'YOUR_API_KEY',
@@ -21,7 +21,7 @@ run(async () => {
     ]);
 
     const result = streamText({
-      model: openaiCompatible('deepseek-chat'),
+      model: frontal('deepseek-chat'),
       prompt: 'Write a short poem about a lighthouse.',
       abortSignal: finalSignal,
     });

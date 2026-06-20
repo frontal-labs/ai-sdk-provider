@@ -1,9 +1,9 @@
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {
-  const baseten = createOpenAICompatible({
+  const baseten = createFrontal({
     baseURL: 'https://inference.baseten.co/v1',
     name: 'baseten',
     apiKey: process.env.BASETEN_API_KEY,

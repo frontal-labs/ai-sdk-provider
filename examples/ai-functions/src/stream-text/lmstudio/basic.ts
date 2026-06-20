@@ -1,8 +1,8 @@
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
 
-const lmstudio = createOpenAICompatible({
+const lmstudio = createFrontal({
   name: 'lmstudio',
   baseURL: 'http://localhost:1234/v1',
 });

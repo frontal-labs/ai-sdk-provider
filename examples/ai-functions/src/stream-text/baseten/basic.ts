@@ -1,11 +1,11 @@
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
 
 const BASETEN_MODEL_ID = '<model-id>'; // e.g. 5q3z8xcw
 const BASETEN_MODEL_URL = `https://model-${BASETEN_MODEL_ID}.api.baseten.co/environments/production/sync/v1`;
 
-const baseten = createOpenAICompatible({
+const baseten = createFrontal({
   name: 'baseten',
   baseURL: BASETEN_MODEL_URL,
   headers: {

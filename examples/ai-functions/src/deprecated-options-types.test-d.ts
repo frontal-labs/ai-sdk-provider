@@ -101,12 +101,12 @@ import type {
   OpenAIResponsesProviderOptions,
 } from '@ai-sdk/openai';
 import type {
-  OpenAICompatibleCompletionProviderOptions,
-  OpenAICompatibleEmbeddingModelOptions,
-  OpenAICompatibleEmbeddingProviderOptions,
-  OpenAICompatibleLanguageModelChatOptions,
-  OpenAICompatibleLanguageModelCompletionOptions,
-  OpenAICompatibleProviderOptions,
+  FrontalCompletionProviderOptions,
+  FrontalEmbeddingModelOptions,
+  FrontalEmbeddingProviderOptions,
+  FrontalLanguageModelChatOptions,
+  FrontalLanguageModelCompletionOptions,
+  FrontalProviderOptions,
 } from '@ai-sdk/openai-compatible';
 import type {
   ProdiaImageModelOptions,
@@ -289,14 +289,14 @@ describe('deprecated provider options type aliases', () => {
   });
 
   describe('@ai-sdk/openai-compatible', () => {
-    it('OpenAICompatibleProviderOptions equals OpenAICompatibleLanguageModelChatOptions', () => {
-      expectTypeOf<OpenAICompatibleProviderOptions>().toEqualTypeOf<OpenAICompatibleLanguageModelChatOptions>();
+    it('FrontalProviderOptions equals FrontalLanguageModelChatOptions', () => {
+      expectTypeOf<FrontalProviderOptions>().toEqualTypeOf<FrontalLanguageModelChatOptions>();
     });
-    it('OpenAICompatibleCompletionProviderOptions equals OpenAICompatibleLanguageModelCompletionOptions', () => {
-      expectTypeOf<OpenAICompatibleCompletionProviderOptions>().toEqualTypeOf<OpenAICompatibleLanguageModelCompletionOptions>();
+    it('FrontalCompletionProviderOptions equals FrontalLanguageModelCompletionOptions', () => {
+      expectTypeOf<FrontalCompletionProviderOptions>().toEqualTypeOf<FrontalLanguageModelCompletionOptions>();
     });
-    it('OpenAICompatibleEmbeddingProviderOptions equals OpenAICompatibleEmbeddingModelOptions', () => {
-      expectTypeOf<OpenAICompatibleEmbeddingProviderOptions>().toEqualTypeOf<OpenAICompatibleEmbeddingModelOptions>();
+    it('FrontalEmbeddingProviderOptions equals FrontalEmbeddingModelOptions', () => {
+      expectTypeOf<FrontalEmbeddingProviderOptions>().toEqualTypeOf<FrontalEmbeddingModelOptions>();
     });
   });
 

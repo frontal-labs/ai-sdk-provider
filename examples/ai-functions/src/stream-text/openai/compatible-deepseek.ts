@@ -1,9 +1,9 @@
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {
-  const deepseek = createOpenAICompatible({
+  const deepseek = createFrontal({
     baseURL: 'https://api.deepseek.com/v1',
     name: 'deepseek',
     headers: {

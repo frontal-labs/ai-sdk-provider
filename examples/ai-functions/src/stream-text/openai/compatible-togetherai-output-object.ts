@@ -1,10 +1,10 @@
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import { Output, streamText } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
 run(async () => {
-  const togetherai = createOpenAICompatible({
+  const togetherai = createFrontal({
     baseURL: 'https://api.together.xyz/v1',
     name: 'togetherai',
     headers: {

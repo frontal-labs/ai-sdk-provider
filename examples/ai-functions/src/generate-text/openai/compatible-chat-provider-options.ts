@@ -1,10 +1,10 @@
 import type { OpenAILanguageModelChatOptions } from '@ai-sdk/openai';
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from '@ai-sdk/openai-compatible';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {
-  const openai = createOpenAICompatible({
+  const openai = createFrontal({
     baseURL: 'https://api.openai.com/v1',
     name: 'openai',
     headers: {
