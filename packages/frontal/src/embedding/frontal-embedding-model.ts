@@ -18,12 +18,12 @@ import { z } from 'zod/v4';
 import {
   defaultFrontalErrorStructure,
   type ProviderErrorStructure,
-} from '../frontal-compatible-error';
+} from '../frontal-error';
 import { warnIfDeprecatedProviderOptionsKey } from '../utils/to-camel-case';
 import {
   type FrontalEmbeddingModelId,
   frontalEmbeddingModelOptions,
-} from './frontal-compatible-embedding-model-options';
+} from './frontal-embedding-model-options';
 
 type FrontalEmbeddingConfig = {
   /**
@@ -97,9 +97,9 @@ export class FrontalEmbeddingModel implements EmbeddingModelV4 {
   > {
     const warnings: SharedV4Warning[] = [];
 
-    // Parse provider options - check for deprecated 'frontal-compatible' key
+    // Parse provider options - check for deprecated 'frontal' key
     const deprecatedOptions = await parseProviderOptions({
-      provider: 'frontal-compatible',
+      provider: 'frontal',
       providerOptions,
       schema: frontalEmbeddingModelOptions,
     });
@@ -107,7 +107,7 @@ export class FrontalEmbeddingModel implements EmbeddingModelV4 {
     if (deprecatedOptions != null) {
       warnings.push({
         type: 'deprecated',
-        setting: "providerOptions key 'frontal-compatible'",
+        setting: "providerOptions key 'frontal'",
         message: "Use 'frontal' instead.",
       });
     }

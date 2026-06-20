@@ -16,7 +16,8 @@
     "!src/**/__fixtures__",
     "CHANGELOG.md",
     "README.md",
-    "internal.d.ts"
+    "internal.d.ts",
+    "NOTICE.md"
   ],
   "directories": {
     "doc": "./docs"
@@ -25,7 +26,7 @@
     "build": "bun run clean && tsup --tsconfig tsconfig.build.json",
     "build:watch": "bun run clean && tsup --watch",
     "clean": "del-cli dist docs *.tsbuildinfo",
-    "prepack": "mkdir -p docs && cp ../../content/providers/04-openai-compatible-providers/index.mdx ./docs/ || true",
+    "prepack": "mkdir -p docs && cp ../../content/providers/04-frontal/index.mdx ./docs/ || true",
     "postpack": "rm -rf docs || true",
     "type-check": "tsc --build",
     "test": "bun run test:node && bun run test:edge",
@@ -69,16 +70,18 @@
     "access": "public",
     "provenance": true
   },
-  "homepage": "https://ai-sdk.dev/docs",
+  "homepage": "https://frontal.ai",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vercel/ai",
+    "url": "https://github.com/frontal-ai/ai-sdk-frontal",
     "directory": "packages/frontal"
   },
   "bugs": {
-    "url": "https://github.com/vercel/ai/issues"
+    "url": "https://github.com/frontal-ai/ai-sdk-frontal/issues"
   },
   "keywords": [
-    "ai"
+    "ai",
+    "frontal",
+    "provider"
   ]
 }

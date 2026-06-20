@@ -1,7 +1,7 @@
 import type { EmbeddingModelV4Embedding } from '@ai-sdk/provider';
 import { createTestServer } from '@ai-sdk/test-server/with-vitest';
 import { describe, expect, it } from 'vitest';
-import { createFrontal } from '../frontal-compatible-provider';
+import { createFrontal } from '../frontal-provider';
 
 const dummyEmbeddings = [
   [0.1, 0.2, 0.3, 0.4, 0.5],
@@ -115,7 +115,7 @@ describe('doEmbed', () => {
     });
   });
 
-  it('should pass settings with deprecated frontal-compatible key and emit warning', async () => {
+  it('should pass settings with deprecated frontal key and emit warning', async () => {
     prepareJsonResponse();
 
     const result = await provider
@@ -123,7 +123,7 @@ describe('doEmbed', () => {
       .doEmbed({
         values: testValues,
         providerOptions: {
-          'frontal-compatible': {
+          'frontal': {
             dimensions: 64,
           },
         },
@@ -140,7 +140,7 @@ describe('doEmbed', () => {
       [
         {
           "message": "Use 'frontal' instead.",
-          "setting": "providerOptions key 'frontal-compatible'",
+          "setting": "providerOptions key 'frontal'",
           "type": "deprecated",
         },
       ]

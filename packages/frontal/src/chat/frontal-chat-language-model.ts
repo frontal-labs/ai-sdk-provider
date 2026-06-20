@@ -33,22 +33,22 @@ import { z } from 'zod/v4';
 import {
   defaultFrontalErrorStructure,
   type ProviderErrorStructure,
-} from '../frontal-compatible-error';
+} from '../frontal-error';
 import {
   resolveProviderOptionsKey,
   toCamelCase,
   warnIfDeprecatedProviderOptionsKey,
 } from '../utils/to-camel-case';
-import { convertFrontalChatUsage } from './convert-frontal-compatible-chat-usage';
-import { convertToFrontalChatMessages } from './convert-to-frontal-compatible-chat-messages';
+import { convertFrontalChatUsage } from './convert-frontal-chat-usage';
+import { convertToFrontalChatMessages } from './convert-to-frontal-chat-messages';
 import { getResponseMetadata } from './get-response-metadata';
-import { mapFrontalFinishReason } from './map-frontal-compatible-finish-reason';
+import { mapFrontalFinishReason } from './map-frontal-finish-reason';
 import {
   type FrontalChatModelId,
   frontalLanguageModelChatOptions,
-} from './frontal-compatible-chat-language-model-options';
-import type { MetadataExtractor } from './frontal-compatible-metadata-extractor';
-import { prepareTools } from './frontal-compatible-prepare-tools';
+} from './frontal-chat-language-model-options';
+import type { MetadataExtractor } from './frontal-metadata-extractor';
+import { prepareTools } from './frontal-prepare-tools';
 
 type FrontalStreamingToolCallDelta = StreamingToolCallDelta & {
   extra_content?: {
@@ -187,9 +187,9 @@ export class FrontalChatLanguageModel implements LanguageModelV4 {
   }: LanguageModelV4CallOptions) {
     const warnings: SharedV4Warning[] = [];
 
-    // Parse provider options - check for deprecated 'frontal-compatible' key
+    // Parse provider options - check for deprecated 'frontal' key
     const deprecatedOptions = await parseProviderOptions({
-      provider: 'frontal-compatible',
+      provider: 'frontal',
       providerOptions,
       schema: frontalLanguageModelChatOptions,
     });
@@ -197,7 +197,7 @@ export class FrontalChatLanguageModel implements LanguageModelV4 {
     if (deprecatedOptions != null) {
       warnings.push({
         type: 'deprecated',
-        setting: "providerOptions key 'frontal-compatible'",
+        setting: "providerOptions key 'frontal'",
         message: "Use 'frontal' instead.",
       });
     }
@@ -802,7 +802,7 @@ const chunkBaseSchema = z.looseObject({
         .object({
           role: z.enum(['assistant', '']).nullish(),
           content: z.string().nullish(),
-          // Most frontal-compatible models set `reasoning_content`, but some
+          // Most frontal models set `reasoning_content`, but some
           // providers serving `gpt-oss` set `reasoning`. See #7866
           reasoning_content: z.string().nullish(),
           reasoning: z.string().nullish(),

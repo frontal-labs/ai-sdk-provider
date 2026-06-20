@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { prepareTools } from './frontal-compatible-prepare-tools';
+import { prepareTools } from './frontal-prepare-tools';
 
 describe('prepareTools', () => {
   it('should return undefined tools and toolChoice when tools are null', () => {

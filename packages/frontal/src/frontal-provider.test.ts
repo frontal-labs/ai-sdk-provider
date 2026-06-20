@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { FrontalChatLanguageModel } from './chat/frontal-compatible-chat-language-model';
-import { FrontalCompletionLanguageModel } from './completion/frontal-compatible-completion-language-model';
-import { FrontalEmbeddingModel } from './embedding/frontal-compatible-embedding-model';
-import { FrontalImageModel } from './image/frontal-compatible-image-model';
-import { createFrontal } from './frontal-compatible-provider';
+import { FrontalChatLanguageModel } from './chat/frontal-chat-language-model';
+import { FrontalCompletionLanguageModel } from './completion/frontal-completion-language-model';
+import { FrontalEmbeddingModel } from './embedding/frontal-embedding-model';
+import { FrontalImageModel } from './image/frontal-image-model';
+import { createFrontal } from './frontal-provider';
 
 // Mock version
 vi.mock('./version', () => ({
@@ -22,19 +22,19 @@ const FrontalEmbeddingModelMock = vi.mocked(
 
 const FrontalImageModelMock = vi.mocked(FrontalImageModel);
 
-vi.mock('./chat/frontal-compatible-chat-language-model', () => ({
+vi.mock('./chat/frontal-chat-language-model', () => ({
   FrontalChatLanguageModel: vi.fn(),
 }));
 
-vi.mock('./image/frontal-compatible-image-model', () => ({
+vi.mock('./image/frontal-image-model', () => ({
   FrontalImageModel: vi.fn(),
 }));
 
-vi.mock('./completion/frontal-compatible-completion-language-model', () => ({
+vi.mock('./completion/frontal-completion-language-model', () => ({
   FrontalCompletionLanguageModel: vi.fn(),
 }));
 
-vi.mock('./embedding/frontal-compatible-embedding-model', () => ({
+vi.mock('./embedding/frontal-embedding-model', () => ({
   FrontalEmbeddingModel: vi.fn(),
 }));
 
@@ -64,7 +64,7 @@ describe('FrontalProvider', () => {
       expect(headers).toEqual({
         authorization: 'Bearer test-api-key',
         'custom-header': 'value',
-        'user-agent': 'ai-sdk/frontal-compatible/0.0.0-test',
+        'user-agent': 'ai-sdk/frontal/0.0.0-test',
       });
       expect(config.provider).toBe('test-provider.chat');
       expect(config.url({ modelId: 'model-id', path: '/v1/chat' })).toBe(
@@ -89,7 +89,7 @@ describe('FrontalProvider', () => {
 
       expect(headers).toEqual({
         'custom-header': 'value',
-        'user-agent': 'ai-sdk/frontal-compatible/0.0.0-test',
+        'user-agent': 'ai-sdk/frontal/0.0.0-test',
       });
     });
   });
@@ -116,7 +116,7 @@ describe('FrontalProvider', () => {
       expect(headers).toEqual({
         authorization: 'Bearer test-api-key',
         'custom-header': 'value',
-        'user-agent': 'ai-sdk/frontal-compatible/0.0.0-test',
+        'user-agent': 'ai-sdk/frontal/0.0.0-test',
       });
       expect(config.provider).toBe('test-provider.chat');
       expect(config.url({ modelId: 'model-id', path: '/v1/chat' })).toBe(
@@ -137,7 +137,7 @@ describe('FrontalProvider', () => {
       expect(headers).toEqual({
         authorization: 'Bearer test-api-key',
         'custom-header': 'value',
-        'user-agent': 'ai-sdk/frontal-compatible/0.0.0-test',
+        'user-agent': 'ai-sdk/frontal/0.0.0-test',
       });
       expect(config.provider).toBe('test-provider.completion');
       expect(
@@ -157,7 +157,7 @@ describe('FrontalProvider', () => {
       expect(headers).toEqual({
         authorization: 'Bearer test-api-key',
         'custom-header': 'value',
-        'user-agent': 'ai-sdk/frontal-compatible/0.0.0-test',
+        'user-agent': 'ai-sdk/frontal/0.0.0-test',
       });
       expect(config.provider).toBe('test-provider.embedding');
       expect(

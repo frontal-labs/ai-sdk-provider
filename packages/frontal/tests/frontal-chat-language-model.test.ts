@@ -3,8 +3,8 @@ import { convertReadableStreamToArray } from '@ai-sdk/provider-utils/test';
 import { createTestServer } from '@ai-sdk/test-server/with-vitest';
 import fs from 'fs';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createFrontal } from '../frontal-compatible-provider';
-import { FrontalChatLanguageModel } from './frontal-compatible-chat-language-model';
+import { createFrontal } from '../frontal-provider';
+import { FrontalChatLanguageModel } from './frontal-chat-language-model';
 
 const TEST_PROMPT: LanguageModelV4Prompt = [
   { role: 'user', content: [{ type: 'text', text: 'Hello' }] },
@@ -435,13 +435,13 @@ describe('doGenerate', () => {
     `);
   });
 
-  it('should pass settings with deprecated frontal-compatible key and emit warning', async () => {
+  it('should pass settings with deprecated frontal key and emit warning', async () => {
     prepareJsonResponse();
 
     const result = await provider('grok-3').doGenerate({
       prompt: TEST_PROMPT,
       providerOptions: {
-        'frontal-compatible': {
+        'frontal': {
           user: 'test-user-id',
         },
       },
@@ -464,7 +464,7 @@ describe('doGenerate', () => {
       [
         {
           "message": "Use 'frontal' instead.",
-          "setting": "providerOptions key 'frontal-compatible'",
+          "setting": "providerOptions key 'frontal'",
           "type": "deprecated",
         },
       ]

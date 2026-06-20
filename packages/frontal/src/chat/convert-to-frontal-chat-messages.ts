@@ -9,7 +9,7 @@ import {
   getTopLevelMediaType,
   resolveFullMediaType,
 } from '@ai-sdk/provider-utils';
-import type { FrontalChatPrompt } from './frontal-compatible-api-types';
+import type { FrontalChatPrompt } from './frontal-api-types';
 
 function getOpenAIMetadata(message: {
   providerOptions?: SharedV4ProviderMetadata;

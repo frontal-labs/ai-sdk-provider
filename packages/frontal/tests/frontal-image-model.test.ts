@@ -3,8 +3,8 @@ import type { FetchFunction } from '@ai-sdk/provider-utils';
 import { createTestServer } from '@ai-sdk/test-server/with-vitest';
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod/v4';
-import type { ProviderErrorStructure } from '../frontal-compatible-error';
-import { FrontalImageModel } from './frontal-compatible-image-model';
+import type { ProviderErrorStructure } from '../frontal-error';
+import { FrontalImageModel } from './frontal-image-model';
 
 const prompt = 'A photorealistic astronaut riding a horse';
 
@@ -20,7 +20,7 @@ function createBasicModel({
   errorStructure?: ProviderErrorStructure<any>;
 } = {}) {
   return new FrontalImageModel('dall-e-3', {
-    provider: 'frontal-compatible',
+    provider: 'frontal',
     headers: headers ?? (() => ({ Authorization: 'Bearer test-key' })),
     url: ({ modelId, path }) => `https://api.example.com/${modelId}${path}`,
     fetch,
@@ -82,7 +82,7 @@ describe('FrontalImageModel', () => {
     it('should expose correct provider and model information', () => {
       const model = createBasicModel();
 
-      expect(model.provider).toBe('frontal-compatible');
+      expect(model.provider).toBe('frontal');
       expect(model.modelId).toBe('dall-e-3');
       expect(model.specificationVersion).toBe('v4');
       expect(model.maxImagesPerCall).toBe(10);
@@ -327,7 +327,7 @@ describe('FrontalImageModel', () => {
       const beforeDate = new Date();
 
       const model = new FrontalImageModel('dall-e-3', {
-        provider: 'frontal-compatible',
+        provider: 'frontal',
         headers: () => ({ Authorization: 'Bearer test-key' }),
         url: ({ modelId, path }) => `https://api.example.com/${modelId}${path}`,
       });

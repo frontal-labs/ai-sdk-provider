@@ -22,12 +22,12 @@ import { z } from 'zod/v4';
 import {
   defaultFrontalErrorStructure,
   type ProviderErrorStructure,
-} from '../frontal-compatible-error';
+} from '../frontal-error';
 import {
   toCamelCase,
   warnIfDeprecatedProviderOptionsKey,
 } from '../utils/to-camel-case';
-import type { FrontalImageModelId } from './frontal-compatible-image-settings';
+import type { FrontalImageModelId } from './frontal-image-settings';
 
 export type FrontalImageModelConfig = {
   provider: string;

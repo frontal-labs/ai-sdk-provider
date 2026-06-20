@@ -12,11 +12,11 @@ import {
 import {
   type FrontalChatConfig,
   FrontalChatLanguageModel,
-} from './chat/frontal-compatible-chat-language-model';
-import type { MetadataExtractor } from './chat/frontal-compatible-metadata-extractor';
-import { FrontalCompletionLanguageModel } from './completion/frontal-compatible-completion-language-model';
-import { FrontalEmbeddingModel } from './embedding/frontal-compatible-embedding-model';
-import { FrontalImageModel } from './image/frontal-compatible-image-model';
+} from './chat/frontal-chat-language-model';
+import type { MetadataExtractor } from './chat/frontal-metadata-extractor';
+import { FrontalCompletionLanguageModel } from './completion/frontal-completion-language-model';
+import { FrontalEmbeddingModel } from './embedding/frontal-embedding-model';
+import { FrontalImageModel } from './image/frontal-image-model';
 import { VERSION } from './version';
 
 export interface FrontalProvider<
@@ -147,7 +147,7 @@ export function createFrontal<
   };
 
   const getHeaders = () =>
-    withUserAgentSuffix(headers, `ai-sdk/frontal-compatible/${VERSION}`);
+    withUserAgentSuffix(headers, `ai-sdk/frontal/${VERSION}`);
 
   const getCommonModelConfig = (modelType: string): CommonModelConfig => ({
     provider: `${providerName}.${modelType}`,

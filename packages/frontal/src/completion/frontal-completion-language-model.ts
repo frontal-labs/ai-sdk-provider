@@ -27,19 +27,19 @@ import { z } from 'zod/v4';
 import {
   defaultFrontalErrorStructure,
   type ProviderErrorStructure,
-} from '../frontal-compatible-error';
+} from '../frontal-error';
 import {
   toCamelCase,
   warnIfDeprecatedProviderOptionsKey,
 } from '../utils/to-camel-case';
-import { convertFrontalCompletionUsage } from './convert-to-frontal-compatible-completion-usage';
-import { convertToFrontalCompletionPrompt } from './convert-to-frontal-compatible-completion-prompt';
+import { convertFrontalCompletionUsage } from './convert-to-frontal-completion-usage';
+import { convertToFrontalCompletionPrompt } from './convert-to-frontal-completion-prompt';
 import { getResponseMetadata } from './get-response-metadata';
-import { mapFrontalFinishReason } from './map-frontal-compatible-finish-reason';
+import { mapFrontalFinishReason } from './map-frontal-finish-reason';
 import {
   type FrontalCompletionModelId,
   frontalLanguageModelCompletionOptions,
-} from './frontal-compatible-completion-language-model-options';
+} from './frontal-completion-language-model-options';
 
 type FrontalCompletionConfig = {
   provider: string;

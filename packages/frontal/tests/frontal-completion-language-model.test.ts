@@ -2,8 +2,8 @@ import type { LanguageModelV4Prompt } from '@ai-sdk/provider';
 import { convertReadableStreamToArray } from '@ai-sdk/provider-utils/test';
 import { createTestServer } from '@ai-sdk/test-server/with-vitest';
 import { describe, expect, it } from 'vitest';
-import { createFrontal } from '../frontal-compatible-provider';
-import { FrontalCompletionLanguageModel } from './frontal-compatible-completion-language-model';
+import { createFrontal } from '../frontal-provider';
+import { FrontalCompletionLanguageModel } from './frontal-completion-language-model';
 
 const TEST_PROMPT: LanguageModelV4Prompt = [
   { role: 'user', content: [{ type: 'text', text: 'Hello' }] },

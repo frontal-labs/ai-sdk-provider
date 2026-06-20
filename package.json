@@ -26,8 +26,7 @@
   },
   "name": "ai-sdk-frontal-monorepo",
   "workspaces": [
-    "packages/*",
-    "tools/*"
+    "packages/*"
   ],
   "scripts": {
     "build": "turbo build --concurrency 16",
@@ -52,25 +51,25 @@
     "validate:docs": "node tools/validate-properties-tables.mjs",
     "konsistent": "turbo run konsistent:validate konsistent:check --log-order=grouped --log-prefix=none",
     "konsistent:check": "konsistent --config-path .github/konsistent.json",
-    "konsistent:validate": "konsistent validate --config-path .github/konsistent.json",
-    "worktree:setup": "bash tools/worktree-setup.sh"
+    "konsistent:validate": "konsistent validate --config-path .github/konsistent.json"
   },
-  "description": "Monorepo for AI SDK Frontal Provider",
+  "description": "Monorepo for Frontal AI SDK Provider",
   "private": true,
   "engines": {
     "node": "^22.0.0 || ^24.0.0 || ^26.0.0"
   },
-  "homepage": "https://ai-sdk.dev/docs",
+  "homepage": "https://frontal.ai",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vercel/ai"
+    "url": "https://github.com/frontal-ai/ai-sdk-frontal"
   },
-  "license": "Apache License",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/vercel/ai/issues"
+    "url": "https://github.com/frontal-ai/ai-sdk-frontal/issues"
   },
   "keywords": [
-    "ai"
+    "ai",
+    "frontal"
   ],
   "packageManager": "bun@1.2.0",
   "trustedDependencies": ["esbuild"]

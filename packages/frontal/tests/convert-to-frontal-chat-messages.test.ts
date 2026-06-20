@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { convertToFrontalChatMessages } from './convert-to-frontal-compatible-chat-messages';
+import { convertToFrontalChatMessages } from './convert-to-frontal-chat-messages';
 
 describe('user messages', () => {
   it('should convert messages with only a text part to a string content', async () => {

@@ -11,7 +11,7 @@ export default defineConfig({
     __PACKAGE_VERSION__: JSON.stringify(version),
   },
   test: {
-    environment: 'edge-runtime',
-    include: ['**/*.test.ts', '**/*.test.tsx'],
+    environment: 'node',
+    include: ['**/*.test.ts', '**/*.test.tsx', 'tests/**/*.test.ts'],
   },
 });
