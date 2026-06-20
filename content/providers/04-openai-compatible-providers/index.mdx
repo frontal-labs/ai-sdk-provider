@@ -41,15 +41,15 @@ The OpenAI Compatible provider is available via the `@ai-sdk/openai-compatible` 
 
 ## Provider Instance
 
-To use an OpenAI compatible provider, you can create a custom provider instance with the `createOpenAICompatible` function from `@ai-sdk/openai-compatible`:
+To use an OpenAI compatible provider, you can create a custom provider instance with the `createFrontal` function from `@ai-sdk/openai-compatible`:
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from "@ai-sdk/openai-compatible";
 
-const provider = createOpenAICompatible({
-  name: 'providerName',
+const provider = createFrontal({
+  name: "providerName",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.provider.com/v1',
+  baseURL: "https://api.provider.com/v1",
   includeUsage: true, // Include usage information in streaming responses
 });
 ```
@@ -107,7 +107,7 @@ You can create provider models using a provider instance.
 The first argument is the model id, e.g. `model-id`.
 
 ```ts
-const model = provider('model-id');
+const model = provider("model-id");
 ```
 
 You can also use the following factory methods:
@@ -132,53 +132,53 @@ Chat models created with this provider support the following capabilities:
 You can use provider language models to generate text with the `generateText` function:
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { generateText } from 'ai';
+import { createFrontal } from "@ai-sdk/openai-compatible";
+import { generateText } from "ai";
 
-const provider = createOpenAICompatible({
-  name: 'providerName',
+const provider = createFrontal({
+  name: "providerName",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.provider.com/v1',
+  baseURL: "https://api.provider.com/v1",
 });
 
 const { text } = await generateText({
-  model: provider('model-id'),
-  prompt: 'Write a vegetarian lasagna recipe for 4 people.',
+  model: provider("model-id"),
+  prompt: "Write a vegetarian lasagna recipe for 4 people.",
 });
 ```
 
 ### Including model ids for auto-completion
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { generateText } from 'ai';
+import { createFrontal } from "@ai-sdk/openai-compatible";
+import { generateText } from "ai";
 
 type ExampleChatModelIds =
-  | 'meta-llama/Llama-3-70b-chat-hf'
-  | 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo'
+  | "meta-llama/Llama-3-70b-chat-hf"
+  | "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
   | (string & {});
 
 type ExampleCompletionModelIds =
-  | 'codellama/CodeLlama-34b-Instruct-hf'
-  | 'Qwen/Qwen2.5-Coder-32B-Instruct'
+  | "codellama/CodeLlama-34b-Instruct-hf"
+  | "Qwen/Qwen2.5-Coder-32B-Instruct"
   | (string & {});
 
 type ExampleEmbeddingModelIds =
-  | 'BAAI/bge-large-en-v1.5'
-  | 'bert-base-uncased'
+  | "BAAI/bge-large-en-v1.5"
+  | "bert-base-uncased"
   | (string & {});
 
-type ExampleImageModelIds = 'dall-e-3' | 'stable-diffusion-xl' | (string & {});
+type ExampleImageModelIds = "dall-e-3" | "stable-diffusion-xl" | (string & {});
 
-const model = createOpenAICompatible<
+const model = createFrontal<
   ExampleChatModelIds,
   ExampleCompletionModelIds,
   ExampleEmbeddingModelIds,
   ExampleImageModelIds
 >({
-  name: 'example',
+  name: "example",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.example.com/v1',
+  baseURL: "https://api.example.com/v1",
 });
 
 // Subsequent calls to e.g. `model.chatModel` will auto-complete the model id
@@ -186,8 +186,8 @@ const model = createOpenAICompatible<
 // strings as well.
 
 const { text } = await generateText({
-  model: model.chatModel('meta-llama/Llama-3-70b-chat-hf'),
-  prompt: 'Write a vegetarian lasagna recipe for 4 people.',
+  model: model.chatModel("meta-llama/Llama-3-70b-chat-hf"),
+  prompt: "Write a vegetarian lasagna recipe for 4 people.",
 });
 ```
 
@@ -202,14 +202,14 @@ You can set these via the optional `queryParams` provider setting. These will be
 added to all requests made by the provider.
 
 ```ts highlight="7-9"
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from "@ai-sdk/openai-compatible";
 
-const provider = createOpenAICompatible({
-  name: 'providerName',
+const provider = createFrontal({
+  name: "providerName",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.provider.com/v1',
+  baseURL: "https://api.provider.com/v1",
   queryParams: {
-    'api-version': '1.0.0',
+    "api-version": "1.0.0",
   },
 });
 ```
@@ -222,25 +222,25 @@ For example, with the above configuration, API requests would include the query 
 You can create image models using the `.imageModel()` factory method:
 
 ```ts
-const model = provider.imageModel('model-id');
+const model = provider.imageModel("model-id");
 ```
 
 ### Basic Image Generation
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { generateImage } from 'ai';
+import { createFrontal } from "@ai-sdk/openai-compatible";
+import { generateImage } from "ai";
 
-const provider = createOpenAICompatible({
-  name: 'providerName',
+const provider = createFrontal({
+  name: "providerName",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.provider.com/v1',
+  baseURL: "https://api.provider.com/v1",
 });
 
 const { images } = await generateImage({
-  model: provider.imageModel('model-id'),
-  prompt: 'A futuristic cityscape at sunset',
-  size: '1024x1024',
+  model: provider.imageModel("model-id"),
+  prompt: "A futuristic cityscape at sunset",
+  size: "1024x1024",
 });
 ```
 
@@ -251,22 +251,22 @@ The OpenAI Compatible provider supports image editing through the `/images/edits
 #### Basic Image Editing
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { generateImage } from 'ai';
-import fs from 'fs';
+import { createFrontal } from "@ai-sdk/openai-compatible";
+import { generateImage } from "ai";
+import fs from "fs";
 
-const provider = createOpenAICompatible({
-  name: 'providerName',
+const provider = createFrontal({
+  name: "providerName",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.provider.com/v1',
+  baseURL: "https://api.provider.com/v1",
 });
 
-const imageBuffer = fs.readFileSync('./input-image.png');
+const imageBuffer = fs.readFileSync("./input-image.png");
 
 const { images } = await generateImage({
-  model: provider.imageModel('model-id'),
+  model: provider.imageModel("model-id"),
   prompt: {
-    text: 'Turn the cat into a dog but retain the style of the original image',
+    text: "Turn the cat into a dog but retain the style of the original image",
     images: [imageBuffer],
   },
 });
@@ -277,23 +277,23 @@ const { images } = await generateImage({
 Edit specific parts of an image using a mask:
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { generateImage } from 'ai';
-import fs from 'fs';
+import { createFrontal } from "@ai-sdk/openai-compatible";
+import { generateImage } from "ai";
+import fs from "fs";
 
-const provider = createOpenAICompatible({
-  name: 'providerName',
+const provider = createFrontal({
+  name: "providerName",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.provider.com/v1',
+  baseURL: "https://api.provider.com/v1",
 });
 
-const image = fs.readFileSync('./input-image.png');
-const mask = fs.readFileSync('./mask.png');
+const image = fs.readFileSync("./input-image.png");
+const mask = fs.readFileSync("./mask.png");
 
 const { images } = await generateImage({
-  model: provider.imageModel('model-id'),
+  model: provider.imageModel("model-id"),
   prompt: {
-    text: 'A sunlit indoor lounge area with a pool containing a flamingo',
+    text: "A sunlit indoor lounge area with a pool containing a flamingo",
     images: [image],
     mask,
   },
@@ -311,24 +311,24 @@ const { images } = await generateImage({
 You can create embedding models using the `.embeddingModel()` factory method:
 
 ```ts
-const model = provider.embeddingModel('model-id');
+const model = provider.embeddingModel("model-id");
 ```
 
 ### Example
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { embed } from 'ai';
+import { createFrontal } from "@ai-sdk/openai-compatible";
+import { embed } from "ai";
 
-const provider = createOpenAICompatible({
-  name: 'providerName',
+const provider = createFrontal({
+  name: "providerName",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.provider.com/v1',
+  baseURL: "https://api.provider.com/v1",
 });
 
 const { embedding } = await embed({
-  model: provider.embeddingModel('text-embedding-model'),
-  value: 'The quick brown fox jumps over the lazy dog',
+  model: provider.embeddingModel("text-embedding-model"),
+  value: "The quick brown fox jumps over the lazy dog",
 });
 ```
 
@@ -348,12 +348,12 @@ The following provider options are available for embedding models via `providerO
 
 ```ts
 const { embedding } = await embed({
-  model: provider.embeddingModel('text-embedding-model'),
-  value: 'The quick brown fox jumps over the lazy dog',
+  model: provider.embeddingModel("text-embedding-model"),
+  value: "The quick brown fox jumps over the lazy dog",
   providerOptions: {
     providerName: {
       dimensions: 512,
-      user: 'user-123',
+      user: "user-123",
     },
   },
 });
@@ -364,24 +364,24 @@ const { embedding } = await embed({
 You can create completion models (for text completion, not chat) using the `.completionModel()` factory method:
 
 ```ts
-const model = provider.completionModel('model-id');
+const model = provider.completionModel("model-id");
 ```
 
 ### Example
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { generateText } from 'ai';
+import { createFrontal } from "@ai-sdk/openai-compatible";
+import { generateText } from "ai";
 
-const provider = createOpenAICompatible({
-  name: 'providerName',
+const provider = createFrontal({
+  name: "providerName",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.provider.com/v1',
+  baseURL: "https://api.provider.com/v1",
 });
 
 const { text } = await generateText({
-  model: provider.completionModel('completion-model-id'),
-  prompt: 'The quick brown fox',
+  model: provider.completionModel("completion-model-id"),
+  prompt: "The quick brown fox",
 });
 ```
 
@@ -410,13 +410,13 @@ The following provider options are available for completion models via `provider
 
 ```ts
 const { text } = await generateText({
-  model: provider.completionModel('completion-model-id'),
-  prompt: 'The quick brown fox',
+  model: provider.completionModel("completion-model-id"),
+  prompt: "The quick brown fox",
   providerOptions: {
     providerName: {
       echo: true,
-      suffix: ' The end.',
-      user: 'user-123',
+      suffix: " The end.",
+      user: "user-123",
     },
   },
 });
@@ -447,12 +447,12 @@ The following provider options are available for chat models via `providerOption
 
 ```ts
 const { text } = await generateText({
-  model: provider('model-id'),
-  prompt: 'Solve this step by step: What is 15 * 23?',
+  model: provider("model-id"),
+  prompt: "Solve this step by step: What is 15 * 23?",
   providerOptions: {
     providerName: {
-      user: 'user-123',
-      reasoningEffort: 'high',
+      user: "user-123",
+      reasoningEffort: "high",
     },
   },
 });
@@ -465,17 +465,17 @@ The OpenAI Compatible provider supports adding provider-specific options to the 
 For example, if you create a provider instance with the name `providerName`, you can add a `customOption` field to the request body like this:
 
 ```ts
-const provider = createOpenAICompatible({
-  name: 'providerName',
+const provider = createFrontal({
+  name: "providerName",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.provider.com/v1',
+  baseURL: "https://api.provider.com/v1",
 });
 
 const { text } = await generateText({
-  model: provider('model-id'),
-  prompt: 'Hello',
+  model: provider("model-id"),
+  prompt: "Hello",
   providerOptions: {
-    providerName: { customOption: 'magic-value' },
+    providerName: { customOption: "magic-value" },
   },
 });
 ```
@@ -506,7 +506,7 @@ Metadata extractors work with both streaming and non-streaming chat completions 
 Here's an example metadata extractor that captures both standard and custom provider data:
 
 ```typescript
-import { MetadataExtractor } from '@ai-sdk/openai-compatible';
+import { MetadataExtractor } from "@ai-sdk/openai-compatible";
 
 const myMetadataExtractor: MetadataExtractor = {
   // Process complete, non-streaming responses
@@ -535,7 +535,7 @@ const myMetadataExtractor: MetadataExtractor = {
 
     return {
       // Process each chunk's raw data
-      processChunk: parsedChunk => {
+      processChunk: (parsedChunk) => {
         if (parsedChunk.server_timing) {
           accumulatedData.timing.push(parsedChunk.server_timing);
         }
@@ -558,10 +558,10 @@ const myMetadataExtractor: MetadataExtractor = {
 You can provide a metadata extractor when creating your provider instance:
 
 ```typescript
-const provider = createOpenAICompatible({
-  name: 'my-provider',
+const provider = createFrontal({
+  name: "my-provider",
   apiKey: process.env.PROVIDER_API_KEY,
-  baseURL: 'https://api.provider.com/v1',
+  baseURL: "https://api.provider.com/v1",
   metadataExtractor: myMetadataExtractor,
 });
 ```
@@ -570,8 +570,8 @@ The extracted metadata will be included in the response under the `providerMetad
 
 ```typescript
 const { text, providerMetadata } = await generateText({
-  model: provider('model-id'),
-  prompt: 'Hello',
+  model: provider("model-id"),
+  prompt: "Hello",
 });
 
 console.log(providerMetadata.myProvider.customMetric);

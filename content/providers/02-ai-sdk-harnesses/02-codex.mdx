@@ -16,7 +16,7 @@ Codex thread events back to the host over a sandbox-exposed WebSocket.
 
 ## Setup
 
-<Tabs items={['pnpm', 'npm', 'yarn', 'bun']}>
+<Tabs items={["pnpm", "npm", "yarn", "bun"]}>
   <Tab>
     <Snippet
       text="pnpm add @ai-sdk/harness@beta @ai-sdk/harness-codex@beta @ai-sdk/sandbox-vercel@beta"
@@ -49,7 +49,7 @@ the first session starts.
 ## Import
 
 ```ts
-import { codex, createCodex } from '@ai-sdk/harness-codex';
+import { codex, createCodex } from "@ai-sdk/harness-codex";
 ```
 
 `codex` is equivalent to `createCodex()` with its default configuration.
@@ -57,14 +57,14 @@ import { codex, createCodex } from '@ai-sdk/harness-codex';
 ## Basic Usage
 
 ```ts
-import { HarnessAgent } from '@ai-sdk/harness/agent';
-import { codex } from '@ai-sdk/harness-codex';
-import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';
+import { HarnessAgent } from "@ai-sdk/harness/agent";
+import { codex } from "@ai-sdk/harness-codex";
+import { createVercelSandbox } from "@ai-sdk/sandbox-vercel";
 
 const agent = new HarnessAgent({
   harness: codex,
   sandbox: createVercelSandbox({
-    runtime: 'node24',
+    runtime: "node24",
     ports: [4000],
   }),
 });
@@ -75,11 +75,11 @@ let exitCode = 0;
 try {
   const result = await agent.stream({
     session,
-    prompt: 'Check the test failures and fix the production code.',
+    prompt: "Check the test failures and fix the production code.",
   });
 
   for await (const part of result.stream) {
-    if (part.type === 'text-delta') {
+    if (part.type === "text-delta") {
       process.stdout.write(part.text);
     }
   }
@@ -102,8 +102,8 @@ Use `createCodex()` to configure the runtime:
 
 ```ts
 const harness = createCodex({
-  model: 'gpt-5.5',
-  reasoningEffort: 'high',
+  model: "gpt-5.5",
+  reasoningEffort: "high",
   webSearch: true,
 });
 ```
@@ -145,7 +145,7 @@ const harness = createCodex({
 });
 ```
 
-For OpenAI-compatible endpoints, use `auth.openaiCompatible`.
+For OpenAI-compatible endpoints, use `auth.frontal`.
 
 ## Sandbox
 
@@ -154,7 +154,7 @@ e.g. `@ai-sdk/sandbox-vercel`:
 
 ```ts
 const sandbox = createVercelSandbox({
-  runtime: 'node24',
+  runtime: "node24",
   ports: [4000],
 });
 ```

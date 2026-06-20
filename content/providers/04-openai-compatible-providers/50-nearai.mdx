@@ -11,7 +11,7 @@ description: Use the NEAR AI Cloud OpenAI compatible API with the AI SDK.
 
 The NEAR AI Cloud provider is available via the `@ai-sdk/openai-compatible` module as it is compatible with the OpenAI API. You can install it with:
 
-<Tabs items={['pnpm', 'npm', 'yarn', 'bun']}>
+<Tabs items={["pnpm", "npm", "yarn", "bun"]}>
   <Tab>
     <Snippet text="pnpm add @ai-sdk/openai-compatible" dark />
   </Tab>
@@ -28,16 +28,16 @@ The NEAR AI Cloud provider is available via the `@ai-sdk/openai-compatible` modu
 
 ## Provider Instance
 
-To use NEAR AI Cloud, you can create a custom provider instance with the `createOpenAICompatible` function from `@ai-sdk/openai-compatible`:
+To use NEAR AI Cloud, you can create a custom provider instance with the `createFrontal` function from `@ai-sdk/openai-compatible`:
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from "@ai-sdk/openai-compatible";
 
-const nearai = createOpenAICompatible({
-  name: 'nearai',
-  baseURL: 'https://cloud-api.near.ai/v1',
+const nearai = createFrontal({
+  name: "nearai",
+  baseURL: "https://cloud-api.near.ai/v1",
   apiKey: process.env.NEARAI_API_KEY,
-  transformRequestBody: body => {
+  transformRequestBody: (body) => {
     const { reasoning_effort, ...rest } = body;
     return rest;
   },
@@ -54,7 +54,7 @@ const nearai = createOpenAICompatible({
 You can create NEAR AI Cloud models using a provider instance. The first argument is the model ID from the [public model catalog](https://cloud-api.near.ai/v1/model/list), e.g. `zai-org/GLM-5.1-FP8`.
 
 ```ts
-const model = nearai('zai-org/GLM-5.1-FP8');
+const model = nearai("zai-org/GLM-5.1-FP8");
 ```
 
 ### Example
@@ -62,22 +62,22 @@ const model = nearai('zai-org/GLM-5.1-FP8');
 You can use NEAR AI Cloud language models to generate text with the `generateText` function:
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { generateText } from 'ai';
+import { createFrontal } from "@ai-sdk/openai-compatible";
+import { generateText } from "ai";
 
-const nearai = createOpenAICompatible({
-  name: 'nearai',
-  baseURL: 'https://cloud-api.near.ai/v1',
+const nearai = createFrontal({
+  name: "nearai",
+  baseURL: "https://cloud-api.near.ai/v1",
   apiKey: process.env.NEARAI_API_KEY,
-  transformRequestBody: body => {
+  transformRequestBody: (body) => {
     const { reasoning_effort, ...rest } = body;
     return rest;
   },
 });
 
 const { text } = await generateText({
-  model: nearai('zai-org/GLM-5.1-FP8'),
-  prompt: 'Tell me about yourself in one sentence.',
+  model: nearai("zai-org/GLM-5.1-FP8"),
+  prompt: "Tell me about yourself in one sentence.",
 });
 
 console.log(text);
@@ -86,22 +86,22 @@ console.log(text);
 NEAR AI Cloud language models can also generate text in a streaming fashion with the `streamText` function:
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { streamText } from 'ai';
+import { createFrontal } from "@ai-sdk/openai-compatible";
+import { streamText } from "ai";
 
-const nearai = createOpenAICompatible({
-  name: 'nearai',
-  baseURL: 'https://cloud-api.near.ai/v1',
+const nearai = createFrontal({
+  name: "nearai",
+  baseURL: "https://cloud-api.near.ai/v1",
   apiKey: process.env.NEARAI_API_KEY,
-  transformRequestBody: body => {
+  transformRequestBody: (body) => {
     const { reasoning_effort, ...rest } = body;
     return rest;
   },
 });
 
 const result = streamText({
-  model: nearai('zai-org/GLM-5.1-FP8'),
-  prompt: 'Write a short haiku about private inference.',
+  model: nearai("zai-org/GLM-5.1-FP8"),
+  prompt: "Write a short haiku about private inference.",
 });
 
 for await (const message of result.textStream) {

@@ -31,8 +31,8 @@ packages/example/
 
 ```ts
 export type ExampleChatModelId =
-  | 'example/chat-model-1'
-  | 'example/chat-model-2'
+  | "example/chat-model-1"
+  | "example/chat-model-2"
   | (string & {});
 ```
 
@@ -43,10 +43,10 @@ The completion, embedding, and image settings are implemented similarly to the c
 ```ts
 import { LanguageModelV4, EmbeddingModelV4 } from '@ai-sdk/provider';
 import {
-  OpenAICompatibleChatLanguageModel,
-  OpenAICompatibleCompletionLanguageModel,
-  OpenAICompatibleEmbeddingModel,
-  OpenAICompatibleImageModel,
+  FrontalChatLanguageModel,
+  FrontalCompletionLanguageModel,
+  FrontalEmbeddingModel,
+  FrontalImageModel,
 } from '@ai-sdk/openai-compatible';
 import {
   FetchFunction,
@@ -160,7 +160,7 @@ export function createExample(
     modelId: ExampleChatModelId,
     settings: ExampleChatSettings = {},
   ) => {
-    return new OpenAICompatibleChatLanguageModel(
+    return new FrontalChatLanguageModel(
       modelId,
       settings,
       getCommonModelConfig('chat'),
@@ -171,7 +171,7 @@ export function createExample(
     modelId: ExampleCompletionModelId,
     settings: ExampleCompletionSettings = {},
   ) =>
-    new OpenAICompatibleCompletionLanguageModel(
+    new FrontalCompletionLanguageModel(
       modelId,
       settings,
       getCommonModelConfig('completion'),
@@ -181,7 +181,7 @@ export function createExample(
     modelId: ExampleEmbeddingModelId,
     settings: ExampleEmbeddingSettings = {},
   ) =>
-    new OpenAICompatibleEmbeddingModel(
+    new FrontalEmbeddingModel(
       modelId,
       settings,
       getCommonModelConfig('embedding'),
@@ -191,7 +191,7 @@ export function createExample(
     modelId: ExampleImageModelId,
     settings: ExampleImageSettings = {},
   ) =>
-    new OpenAICompatibleImageModel(
+    new FrontalImageModel(
       modelId,
       settings,
       getCommonModelConfig('image'),
@@ -217,11 +217,11 @@ export const example = createExample();
 3. **index.ts** - Public exports:
 
 ```ts
-export { createExample, example } from './example-provider';
+export { createExample, example } from "./example-provider";
 export type {
   ExampleProvider,
   ExampleProviderSettings,
-} from './example-provider';
+} from "./example-provider";
 ```
 
 4. **package.json** - Package configuration:
@@ -245,12 +245,12 @@ export type {
 Once published, users can use your provider like this:
 
 ```ts
-import { example } from '@company-name/example';
-import { generateText } from 'ai';
+import { example } from "@company-name/example";
+import { generateText } from "ai";
 
 const { text } = await generateText({
-  model: example('example/chat-model-1'),
-  prompt: 'Hello, how are you?',
+  model: example("example/chat-model-1"),
+  prompt: "Hello, how are you?",
 });
 ```
 
@@ -261,7 +261,7 @@ This structure provides a clean, type-safe implementation that leverages the Ope
 As you work on your provider you may need to use some of the internal API of the OpenAI Compatible package. You can import these from the `@ai-sdk/openai-compatible/internal` package, for example:
 
 ```ts
-import { convertToOpenAICompatibleChatMessages } from '@ai-sdk/openai-compatible/internal';
+import { convertToFrontalChatMessages } from "@ai-sdk/openai-compatible/internal";
 ```
 
 You can see the latest available exports in the AI SDK [GitHub repository](https://github.com/vercel/ai/blob/main/packages/openai-compatible/src/internal/index.ts).
