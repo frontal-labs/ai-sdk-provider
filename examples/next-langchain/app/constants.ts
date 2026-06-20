@@ -1,21 +1,21 @@
 import {
-  MessageCircle,
-  Cpu,
-  Wrench,
+  Activity,
   Cloud,
+  Cpu,
+  Image,
+  type LucideIcon,
+  MessageCircle,
   Shield,
   Sparkles,
-  Activity,
-  Image,
   Wand2,
-  type LucideIcon,
+  Wrench,
 } from 'lucide-react';
 export interface NavItem {
-  href: string;
-  label: string;
-  description: string;
-  icon: LucideIcon;
   badge?: string;
+  description: string;
+  href: string;
+  icon: LucideIcon;
+  label: string;
 }
 
 export const navItems: NavItem[] = [

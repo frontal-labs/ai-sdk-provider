@@ -1,10 +1,10 @@
+import { openai } from '@ai-sdk/openai';
 import {
   createUIMessageStreamResponse,
+  type ModelMessage,
   streamText,
   toUIMessageStream,
-  type ModelMessage,
 } from 'ai';
-import { openai } from '@ai-sdk/openai';
 
 export async function POST(req: Request) {
   const { messages }: { messages: ModelMessage[] } = await req.json();

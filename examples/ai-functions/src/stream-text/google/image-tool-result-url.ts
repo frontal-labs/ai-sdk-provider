@@ -1,11 +1,11 @@
 import { google } from '@ai-sdk/google';
 import { isStepCount, streamText, tool } from 'ai';
-import { run } from '../../lib/run';
 import { z } from 'zod';
+import { run } from '../../lib/run';
 
 run(async () => {
   const readImage = tool({
-    description: `Read and return an image`,
+    description: 'Read and return an image',
     inputSchema: z.object({}),
     execute: async () => {
       return {

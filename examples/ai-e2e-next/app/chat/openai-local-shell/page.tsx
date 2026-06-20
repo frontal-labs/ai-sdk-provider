@@ -5,8 +5,8 @@ import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithApprovalResponses,
 } from 'ai';
-import ChatInput from '@/components/chat-input';
 import type { OpenAILocalShellMessage } from '@/agent/openai/local-shell-agent';
+import ChatInput from '@/components/chat-input';
 import LocalShellView from '@/components/tool/openai-local-shell-view';
 
 export default function TestOpenAIWebSearch() {
@@ -20,15 +20,15 @@ export default function TestOpenAIWebSearch() {
     });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
-      <h1 className="mb-2 text-xl font-bold">OpenAI Local Shell Test</h1>
-      <h2 className="pb-2 mb-4 border-b">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h1 className="mb-2 font-bold text-xl">OpenAI Local Shell Test</h1>
+      <h2 className="mb-4 border-b pb-2">
         Note: This example requires a Vercel OIDC Token to run the Code Shell
         with Vercel Sandbox
       </h2>
 
       {messages.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={message.id}>
           {message.role === 'user' ? 'User: ' : 'AI: '}
           <div className="space-y-4">
             {message.parts.map((part, index) => {
@@ -38,9 +38,9 @@ export default function TestOpenAIWebSearch() {
                 case 'tool-shell':
                   return (
                     <LocalShellView
-                      key={index}
-                      invocation={part}
                       addToolApprovalResponse={addToolApprovalResponse}
+                      invocation={part}
+                      key={index}
                     />
                   );
               }
@@ -49,7 +49,7 @@ export default function TestOpenAIWebSearch() {
         </div>
       ))}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

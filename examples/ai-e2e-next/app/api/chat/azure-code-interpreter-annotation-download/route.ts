@@ -1,19 +1,20 @@
 import {
-  azure,
   type AzureResponsesSourceDocumentProviderMetadata,
+  azure,
   type OpenAILanguageModelResponsesOptions,
 } from '@ai-sdk/azure';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
-  streamText,
-  toUIMessageStream,
-  validateUIMessages,
   type InferUITools,
+  streamText,
   type ToolSet,
+  toUIMessageStream,
   type UIDataTypes,
   type UIMessage,
+  validateUIMessages,
 } from 'ai';
+
 const tools = {
   code_interpreter: azure.tools.codeInterpreter(),
 } satisfies ToolSet;
@@ -54,7 +55,9 @@ export async function POST(req: Request) {
           const providerMetadata = source.providerMetadata as
             | AzureResponsesSourceDocumentProviderMetadata
             | undefined;
-          if (!providerMetadata) continue;
+          if (!providerMetadata) {
+            continue;
+          }
           const { azure } = providerMetadata;
           if (azure.type === 'container_file_citation') {
             const { containerId, fileId } = azure;

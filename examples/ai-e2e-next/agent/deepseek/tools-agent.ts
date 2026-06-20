@@ -1,6 +1,6 @@
-import { weatherTool } from '@/tool/weather-tool';
 import { deepSeek } from '@ai-sdk/deepseek';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
+import { weatherTool } from '@/tool/weather-tool';
 export const deepseekToolsAgent = new ToolLoopAgent({
   model: deepSeek('deepseek-reasoner'),
   tools: { weather: weatherTool },

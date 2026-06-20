@@ -1,3 +1,4 @@
+import { createMCPClient } from '@ai-sdk/mcp';
 import { openai } from '@ai-sdk/openai';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 import {
@@ -7,7 +8,6 @@ import {
   streamText,
   toUIMessageStream,
 } from 'ai';
-import { createMCPClient } from '@ai-sdk/mcp';
 
 export async function POST(req: Request) {
   const requestUrl = new URL(req.url);

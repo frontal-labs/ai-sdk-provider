@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { Shield, Check, X } from 'lucide-react';
 import type { UIMessage } from 'ai';
+import { Check, Shield, X } from 'lucide-react';
+import { useState } from 'react';
 
 /**
  * Tool Approval Card Component
@@ -28,72 +28,72 @@ export function ToolApprovalCard({
   const [showRejectInput, setShowRejectInput] = useState(false);
 
   return (
-    <div className="border border-amber-500/30 bg-amber-500/10 rounded-xl p-4 space-y-4 mt-4">
+    <div className="mt-4 space-y-4 rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
       <div className="flex items-center gap-2 text-amber-400">
-        <Shield className="w-5 h-5" />
+        <Shield className="h-5 w-5" />
         <span className="font-medium">Action Requires Approval</span>
       </div>
 
       <div className="space-y-2">
-        <div className="text-sm text-[var(--foreground-secondary)]">
+        <div className="text-[var(--foreground-secondary)] text-sm">
           Tool:{' '}
-          <code className="bg-[var(--background-tertiary)] px-2 py-0.5 rounded">
+          <code className="rounded bg-[var(--background-tertiary)] px-2 py-0.5">
             {toolName}
           </code>
         </div>
 
-        <pre className="bg-[var(--background-tertiary)] border border-[var(--border)] rounded-lg p-3 text-sm overflow-x-auto">
+        <pre className="overflow-x-auto rounded-lg border border-[var(--border)] bg-[var(--background-tertiary)] p-3 text-sm">
           {JSON.stringify(input, null, 2)}
         </pre>
       </div>
 
       {showRejectInput && (
         <div className="space-y-2">
-          <label className="text-sm text-[var(--foreground-secondary)]">
+          <label className="text-[var(--foreground-secondary)] text-sm">
             Rejection reason (optional):
           </label>
           <input
-            type="text"
-            value={rejectReason}
+            className="w-full rounded-lg border border-[var(--border)] bg-[var(--background-tertiary)] px-3 py-2 text-[var(--foreground)] text-sm"
             onChange={e => setRejectReason(e.target.value)}
             placeholder="Enter reason for rejection..."
-            className="w-full bg-[var(--background-tertiary)] border border-[var(--border)] rounded-lg px-3 py-2 text-sm text-[var(--foreground)]"
+            type="text"
+            value={rejectReason}
           />
         </div>
       )}
 
       <div className="flex gap-2">
         <button
+          className="flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-500"
           onClick={() => onApprove(approvalId)}
-          className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg transition-colors"
         >
-          <Check className="w-4 h-4" />
+          <Check className="h-4 w-4" />
           Approve
         </button>
         {showRejectInput ? (
           <button
+            className="flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-500"
             onClick={() => {
               onReject(approvalId, rejectReason || 'User rejected the action');
               setShowRejectInput(false);
             }}
-            className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg transition-colors"
           >
-            <X className="w-4 h-4" />
+            <X className="h-4 w-4" />
             Confirm Reject
           </button>
         ) : (
           <button
+            className="flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-500"
             onClick={() => setShowRejectInput(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg transition-colors"
           >
-            <X className="w-4 h-4" />
+            <X className="h-4 w-4" />
             Reject
           </button>
         )}
         {showRejectInput && (
           <button
+            className="flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--background-tertiary)] px-4 py-2 text-[var(--foreground)] transition-colors hover:bg-[var(--background-secondary)]"
             onClick={() => setShowRejectInput(false)}
-            className="flex items-center gap-2 px-4 py-2 bg-[var(--background-tertiary)] hover:bg-[var(--background-secondary)] border border-[var(--border)] text-[var(--foreground)] rounded-lg transition-colors"
           >
             Cancel
           </button>
@@ -115,7 +115,9 @@ export function getPendingApprovals(messages: UIMessage[]) {
   }> = [];
 
   for (const message of messages) {
-    if (message.role !== 'assistant') continue;
+    if (message.role !== 'assistant') {
+      continue;
+    }
 
     for (const part of message.parts) {
       // Check for dynamic-tool parts with approval-requested state

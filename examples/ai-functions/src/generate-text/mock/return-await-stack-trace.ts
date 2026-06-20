@@ -1,7 +1,7 @@
 import {
   generateText,
-  wrapLanguageModel,
   type LanguageModelMiddleware,
+  wrapLanguageModel,
 } from 'ai';
 import { MockLanguageModelV3 } from 'ai/test';
 import { run } from '../../lib/run';

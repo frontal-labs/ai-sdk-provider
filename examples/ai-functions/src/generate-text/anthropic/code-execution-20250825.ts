@@ -13,5 +13,5 @@ run(async () => {
     },
   });
 
-  console.dir(result.content, { depth: Infinity });
+  console.dir(result.content, { depth: Number.POSITIVE_INFINITY });
 });

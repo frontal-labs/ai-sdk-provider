@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, type FormEvent, type KeyboardEvent } from 'react';
 import { Send } from 'lucide-react';
+import { type FormEvent, type KeyboardEvent, useState } from 'react';
 
 interface ChatInputProps {
-  onSend: (message: string) => void;
   disabled?: boolean;
+  onSend: (message: string) => void;
   placeholder?: string;
 }
 
@@ -33,27 +33,27 @@ export function ChatInput({
 
   return (
     <form
+      className="relative flex items-center gap-3 rounded-b-xl border-[var(--border)] border-t bg-[var(--background-secondary)] p-4"
       onSubmit={handleSubmit}
-      className="relative flex items-center gap-3 p-4 border-t border-[var(--border)] bg-[var(--background-secondary)] rounded-b-xl"
     >
-      <div className="flex-1 relative">
+      <div className="relative flex-1">
         <textarea
-          value={input}
+          className="w-full resize-none rounded-xl border border-[var(--border)] bg-[var(--background-tertiary)] px-4 py-3 text-[var(--foreground)] placeholder-[var(--foreground-muted)] transition-all focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-50"
+          disabled={disabled}
           onChange={e => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          disabled={disabled}
           rows={1}
-          className="w-full px-4 py-3 bg-[var(--background-tertiary)] border border-[var(--border)] rounded-xl text-[var(--foreground)] placeholder-[var(--foreground-muted)] resize-none focus:outline-none focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           style={{ minHeight: '48px', maxHeight: '200px' }}
+          value={input}
         />
       </div>
       <button
-        type="submit"
+        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-white transition-colors hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-50"
         disabled={disabled || !input.trim()}
-        className="flex-shrink-0 w-12 h-12 rounded-xl bg-[var(--accent)] text-white flex items-center justify-center hover:bg-[var(--accent-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        type="submit"
       >
-        <Send className="w-5 h-5" strokeWidth={2} />
+        <Send className="h-5 w-5" strokeWidth={2} />
       </button>
     </form>
   );

@@ -73,16 +73,14 @@ mcpServer.tool(
   {
     message: z.string(),
   },
-  async ({ message }) => {
-    return {
-      content: [
-        {
-          type: 'text',
-          text: `Echo: ${message}`,
-        },
-      ],
-    };
-  },
+  async ({ message }) => ({
+    content: [
+      {
+        type: 'text',
+        text: `Echo: ${message}`,
+      },
+    ],
+  }),
 );
 
 let transport: SSEServerTransport;

@@ -1,8 +1,8 @@
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
 import { z } from 'zod';
 
 export const anthropicCodeExecutionFileUploadAgent = new ToolLoopAgent({
@@ -18,8 +18,9 @@ export const anthropicCodeExecutionFileUploadAgent = new ToolLoopAgent({
   },
   prepareCall: ({ options, ...rest }) => ({
     ...rest,
-    ...(options?.containerId != null
-      ? {
+    ...(options?.containerId == null
+      ? {}
+      : {
           providerOptions: {
             anthropic: {
               container: {
@@ -27,8 +28,7 @@ export const anthropicCodeExecutionFileUploadAgent = new ToolLoopAgent({
               },
             } satisfies AnthropicLanguageModelOptions,
           },
-        }
-      : {}),
+        }),
   }),
 });
 

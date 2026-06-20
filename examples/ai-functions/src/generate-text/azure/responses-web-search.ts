@@ -27,8 +27,8 @@ run(async () => {
   console.log('\n=== Basic Text Generation ===');
   console.log(basicResult.text);
   console.log('\n=== Other Outputs ===');
-  console.dir(basicResult.toolCalls, { depth: Infinity });
-  console.dir(basicResult.toolResults, { depth: Infinity });
+  console.dir(basicResult.toolCalls, { depth: Number.POSITIVE_INFINITY });
+  console.dir(basicResult.toolResults, { depth: Number.POSITIVE_INFINITY });
   console.log('\n=== Web Search Preview Annotations ===');
   for (const part of basicResult.content) {
     if (part.type === 'text') {

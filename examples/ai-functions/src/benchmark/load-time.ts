@@ -34,10 +34,10 @@ console.log(t1 - t0);
     });
 
     child.on('close', code => {
-      if (code !== 0) {
-        reject(new Error(`Child process exited with code ${code}`));
+      if (code === 0) {
+        resolve(Number.parseFloat(output.trim()));
       } else {
-        resolve(parseFloat(output.trim()));
+        reject(new Error(`Child process exited with code ${code}`));
       }
     });
   });
@@ -59,7 +59,7 @@ run(async () => {
   const min = Math.min(...times);
   const max = Math.max(...times);
 
-  console.log(`\n--- Statistics ---`);
+  console.log('\n--- Statistics ---');
 
   const sorted = [...times].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);

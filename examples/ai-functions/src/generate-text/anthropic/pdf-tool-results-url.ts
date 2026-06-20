@@ -1,11 +1,11 @@
-import { generateText, isStepCount, tool } from 'ai';
-import { run } from '../../lib/run';
-import { z } from 'zod';
 import { anthropic } from '@ai-sdk/anthropic';
+import { generateText, isStepCount, tool } from 'ai';
+import { z } from 'zod';
+import { run } from '../../lib/run';
 
 run(async () => {
   const readPDFDocument = tool({
-    description: `Read and return a PDF document`,
+    description: 'Read and return a PDF document',
     inputSchema: z.object({}),
     execute: async () => {
       try {

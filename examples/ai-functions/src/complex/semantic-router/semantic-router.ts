@@ -1,9 +1,9 @@
 import {
-  embed,
-  embedMany,
   cosineSimilarity,
   type Embedding,
   type EmbeddingModel,
+  embed,
+  embedMany,
 } from 'ai';
 export interface Route<NAME extends string> {
   name: NAME;

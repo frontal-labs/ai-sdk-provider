@@ -1,6 +1,6 @@
-import { streamText, simulateReadableStream } from 'ai';
-import { MockLanguageModelV3 } from 'ai/test';
 import type { LanguageModelV3StreamPart } from '@ai-sdk/provider';
+import { simulateReadableStream, streamText } from 'ai';
+import { MockLanguageModelV3 } from 'ai/test';
 import { run } from '../lib/run';
 
 const generateLongContent = (tokens: number, includeTools = false) => {
@@ -100,7 +100,7 @@ const calculateTotalBytes = (tokens: number, includeTools = false) => {
 };
 
 async function benchmarkSingleStream() {
-  const tokenCount = 10000;
+  const tokenCount = 10_000;
   const chunks = generateLongContent(tokenCount);
   const totalBytes = calculateTotalBytes(tokenCount);
 
@@ -128,7 +128,7 @@ async function benchmarkSingleStream() {
   const tokensPerSecond = (tokenCount / duration) * 1000;
   const megabytesPerSecond = totalBytes / (1024 * 1024) / (duration / 1000);
 
-  console.log(`Single stream benchmark results:`);
+  console.log('Single stream benchmark results:');
   console.log(`  Duration: ${duration.toFixed(2)}ms`);
   console.log(`  Tokens: ${tokenCount.toLocaleString()}`);
   console.log(`  Total data: ${(totalBytes / 1024).toFixed(2)} KB`);
@@ -172,7 +172,7 @@ async function benchmarkConcurrentStreams() {
   const tokensPerSecond = (totalTokens / duration) * 1000;
   const megabytesPerSecond = totalBytes / (1024 * 1024) / (duration / 1000);
 
-  console.log(`\nConcurrent streams benchmark results:`);
+  console.log('\nConcurrent streams benchmark results:');
   console.log(`  Duration: ${duration.toFixed(2)}ms`);
   console.log(`  Streams: ${streamCount}`);
   console.log(`  Total tokens: ${totalTokens.toLocaleString()}`);
@@ -212,14 +212,14 @@ async function benchmarkStreamWithToolCalls() {
   const tokensPerSecond = (tokenCount / duration) * 1000;
   const megabytesPerSecond = totalBytes / (1024 * 1024) / (duration / 1000);
 
-  console.log(`\nStream with tool calls benchmark results:`);
+  console.log('\nStream with tool calls benchmark results:');
   console.log(`  Duration: ${duration.toFixed(2)}ms`);
   console.log(`  Tokens: ${tokenCount.toLocaleString()}`);
   console.log(`  Total data: ${(totalBytes / 1024).toFixed(2)} KB`);
   console.log(`  Throughput: ${tokensPerSecond.toFixed(0)} tokens/second`);
   console.log(`  Throughput: ${megabytesPerSecond.toFixed(2)} MB/s`);
   console.log(
-    `  Tool chunks: 7 (input-start, 3x input-delta, input-end, tool-call, tool-result)`,
+    '  Tool chunks: 7 (input-start, 3x input-delta, input-end, tool-call, tool-result)',
   );
 }
 

@@ -1,10 +1,10 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
 import { Output, ToolLoopAgent } from 'ai';
-import { run } from '../../lib/run';
 import { z } from 'zod';
+import { run } from '../../lib/run';
 
 const agent = new ToolLoopAgent({
   model: openai('gpt-4o'),
@@ -43,5 +43,5 @@ run(async () => {
     },
   });
 
-  console.dir(output, { depth: Infinity });
+  console.dir(output, { depth: Number.POSITIVE_INFINITY });
 });

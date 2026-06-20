@@ -30,7 +30,7 @@ export default function HarnessFileToolView({
   const running = invocation.state !== 'output-available';
 
   return (
-    <div className="relative mb-2 text-sm text-gray-500">
+    <div className="relative mb-2 text-gray-500 text-sm">
       {running && <ToolSpinner />}
       <strong>{label}</strong>(<code>{invocation.input.file_path}</code>)
     </div>

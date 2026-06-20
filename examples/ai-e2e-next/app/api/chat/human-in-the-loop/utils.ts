@@ -57,18 +57,26 @@ export async function processToolCalls<
 ): Promise<HumanInTheLoopUIMessage[]> {
   const lastMessage = messages[messages.length - 1];
   const parts = lastMessage.parts;
-  if (!parts) return messages;
+  if (!parts) {
+    return messages;
+  }
 
   const processedParts = await Promise.all(
     parts.map(async part => {
       // Only process tool invocations parts
-      if (!isStaticToolUIPart(part)) return part;
+      if (!isStaticToolUIPart(part)) {
+        return part;
+      }
 
       const toolName = getStaticToolName(part);
 
       // Only continue if we have an execute function for the tool (meaning it requires confirmation) and it's in a 'result' state
-      if (!(toolName in executeFunctions) || part.state !== 'output-available')
+      if (
+        !(toolName in executeFunctions) ||
+        part.state !== 'output-available'
+      ) {
         return part;
+      }
 
       let result;
 

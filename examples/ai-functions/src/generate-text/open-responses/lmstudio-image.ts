@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { createOpenResponses } from '@ai-sdk/open-responses';
 import { generateText } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 const lmstudio = createOpenResponses({

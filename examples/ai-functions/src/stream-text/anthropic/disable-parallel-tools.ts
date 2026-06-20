@@ -15,9 +15,8 @@ run(async () => {
             .string()
             .describe('The city and state, e.g. San Francisco, CA'),
         }),
-        execute: async ({ location }: { location: string }) => {
-          return `Weather in ${location}: 72°F, sunny`;
-        },
+        execute: async ({ location }: { location: string }) =>
+          `Weather in ${location}: 72°F, sunny`,
       }),
     },
     providerOptions: {

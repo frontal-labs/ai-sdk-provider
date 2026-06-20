@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { tool, ToolLoopAgent } from 'ai';
+import { ToolLoopAgent, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
@@ -11,12 +11,10 @@ const agent = new ToolLoopAgent({
       inputSchema: z.object({
         location: z.string().describe('The location to get the weather for'),
       }),
-      execute: async ({ location }) => {
-        return {
-          location,
-          temperature: 72 + Math.floor(Math.random() * 21) - 10,
-        };
-      },
+      execute: async ({ location }) => ({
+        location,
+        temperature: 72 + Math.floor(Math.random() * 21) - 10,
+      }),
     }),
   },
   runtimeContext: {

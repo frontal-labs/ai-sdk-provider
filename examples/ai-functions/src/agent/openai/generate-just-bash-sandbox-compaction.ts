@@ -1,19 +1,18 @@
+import { anthropic } from '@ai-sdk/anthropic';
+import { openai } from '@ai-sdk/openai';
+import { createJustBashSandbox } from '@ai-sdk/sandbox-just-bash';
 import {
-  type ModelMessage,
-  type PrepareStepFunction,
   generateText,
   isStepCount,
+  type ModelMessage,
+  type PrepareStepFunction,
   pruneMessages,
 } from 'ai';
 import { run } from '../../lib/run';
-import { anthropic } from '@ai-sdk/anthropic';
-import { createJustBashSandbox } from '@ai-sdk/sandbox-just-bash';
-import { openai } from '@ai-sdk/openai';
 
 const COMPACTION_THRESHOLD = 8000;
-const estimateTokens = (messages: ModelMessage[]) => {
-  return JSON.stringify(messages).length / 4;
-};
+const estimateTokens = (messages: ModelMessage[]) =>
+  JSON.stringify(messages).length / 4;
 
 const compactMessages: PrepareStepFunction<{
   bash: ReturnType<typeof anthropic.tools.bash_20250124>;

@@ -1,12 +1,12 @@
+import * as readline from 'node:readline/promises';
 import { openai } from '@ai-sdk/openai';
 import {
   generateText,
   isStepCount,
-  tool,
   type ModelMessage,
   type ToolApprovalResponse,
+  tool,
 } from 'ai';
-import * as readline from 'node:readline/promises';
 import { z } from 'zod/v4';
 import { run } from '../../lib/run';
 
@@ -74,7 +74,7 @@ run(async () => {
       for (const part of step.content) {
         switch (part.type) {
           case 'text': {
-            process.stdout.write(`\nAssistant:\n`);
+            process.stdout.write('\nAssistant:\n');
             process.stdout.write(part.text);
             break;
           }

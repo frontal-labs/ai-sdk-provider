@@ -1,11 +1,11 @@
 'use client';
 
+import { useChat } from '@ai-sdk/react';
+import { DefaultChatTransport } from 'ai';
 import type { OpenAIToolSearchClientMessage } from '@/agent/openai/tool-search-client-agent';
 import { Response } from '@/components/ai-elements/response';
 import ChatInput from '@/components/chat-input';
 import OpenAIToolSearchView from '@/components/tool/openai-tool-search-view';
-import { useChat } from '@ai-sdk/react';
-import { DefaultChatTransport } from 'ai';
 
 export default function TestOpenAIToolSearchClient() {
   const { error, status, sendMessage, messages, regenerate } =
@@ -16,11 +16,11 @@ export default function TestOpenAIToolSearchClient() {
     });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
-      <h1 className="mb-4 text-xl font-bold">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h1 className="mb-4 font-bold text-xl">
         OpenAI Tool Search - Client Executed (Multi-turn)
       </h1>
-      <p className="mb-4 text-sm text-gray-600">
+      <p className="mb-4 text-gray-600 text-sm">
         This example demonstrates OpenAI&apos;s tool search feature with{' '}
         <strong>client-side execution</strong>. The tool discovery is performed
         by your code, not OpenAI&apos;s servers. Ask about weather, files, or
@@ -28,7 +28,7 @@ export default function TestOpenAIToolSearchClient() {
       </p>
 
       {messages.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={message.id}>
           {message.role === 'user' ? 'User: ' : 'AI: '}
           {message.parts.map((part, index) => {
             switch (part.type) {
@@ -43,10 +43,10 @@ export default function TestOpenAIToolSearchClient() {
               case 'tool-send_email': {
                 return (
                   <div
+                    className="mb-2 rounded-xl border border-gray-900 bg-gray-600 shadow-lg"
                     key={index}
-                    className="mb-2 bg-gray-600 rounded-xl border border-gray-900 shadow-lg"
                   >
-                    <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+                    <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
                       <div className="pb-2 font-semibold">
                         Tool call &quot;{part.type.replace('tool-', '')}&quot;
                         {part.providerExecuted ? ' (provider-executed)' : ''}
@@ -71,16 +71,16 @@ export default function TestOpenAIToolSearchClient() {
         <div className="mt-4">
           <div className="text-red-500">An error occurred: {error.message}</div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 rounded-md border border-blue-500"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={() => regenerate()}
+            type="button"
           >
             Retry
           </button>
         </div>
       )}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

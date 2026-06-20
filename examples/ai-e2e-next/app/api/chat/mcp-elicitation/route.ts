@@ -1,15 +1,15 @@
+import { createMCPClient, ElicitationRequestSchema } from '@ai-sdk/mcp';
 import { openai } from '@ai-sdk/openai';
 import {
-  createUIMessageStreamResponse,
-  streamText,
-  createUIMessageStream,
   convertToModelMessages,
+  createUIMessageStream,
+  createUIMessageStreamResponse,
   isStepCount,
+  streamText,
   toUIMessageStream,
 } from 'ai';
-import { createMCPClient, ElicitationRequestSchema } from '@ai-sdk/mcp';
-import type { MCPElicitationUIMessage } from './types';
 import { createPendingElicitation } from './elicitation-store';
+import type { MCPElicitationUIMessage } from './types';
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
@@ -20,9 +20,7 @@ export async function POST(req: Request) {
 
   const stream = createUIMessageStream({
     originalMessages: messages,
-    execute: async ({ writer }) => {
-      return processMessages(messages, writer);
-    },
+    execute: async ({ writer }) => processMessages(messages, writer),
   });
 
   return createUIMessageStreamResponse({ stream });

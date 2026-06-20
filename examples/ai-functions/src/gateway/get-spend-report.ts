@@ -21,7 +21,7 @@ run(async () => {
   }
 
   // Query spend grouped by model
-  console.log(`\n--- Spend by model ---\n`);
+  console.log('\n--- Spend by model ---\n');
   const byModel = await gateway.getSpendReport({
     startDate: thirtyDaysAgo,
     endDate: today,

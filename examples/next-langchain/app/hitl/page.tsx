@@ -2,13 +2,13 @@
 
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
-import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
-import { AlertCircle, Sparkles, Shield } from 'lucide-react';
-import { ChatMessage } from '../../components/chat-message';
+import { AlertCircle, Shield, Sparkles } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChatInput } from '../../components/chat-input';
+import { ChatMessage } from '../../components/chat-message';
 import {
-  ToolApprovalCard,
   getPendingApprovals,
+  ToolApprovalCard,
 } from '../../components/tool-approval-card';
 import type { CustomDataMessage } from '../types';
 
@@ -41,7 +41,9 @@ export default function HITLPage() {
        */
       sendAutomaticallyWhen: ({ messages }) => {
         const lastMessage = messages[messages.length - 1];
-        if (!lastMessage || lastMessage.role !== 'assistant') return false;
+        if (!lastMessage || lastMessage.role !== 'assistant') {
+          return false;
+        }
 
         // Check if there's a tool with approval-responded that needs execution
         // Use part.output == null to check for both undefined and null
@@ -85,13 +87,13 @@ export default function HITLPage() {
   ];
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       {/* Header */}
-      <div className="flex-shrink-0 p-6 border-b border-[var(--border)] rounded-t-xl">
-        <h1 className="text-2xl font-semibold text-[var(--foreground)] mb-2">
+      <div className="flex-shrink-0 rounded-t-xl border-[var(--border)] border-b p-6">
+        <h1 className="mb-2 font-semibold text-2xl text-[var(--foreground)]">
           Human-in-the-Loop Agent
         </h1>
-        <div className="text-sm text-[var(--foreground-secondary)] leading-relaxed">
+        <div className="text-[var(--foreground-secondary)] text-sm leading-relaxed">
           Uses LangChain&apos;s <code>humanInTheLoopMiddleware</code> to require
           approval for sensitive actions. Try sending an email or deleting a
           file - you&apos;ll be asked to approve the action before it executes.
@@ -101,40 +103,40 @@ export default function HITLPage() {
 
       {/* Error display */}
       {error && (
-        <div className="mx-6 mt-4 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm animate-fade-in">
+        <div className="mx-6 mt-4 animate-fade-in rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-red-400 text-sm">
           <div className="flex items-center gap-2">
-            <AlertCircle className="w-5 h-5" strokeWidth={2} />
+            <AlertCircle className="h-5 w-5" strokeWidth={2} />
             {error.message}
           </div>
         </div>
       )}
 
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
+      <div className="flex-1 space-y-6 overflow-y-auto p-6">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-center">
-            <div className="w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-amber-600/20 to-yellow-500/20 flex items-center justify-center">
-              <Shield className="w-8 h-8 text-amber-400" strokeWidth={1.5} />
+          <div className="flex h-full flex-col items-center justify-center text-center">
+            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-600/20 to-yellow-500/20">
+              <Shield className="h-8 w-8 text-amber-400" strokeWidth={1.5} />
             </div>
-            <h3 className="text-lg font-medium text-[var(--foreground)] mb-2">
+            <h3 className="mb-2 font-medium text-[var(--foreground)] text-lg">
               Human-in-the-Loop Demo
             </h3>
-            <p className="text-sm text-[var(--foreground-secondary)] max-w-xs mb-6">
+            <p className="mb-6 max-w-xs text-[var(--foreground-secondary)] text-sm">
               Sensitive actions require your approval before executing.
             </p>
 
             {/* Suggestion chips */}
-            <div className="flex flex-col gap-2 w-full max-w-md">
-              <div className="flex items-center justify-center gap-2 text-xs text-[var(--foreground-secondary)] mb-1">
-                <Sparkles className="w-3 h-3 text-amber-500" />
+            <div className="flex w-full max-w-md flex-col gap-2">
+              <div className="mb-1 flex items-center justify-center gap-2 text-[var(--foreground-secondary)] text-xs">
+                <Sparkles className="h-3 w-3 text-amber-500" />
                 <span>Try an example</span>
               </div>
               <div className="flex flex-wrap justify-center gap-2">
                 {suggestions.map((suggestion, index) => (
                   <button
+                    className="rounded-full border border-[var(--border-hover)] bg-[var(--background-tertiary)] px-4 py-2.5 text-[var(--foreground)] text-sm transition-all hover:border-[var(--accent)] hover:bg-[var(--accent-light)]"
                     key={index}
                     onClick={() => sendMessage({ text: suggestion })}
-                    className="px-4 py-2.5 text-sm bg-[var(--background-tertiary)] border border-[var(--border-hover)] rounded-full text-[var(--foreground)] hover:border-[var(--accent)] hover:bg-[var(--accent-light)] transition-all"
                   >
                     {suggestion}
                   </button>
@@ -159,16 +161,17 @@ export default function HITLPage() {
                       if (
                         part.type !== 'dynamic-tool' ||
                         part.state !== 'approval-requested'
-                      )
+                      ) {
                         return null;
+                      }
                       return (
                         <ToolApprovalCard
-                          key={part.approval.id}
-                          toolName={part.toolName}
-                          input={part.input}
                           approvalId={part.approval.id}
+                          input={part.input}
+                          key={part.approval.id}
                           onApprove={handleApprove}
                           onReject={handleReject}
+                          toolName={part.toolName}
                         />
                       );
                     })}
@@ -179,15 +182,15 @@ export default function HITLPage() {
               <div className="flex items-center gap-2 text-[var(--foreground-muted)]">
                 <div className="flex gap-1">
                   <span
-                    className="w-2 h-2 bg-[var(--accent)] rounded-full"
+                    className="h-2 w-2 rounded-full bg-[var(--accent)]"
                     style={{ animation: 'typing 1s infinite 0s' }}
                   />
                   <span
-                    className="w-2 h-2 bg-[var(--accent)] rounded-full"
+                    className="h-2 w-2 rounded-full bg-[var(--accent)]"
                     style={{ animation: 'typing 1s infinite 0.2s' }}
                   />
                   <span
-                    className="w-2 h-2 bg-[var(--accent)] rounded-full"
+                    className="h-2 w-2 rounded-full bg-[var(--accent)]"
                     style={{ animation: 'typing 1s infinite 0.4s' }}
                   />
                 </div>
@@ -201,12 +204,12 @@ export default function HITLPage() {
 
       {/* Input */}
       <ChatInput
-        onSend={text => sendMessage({ text })}
         disabled={
           status === 'submitted' ||
           status === 'streaming' ||
           pendingApprovals.length > 0
         }
+        onSend={text => sendMessage({ text })}
         placeholder={
           pendingApprovals.length > 0
             ? 'Please approve or reject the pending action...'

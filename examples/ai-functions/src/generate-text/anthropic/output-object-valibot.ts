@@ -26,5 +26,5 @@ run(async () => {
     prompt: 'Generate a lasagna recipe.',
   });
 
-  console.dir(result.output.recipe, { depth: Infinity });
+  console.dir(result.output.recipe, { depth: Number.POSITIVE_INFINITY });
 });

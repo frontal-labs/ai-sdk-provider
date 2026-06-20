@@ -35,7 +35,7 @@ async function loadResumeState(
   try {
     text = await readFile(fileFor(chatId), 'utf8');
   } catch {
-    return undefined;
+    return;
   }
   const parsed = await safeParseJSON({ text });
   return parsed.success

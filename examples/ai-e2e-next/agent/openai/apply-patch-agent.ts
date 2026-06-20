@@ -1,10 +1,10 @@
-import {
-  openai,
-  type OpenAILanguageModelResponsesOptions,
-} from '@ai-sdk/openai';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
-import * as path from 'node:path';
 import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
+import {
+  type OpenAILanguageModelResponsesOptions,
+  openai,
+} from '@ai-sdk/openai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
 import { createApplyPatchExecutor } from '@/lib/apply-patch-file-editor';
 
 // Create workspace directory

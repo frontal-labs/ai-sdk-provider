@@ -1,5 +1,5 @@
-import { generateText } from 'ai';
 import fs from 'node:fs';
+import { generateText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {

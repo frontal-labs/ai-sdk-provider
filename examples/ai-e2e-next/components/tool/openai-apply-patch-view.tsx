@@ -65,11 +65,11 @@ export default function OpenAIApplyPatchView({
 
       return (
         <div
-          className={`flex flex-col gap-3 p-4 rounded-lg border-l-4 shadow-sm ${bgColor}`}
+          className={`flex flex-col gap-3 rounded-lg border-l-4 p-4 shadow-sm ${bgColor}`}
         >
           <div className={`flex items-center font-semibold ${textColor}`}>
             <span
-              className={`inline-block mr-2 rounded px-2 py-0.5 text-xs font-mono tracking-wider ${badgeColor}`}
+              className={`mr-2 inline-block rounded px-2 py-0.5 font-mono text-xs tracking-wider ${badgeColor}`}
             >
               {operationLabel}
             </span>
@@ -85,7 +85,7 @@ export default function OpenAIApplyPatchView({
           <div className="pl-2 text-sm">
             <span className={`font-semibold ${textColor}`}>File name:</span>{' '}
             <span
-              className={`inline-block bg-white border rounded px-2 py-0.5 font-mono text-xs ${textColor}`}
+              className={`inline-block rounded border bg-white px-2 py-0.5 font-mono text-xs ${textColor}`}
             >
               {input.operation.path}
             </span>
@@ -101,50 +101,50 @@ export default function OpenAIApplyPatchView({
                         if (lineItem.type === 'removed') {
                           return (
                             <div
+                              className="flex items-start border-red-500 border-l-4 bg-red-50"
                               key={`line-${idx}`}
-                              className="flex items-start bg-red-50 border-l-4 border-red-500"
                             >
-                              <span className="px-2 py-1 text-red-600 font-semibold select-none">
+                              <span className="select-none px-2 py-1 font-semibold text-red-600">
                                 -
                               </span>
-                              <span className="px-2 py-1 text-red-800 flex-1 whitespace-pre-wrap break-words">
-                                {lineItem.line || ' '}
-                              </span>
-                            </div>
-                          );
-                        } else if (lineItem.type === 'added') {
-                          return (
-                            <div
-                              key={`line-${idx}`}
-                              className="flex items-start bg-green-50 border-l-4 border-green-500"
-                            >
-                              <span className="px-2 py-1 text-green-600 font-semibold select-none">
-                                +
-                              </span>
-                              <span className="px-2 py-1 text-green-800 flex-1 whitespace-pre-wrap break-words">
-                                {lineItem.line || ' '}
-                              </span>
-                            </div>
-                          );
-                        } else {
-                          return (
-                            <div
-                              key={`line-${idx}`}
-                              className="flex items-start bg-gray-50"
-                            >
-                              <span className="px-2 py-1 text-gray-400 select-none">
-                                {' '}
-                              </span>
-                              <span className="px-2 py-1 text-gray-700 flex-1 whitespace-pre-wrap break-words">
+                              <span className="flex-1 whitespace-pre-wrap break-words px-2 py-1 text-red-800">
                                 {lineItem.line || ' '}
                               </span>
                             </div>
                           );
                         }
+                        if (lineItem.type === 'added') {
+                          return (
+                            <div
+                              className="flex items-start border-green-500 border-l-4 bg-green-50"
+                              key={`line-${idx}`}
+                            >
+                              <span className="select-none px-2 py-1 font-semibold text-green-600">
+                                +
+                              </span>
+                              <span className="flex-1 whitespace-pre-wrap break-words px-2 py-1 text-green-800">
+                                {lineItem.line || ' '}
+                              </span>
+                            </div>
+                          );
+                        }
+                        return (
+                          <div
+                            className="flex items-start bg-gray-50"
+                            key={`line-${idx}`}
+                          >
+                            <span className="select-none px-2 py-1 text-gray-400">
+                              {' '}
+                            </span>
+                            <span className="flex-1 whitespace-pre-wrap break-words px-2 py-1 text-gray-700">
+                              {lineItem.line || ' '}
+                            </span>
+                          </div>
+                        );
                       })}
                     </div>
                   ) : (
-                    <div className="px-4 py-2 text-gray-500 italic text-sm">
+                    <div className="px-4 py-2 text-gray-500 text-sm italic">
                       No diff content to display
                     </div>
                   )}
@@ -209,11 +209,11 @@ export default function OpenAIApplyPatchView({
 
       return (
         <div
-          className={`flex flex-col gap-3 p-4 rounded-lg border-l-4 shadow-sm ${bgColor}`}
+          className={`flex flex-col gap-3 rounded-lg border-l-4 p-4 shadow-sm ${bgColor}`}
         >
           <div className={`flex items-center font-semibold ${textColor}`}>
             <span
-              className={`inline-block mr-2 rounded px-2 py-0.5 text-xs font-mono tracking-wider ${badgeColor}`}
+              className={`mr-2 inline-block rounded px-2 py-0.5 font-mono text-xs tracking-wider ${badgeColor}`}
             >
               {operationLabel}
             </span>
@@ -231,7 +231,7 @@ export default function OpenAIApplyPatchView({
           <div className="pl-2 text-sm">
             <span className={`font-semibold ${textColor}`}>File name:</span>{' '}
             <span
-              className={`inline-block bg-white border rounded px-2 py-0.5 font-mono text-xs ${textColor}`}
+              className={`inline-block rounded border bg-white px-2 py-0.5 font-mono text-xs ${textColor}`}
             >
               {input.operation.path}
             </span>
@@ -247,46 +247,46 @@ export default function OpenAIApplyPatchView({
                       if (lineItem.type === 'removed') {
                         return (
                           <div
+                            className="flex items-start border-red-500 border-l-4 bg-red-50"
                             key={`line-${idx}`}
-                            className="flex items-start bg-red-50 border-l-4 border-red-500"
                           >
-                            <span className="px-2 py-1 text-red-600 font-semibold select-none">
+                            <span className="select-none px-2 py-1 font-semibold text-red-600">
                               -
                             </span>
-                            <span className="px-2 py-1 text-red-800 flex-1 whitespace-pre-wrap break-words">
-                              {lineItem.line || ' '}
-                            </span>
-                          </div>
-                        );
-                      } else if (lineItem.type === 'added') {
-                        return (
-                          <div
-                            key={`line-${idx}`}
-                            className="flex items-start bg-green-50 border-l-4 border-green-500"
-                          >
-                            <span className="px-2 py-1 text-green-600 font-semibold select-none">
-                              +
-                            </span>
-                            <span className="px-2 py-1 text-green-800 flex-1 whitespace-pre-wrap break-words">
-                              {lineItem.line || ' '}
-                            </span>
-                          </div>
-                        );
-                      } else {
-                        return (
-                          <div
-                            key={`line-${idx}`}
-                            className="flex items-start bg-gray-50"
-                          >
-                            <span className="px-2 py-1 text-gray-400 select-none">
-                              {' '}
-                            </span>
-                            <span className="px-2 py-1 text-gray-700 flex-1 whitespace-pre-wrap break-words">
+                            <span className="flex-1 whitespace-pre-wrap break-words px-2 py-1 text-red-800">
                               {lineItem.line || ' '}
                             </span>
                           </div>
                         );
                       }
+                      if (lineItem.type === 'added') {
+                        return (
+                          <div
+                            className="flex items-start border-green-500 border-l-4 bg-green-50"
+                            key={`line-${idx}`}
+                          >
+                            <span className="select-none px-2 py-1 font-semibold text-green-600">
+                              +
+                            </span>
+                            <span className="flex-1 whitespace-pre-wrap break-words px-2 py-1 text-green-800">
+                              {lineItem.line || ' '}
+                            </span>
+                          </div>
+                        );
+                      }
+                      return (
+                        <div
+                          className="flex items-start bg-gray-50"
+                          key={`line-${idx}`}
+                        >
+                          <span className="select-none px-2 py-1 text-gray-400">
+                            {' '}
+                          </span>
+                          <span className="flex-1 whitespace-pre-wrap break-words px-2 py-1 text-gray-700">
+                            {lineItem.line || ' '}
+                          </span>
+                        </div>
+                      );
                     })}
                   </div>
                 </div>

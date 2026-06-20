@@ -58,9 +58,9 @@ interface PokemonAbility {
 }
 
 interface Pokemon {
+  abilities: { ability: PokemonAbility }[];
   id: string;
   name: string;
-  abilities: { ability: PokemonAbility }[];
 }
 
 async function makePokeApiRequest<T>(path: string): Promise<T | null> {

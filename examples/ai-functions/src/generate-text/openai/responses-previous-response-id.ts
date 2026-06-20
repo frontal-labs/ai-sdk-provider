@@ -1,7 +1,7 @@
 import {
-  openai,
-  type OpenaiResponsesProviderMetadata,
   type OpenAILanguageModelResponsesOptions,
+  type OpenaiResponsesProviderMetadata,
+  openai,
 } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
@@ -15,7 +15,9 @@ run(async () => {
   const providerMetadata = result1.finalStep.providerMetadata as
     | OpenaiResponsesProviderMetadata
     | undefined;
-  if (!providerMetadata) return;
+  if (!providerMetadata) {
+    return;
+  }
 
   const {
     openai: { responseId: previousResponseId },

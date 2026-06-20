@@ -1,10 +1,10 @@
 import 'dotenv/config';
-import { expect } from 'vitest';
 import {
   togetherai as provider,
   type TogetherAIErrorData,
 } from '@ai-sdk/togetherai';
 import type { APICallError } from 'ai';
+import { expect } from 'vitest';
 import {
   createEmbeddingModelWithCapabilities,
   createFeatureTestSuite,
@@ -43,7 +43,7 @@ createFeatureTestSuite({
       ),
     ],
   },
-  timeout: 10000,
+  timeout: 10_000,
   customAssertions: {
     skipUsage: true,
     errorValidator: (error: APICallError) => {

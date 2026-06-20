@@ -1,12 +1,12 @@
 import { HarnessAgent } from '@ai-sdk/harness/agent';
 import { claudeCode } from '@ai-sdk/harness-claude-code';
-import { printFullStream } from '../../lib/print-full-stream';
-import { run } from '../../lib/run';
+import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';
 import {
   createToolApprovalResponseMessages,
   printFullStreamAndCaptureToolApproval,
 } from '../../lib/harness-tool-approval';
-import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';
+import { printFullStream } from '../../lib/print-full-stream';
+import { run } from '../../lib/run';
 
 run(async () => {
   const sandbox = createVercelSandbox({

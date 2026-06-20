@@ -18,7 +18,9 @@ run(async () => {
     });
 
     for await (const part of result.fullStream) {
-      if (part.type === 'text-delta') process.stdout.write(part.text);
+      if (part.type === 'text-delta') {
+        process.stdout.write(part.text);
+      }
     }
     console.log();
 

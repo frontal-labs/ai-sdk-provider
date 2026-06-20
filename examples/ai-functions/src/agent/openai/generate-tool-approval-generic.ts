@@ -1,10 +1,10 @@
+import * as readline from 'node:readline/promises';
 import { openai } from '@ai-sdk/openai';
 import {
-  ToolLoopAgent,
   type ModelMessage,
   type ToolApprovalResponse,
+  ToolLoopAgent,
 } from 'ai';
-import * as readline from 'node:readline/promises';
 import { run } from '../../lib/run';
 import { weatherTool } from '../../tools/weather-tool';
 
@@ -62,7 +62,7 @@ run(async () => {
       for (const part of step.content) {
         switch (part.type) {
           case 'text': {
-            process.stdout.write(`\nAssistant:\n`);
+            process.stdout.write('\nAssistant:\n');
             process.stdout.write(part.text);
             break;
           }

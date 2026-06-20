@@ -1,6 +1,6 @@
+import assert from 'node:assert/strict';
 import { createAnthropic } from '@ai-sdk/anthropic';
 import { parseJSON } from '@ai-sdk/provider-utils';
-import assert from 'node:assert/strict';
 import { generateText, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';

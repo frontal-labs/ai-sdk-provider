@@ -38,8 +38,12 @@ export async function createGoogleManagedAgent({
     name,
     base_agent: baseAgent,
   };
-  if (instructions != null) body.instructions = instructions;
-  if (baseEnvironment != null) body.base_environment = baseEnvironment;
+  if (instructions != null) {
+    body.instructions = instructions;
+  }
+  if (baseEnvironment != null) {
+    body.base_environment = baseEnvironment;
+  }
 
   const response = await fetch(`${BASE_URL}/agents`, {
     method: 'POST',
@@ -74,7 +78,9 @@ export async function deleteGoogleManagedAgent({
     },
   });
 
-  if (response.status === 404) return;
+  if (response.status === 404) {
+    return;
+  }
 
   if (!response.ok) {
     const text = await response.text();

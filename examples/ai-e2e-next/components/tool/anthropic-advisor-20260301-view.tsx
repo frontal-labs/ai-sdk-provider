@@ -12,14 +12,14 @@ export default function AnthropicAdvisor20260301View({
     case 'input-streaming':
     case 'input-available': {
       return (
-        <div className="flex flex-col gap-2 p-3 bg-violet-50 rounded border-l-4 border-violet-400 shadow">
+        <div className="flex flex-col gap-2 rounded border-violet-400 border-l-4 bg-violet-50 p-3 shadow">
           <div className="flex items-center font-semibold text-violet-700">
-            <span className="inline-block mr-2 bg-violet-200 text-violet-900 rounded px-2 py-0.5 text-xs font-mono tracking-wider">
+            <span className="mr-2 inline-block rounded bg-violet-200 px-2 py-0.5 font-mono text-violet-900 text-xs tracking-wider">
               ADVISOR
             </span>
             Consulting advisor model...
           </div>
-          <div className="pl-5 text-xs text-violet-600 italic">
+          <div className="pl-5 text-violet-600 text-xs italic">
             Executor paused while the advisor sub-inference runs server-side.
           </div>
         </div>
@@ -30,14 +30,14 @@ export default function AnthropicAdvisor20260301View({
 
       if (output.type === 'advisor_result') {
         return (
-          <div className="flex flex-col gap-2 p-3 bg-violet-50 rounded border-l-4 border-violet-400 shadow">
+          <div className="flex flex-col gap-2 rounded border-violet-400 border-l-4 bg-violet-50 p-3 shadow">
             <div className="flex items-center font-semibold text-violet-700">
-              <span className="inline-block mr-2 bg-violet-200 text-violet-900 rounded px-2 py-0.5 text-xs font-mono tracking-wider">
+              <span className="mr-2 inline-block rounded bg-violet-200 px-2 py-0.5 font-mono text-violet-900 text-xs tracking-wider">
                 ADVISOR
               </span>
               Advice received
             </div>
-            <div className="pl-5 text-sm text-violet-900 whitespace-pre-wrap">
+            <div className="whitespace-pre-wrap pl-5 text-sm text-violet-900">
               {output.text}
             </div>
           </div>
@@ -46,14 +46,14 @@ export default function AnthropicAdvisor20260301View({
 
       if (output.type === 'advisor_redacted_result') {
         return (
-          <div className="flex flex-col gap-2 p-3 bg-violet-50 rounded border-l-4 border-violet-400 shadow">
+          <div className="flex flex-col gap-2 rounded border-violet-400 border-l-4 bg-violet-50 p-3 shadow">
             <div className="flex items-center font-semibold text-violet-700">
-              <span className="inline-block mr-2 bg-violet-200 text-violet-900 rounded px-2 py-0.5 text-xs font-mono tracking-wider">
+              <span className="mr-2 inline-block rounded bg-violet-200 px-2 py-0.5 font-mono text-violet-900 text-xs tracking-wider">
                 ADVISOR
               </span>
               Encrypted advice received
             </div>
-            <div className="pl-5 text-xs text-violet-700 italic">
+            <div className="pl-5 text-violet-700 text-xs italic">
               Advice is encrypted; round-tripped to the server on the next turn.
             </div>
           </div>
@@ -61,16 +61,16 @@ export default function AnthropicAdvisor20260301View({
       }
 
       return (
-        <div className="flex flex-col gap-2 p-3 bg-red-50 rounded border-l-4 border-red-400 shadow">
+        <div className="flex flex-col gap-2 rounded border-red-400 border-l-4 bg-red-50 p-3 shadow">
           <div className="flex items-center font-semibold text-red-700">
-            <span className="inline-block mr-2 bg-red-200 text-red-900 rounded px-2 py-0.5 text-xs font-mono tracking-wider">
+            <span className="mr-2 inline-block rounded bg-red-200 px-2 py-0.5 font-mono text-red-900 text-xs tracking-wider">
               ADVISOR
             </span>
             Advisor call failed
           </div>
-          <div className="pl-5 text-sm text-red-800">
+          <div className="pl-5 text-red-800 text-sm">
             <span className="font-semibold">Error code:</span>{' '}
-            <span className="inline-block bg-white border border-red-100 rounded px-2 py-0.5 font-mono">
+            <span className="inline-block rounded border border-red-100 bg-white px-2 py-0.5 font-mono">
               {output.errorCode}
             </span>
           </div>

@@ -1,7 +1,7 @@
 import { openai } from '@ai-sdk/openai';
 import { ToolLoopAgent, tool } from 'ai';
-import { run } from '../../lib/run';
 import { z } from 'zod';
+import { run } from '../../lib/run';
 
 const agent = new ToolLoopAgent({
   model: openai('gpt-5'),

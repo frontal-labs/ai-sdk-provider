@@ -22,9 +22,8 @@ run(async () => {
             .nullable()
             .describe('Timeout value (null if not specified)'),
         }),
-        execute: async ({ command, workdir, timeout }) => {
-          return `Executed: ${command} in ${workdir || 'current dir'} with timeout ${timeout || 'default'}`;
-        },
+        execute: async ({ command, workdir, timeout }) =>
+          `Executed: ${command} in ${workdir || 'current dir'} with timeout ${timeout || 'default'}`,
       }),
     },
     prompt: 'List the files in the /tmp directory with a 30 second timeout',

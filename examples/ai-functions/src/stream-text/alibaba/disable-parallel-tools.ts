@@ -1,4 +1,4 @@
-import { alibaba, type AlibabaLanguageModelChatOptions } from '@ai-sdk/alibaba';
+import { type AlibabaLanguageModelChatOptions, alibaba } from '@ai-sdk/alibaba';
 import { isStepCount, streamText, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
@@ -36,7 +36,7 @@ run(async () => {
     },
   });
 
-  let toolCallOrder: string[] = [];
+  const toolCallOrder: string[] = [];
 
   for await (const part of result.stream) {
     switch (part.type) {
@@ -46,7 +46,7 @@ run(async () => {
         break;
 
       case 'tool-result':
-        console.log(`Tool result:`, part.output);
+        console.log('Tool result:', part.output);
         break;
 
       case 'text-delta':

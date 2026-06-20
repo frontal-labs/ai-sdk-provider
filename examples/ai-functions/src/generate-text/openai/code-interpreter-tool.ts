@@ -12,5 +12,5 @@ run(async () => {
       'Simulate rolling two dice 10000 times and, return the sum of all the results, and upload the result to a file.',
   });
 
-  console.dir(result.content, { depth: Infinity });
+  console.dir(result.content, { depth: Number.POSITIVE_INFINITY });
 });

@@ -16,7 +16,6 @@ export default function ImageGenerationPage() {
 
   return (
     <ChatContainer
-      title="Image Generation"
       description={
         <>
           Uses <strong>ChatOpenAI</strong> with the Responses API and{' '}
@@ -24,17 +23,18 @@ export default function ImageGenerationPage() {
           output. Ask the AI to create, draw, or visualize anything!
         </>
       }
+      error={error}
       messages={messages}
       onSend={text => sendMessage({ text })}
-      status={status}
-      error={error}
       placeholder="Describe an image you'd like me to create..."
+      status={status}
       suggestions={[
         'Draw a cozy coffee shop on a rainy day',
         'Create a futuristic city with flying cars',
         'Generate an abstract painting with vibrant colors',
         'Visualize a peaceful forest with a stream',
       ]}
+      title="Image Generation"
     />
   );
 }

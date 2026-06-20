@@ -1,8 +1,8 @@
 import { createAzure } from '@ai-sdk/azure';
 import { streamText } from 'ai';
+import { convertBase64ToUint8Array } from '../../lib/convert-base64';
 import { presentImages } from '../../lib/present-image';
 import { run } from '../../lib/run';
-import { convertBase64ToUint8Array } from '../../lib/convert-base64';
 
 run(async () => {
   const azure = createAzure({
@@ -13,7 +13,7 @@ run(async () => {
 
   const result = streamText({
     model: azure.responses('gpt-4.1-mini'), // use your own deployment
-    prompt: `Create an anime-like image of a cute raccoon waving hello.`,
+    prompt: 'Create an anime-like image of a cute raccoon waving hello.',
     tools: {
       image_generation: azure.tools.imageGeneration({
         outputFormat: 'png', // on azure , supported extension is png and jpeg.

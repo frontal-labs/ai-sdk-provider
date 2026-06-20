@@ -1,8 +1,8 @@
 import { openai } from '@ai-sdk/openai';
 import { generateText, isStepCount, tool } from 'ai';
 import { z } from 'zod';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 run(async () => {
   const result = await generateText({
@@ -14,7 +14,7 @@ run(async () => {
         inputSchema: z.object({ query: z.string() }),
         execute: async ({ query }, { abortSignal }) => {
           await new Promise((resolve, reject) => {
-            const timer = setTimeout(resolve, 10000);
+            const timer = setTimeout(resolve, 10_000);
             abortSignal?.addEventListener('abort', () => {
               clearTimeout(timer);
               reject(abortSignal.reason);

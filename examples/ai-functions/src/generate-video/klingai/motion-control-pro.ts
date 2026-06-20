@@ -1,4 +1,4 @@
-import { klingai, type KlingAIVideoModelOptions } from '@ai-sdk/klingai';
+import { type KlingAIVideoModelOptions, klingai } from '@ai-sdk/klingai';
 import { experimental_generateVideo as generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
@@ -28,8 +28,8 @@ run(async () => {
             // Enable watermark
             watermarkEnabled: true,
             // Custom polling settings
-            pollIntervalMs: 10000, // 10 seconds
-            pollTimeoutMs: 600000, // 10 minutes (pro mode takes longer)
+            pollIntervalMs: 10_000, // 10 seconds
+            pollTimeoutMs: 600_000, // 10 minutes (pro mode takes longer)
           } satisfies KlingAIVideoModelOptions,
         },
       }),

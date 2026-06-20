@@ -4,7 +4,8 @@ import 'dotenv/config';
 async function main() {
   const result = streamText({
     model: 'openai/gpt-5-nano',
-    prompt: `Search for news about AI regulations from the first week of January 2025.`,
+    prompt:
+      'Search for news about AI regulations from the first week of January 2025.',
     tools: {
       perplexity_search: gateway.tools.perplexitySearch(),
     },

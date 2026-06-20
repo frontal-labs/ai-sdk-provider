@@ -1,6 +1,6 @@
 import { openai } from '@ai-sdk/openai';
-import { SemanticRouter } from './semantic-router';
 import { run } from '../../lib/run';
+import { SemanticRouter } from './semantic-router';
 
 run(async () => {
   const router = new SemanticRouter({

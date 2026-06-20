@@ -1,6 +1,6 @@
-import { expect } from 'vitest';
-import { luma as provider, type LumaErrorData } from '@ai-sdk/luma';
+import { type LumaErrorData, luma as provider } from '@ai-sdk/luma';
 import type { APICallError } from '@ai-sdk/provider';
+import { expect } from 'vitest';
 import {
   createFeatureTestSuite,
   createImageModelWithCapabilities,
@@ -16,7 +16,7 @@ createFeatureTestSuite({
       createImageModelWithCapabilities(provider.image('photon-1')),
     ],
   },
-  timeout: 30000,
+  timeout: 30_000,
   customAssertions: {
     errorValidator: (error: APICallError) => {
       expect((error.data as LumaErrorData).detail[0].msg).toMatch(

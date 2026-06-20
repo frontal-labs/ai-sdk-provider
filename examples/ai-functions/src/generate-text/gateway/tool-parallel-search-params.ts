@@ -4,7 +4,8 @@ import 'dotenv/config';
 async function main() {
   const result = await generateText({
     model: 'openai/gpt-5-nano',
-    prompt: `Search for the latest research on quantum computing breakthroughs.`,
+    prompt:
+      'Search for the latest research on quantum computing breakthroughs.',
     tools: {
       parallel_search: gateway.tools.parallelSearch({
         mode: 'agentic',

@@ -1,5 +1,5 @@
-import { openaiShellSkillsAgent } from '@/agent/openai/shell-skills-agent';
 import { createAgentUIStreamResponse } from 'ai';
+import { openaiShellSkillsAgent } from '@/agent/openai/shell-skills-agent';
 
 export async function POST(req: Request) {
   const body = await req.json();

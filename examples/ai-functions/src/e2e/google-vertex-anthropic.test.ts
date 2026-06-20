@@ -8,7 +8,7 @@ import {
   vertexAnthropic as vertexAnthropicEdge,
 } from '@ai-sdk/google-vertex/anthropic/edge';
 import type { LanguageModelV3, LanguageModelV4 } from '@ai-sdk/provider';
-import { generateText, isStepCount, type APICallError } from 'ai';
+import { type APICallError, generateText, isStepCount } from 'ai';
 import 'dotenv/config';
 import fs from 'fs';
 import { describe, expect, it } from 'vitest';
@@ -17,6 +17,7 @@ import {
   createLanguageModelWithCapabilities,
   type ModelWithCapabilities,
 } from './feature-test-suite';
+
 const RUNTIME_VARIANTS = {
   edge: {
     name: 'Edge Runtime',
@@ -33,7 +34,7 @@ const RUNTIME_VARIANTS = {
 const createModelObject = (
   model: LanguageModelV4,
 ): { model: LanguageModelV4; modelId: string } => ({
-  model: model,
+  model,
   modelId: model.modelId,
 });
 
@@ -51,12 +52,11 @@ const createLanguageModel = (
   })(modelId);
 
   if (additionalTests.length > 0) {
-    describe.each([createModelObject(model)])(
-      'Provider-specific tests: $modelId',
-      ({ model }) => {
-        additionalTests.forEach(test => test(model));
-      },
-    );
+    describe.each([
+      createModelObject(model),
+    ])('Provider-specific tests: $modelId', ({ model }) => {
+      additionalTests.forEach(test => test(model));
+    });
   }
 
   return createLanguageModelWithCapabilities(model);
@@ -92,25 +92,24 @@ const createModelsForRuntime = (
   ),
 });
 
-const LONG_TEST_MILLIS = 20000;
-const COMPUTER_USE_TEST_MILLIS = 45000;
+const LONG_TEST_MILLIS = 20_000;
+const COMPUTER_USE_TEST_MILLIS = 45_000;
 
-describe.each(Object.values(RUNTIME_VARIANTS))(
-  'Vertex Anthropic E2E Tests - $name',
-  ({ createVertexAnthropic }) => {
-    createFeatureTestSuite({
-      name: `Vertex Anthropic (${createVertexAnthropic.name})`,
-      models: createModelsForRuntime(createVertexAnthropic),
-      timeout: LONG_TEST_MILLIS,
-      customAssertions: {
-        skipUsage: false,
-        errorValidator: (error: APICallError) => {
-          expect(error.message).toMatch(/Model .* not found/);
-        },
+describe.each(
+  Object.values(RUNTIME_VARIANTS),
+)('Vertex Anthropic E2E Tests - $name', ({ createVertexAnthropic }) => {
+  createFeatureTestSuite({
+    name: `Vertex Anthropic (${createVertexAnthropic.name})`,
+    models: createModelsForRuntime(createVertexAnthropic),
+    timeout: LONG_TEST_MILLIS,
+    customAssertions: {
+      skipUsage: false,
+      errorValidator: (error: APICallError) => {
+        expect(error.message).toMatch(/Model .* not found/);
       },
-    })();
-  },
-);
+    },
+  })();
+});
 
 const toolTests = (model: LanguageModelV4) => {
   it.skipIf(!['claude-3-5-sonnet-v2@20241022'].includes(model.modelId))(

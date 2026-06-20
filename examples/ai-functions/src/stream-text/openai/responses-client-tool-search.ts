@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { streamText, tool, isStepCount } from 'ai';
+import { isStepCount, streamText, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 

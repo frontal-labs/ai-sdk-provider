@@ -25,15 +25,18 @@ function aggregateByMinor(
   for (const [versionString, downloads] of Object.entries(data)) {
     const minor = toMinorVersion(versionString);
     // ignore versions < 1.0
-    if (minor.startsWith('0.')) continue;
+    if (minor.startsWith('0.')) {
+      continue;
+    }
 
     // ignore versions that have channel but where channel is not beta or canary
     if (
       minor.includes('(') &&
       !minor.includes('(beta)') &&
       !minor.includes('(canary)')
-    )
+    ) {
       continue;
+    }
 
     output[minor] = (output[minor] || 0) + downloads;
   }
@@ -44,7 +47,7 @@ function aggregateByMinor(
  * Main execution function.
  */
 async function main() {
-  const response = await fetch(`https://api.npmjs.org/versions/ai/last-week`);
+  const response = await fetch('https://api.npmjs.org/versions/ai/last-week');
   const { downloads } = await response.json();
   const totalDownloads = Object.values(downloads).reduce(
     (acc, curr) => acc + curr,
@@ -52,7 +55,7 @@ async function main() {
   );
   console.log(`Total weekly downloads: ${totalDownloads.toLocaleString()}`);
   console.log(
-    `For simplicity, we remove versions < 1.0 and channels other than beta and canary from the table below.`,
+    'For simplicity, we remove versions < 1.0 and channels other than beta and canary from the table below.',
   );
 
   const aggregated = aggregateByMinor(downloads);
@@ -67,17 +70,17 @@ async function main() {
         const baseB = stripChannel(b);
 
         // sort channels (e.g. "5.0 (beta)") after their stable version ("5.0")
-        if (baseA === baseB) return a.localeCompare(b);
+        if (baseA === baseB) {
+          return a.localeCompare(b);
+        }
         return baseB.localeCompare(baseA);
       })
       // map to objects for better console.table formatting
-      .map(([version, count]) => {
-        return {
-          version,
-          count,
-          '%': ((count / totalDownloads) * 100).toFixed(2) + '%',
-        };
-      }),
+      .map(([version, count]) => ({
+        version,
+        count,
+        '%': ((count / totalDownloads) * 100).toFixed(2) + '%',
+      })),
   );
 }
 

@@ -31,21 +31,33 @@ function parseArgs(argv) {
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
     const next = () => {
-      if (i + 1 >= argv.length) die(`Missing value for ${a}`);
+      if (i + 1 >= argv.length) {
+        die(`Missing value for ${a}`);
+      }
       return argv[++i];
     };
 
-    if (a === '--repo-root') out.repoRoot = next();
-    else if (a === '--dir') out.dir = next();
-    else if (a === '--force-index') out.forceIndex = true;
-    else if (a === '--index-file') out.indexFile = next();
-    else if (a === '--first-title') out.firstTitle = next();
-    else if (a === '--first-status') out.firstStatus = next();
-    else if (a === '--deciders') out.deciders = next();
-    else if (a === '--technical-story') out.technicalStory = next();
-    else if (a === '--strategy') out.strategy = next();
-    else if (a === '--json') out.json = true;
-    else if (a === '--help' || a === '-h') {
+    if (a === '--repo-root') {
+      out.repoRoot = next();
+    } else if (a === '--dir') {
+      out.dir = next();
+    } else if (a === '--force-index') {
+      out.forceIndex = true;
+    } else if (a === '--index-file') {
+      out.indexFile = next();
+    } else if (a === '--first-title') {
+      out.firstTitle = next();
+    } else if (a === '--first-status') {
+      out.firstStatus = next();
+    } else if (a === '--deciders') {
+      out.deciders = next();
+    } else if (a === '--technical-story') {
+      out.technicalStory = next();
+    } else if (a === '--strategy') {
+      out.strategy = next();
+    } else if (a === '--json') {
+      out.json = true;
+    } else if (a === '--help' || a === '-h') {
       process.stdout.write(
         [
           'Usage: node bootstrap_adr.js [options]',
@@ -68,26 +80,30 @@ function parseArgs(argv) {
     }
   }
 
-  if (!['auto', 'date', 'slug'].includes(out.strategy))
+  if (!['auto', 'date', 'slug'].includes(out.strategy)) {
     die(`Invalid --strategy: ${out.strategy}`);
+  }
   return out;
 }
 
 function loadReadmeTemplate() {
-  const skillRoot = path.resolve(__dirname, '..');
+  const skillRoot = path.resolve(import.meta.dirname, '..');
   const templatePath = path.join(
     skillRoot,
     'assets',
     'templates',
     'adr-readme.md',
   );
-  if (!fs.existsSync(templatePath))
+  if (!fs.existsSync(templatePath)) {
     die(`README template not found: ${templatePath}`);
+  }
   return fs.readFileSync(templatePath, 'utf8');
 }
 
 function writeIndex(indexFile, adrDirName, { force }) {
-  if (fs.existsSync(indexFile) && !force) return;
+  if (fs.existsSync(indexFile) && !force) {
+    return;
+  }
   const content = loadReadmeTemplate().replaceAll('{ADR_DIR}', adrDirName);
   fs.mkdirSync(path.dirname(indexFile), { recursive: true });
   fs.writeFileSync(indexFile, `${content.trimEnd()}\n`, 'utf8');
@@ -165,9 +181,13 @@ Conventions:
 }
 
 function updateIndexFile(indexFile, { relLink, title, status, date }) {
-  if (!fs.existsSync(indexFile)) return;
-  let content = fs.readFileSync(indexFile, 'utf8');
-  if (content.includes(relLink)) return;
+  if (!fs.existsSync(indexFile)) {
+    return;
+  }
+  const content = fs.readFileSync(indexFile, 'utf8');
+  if (content.includes(relLink)) {
+    return;
+  }
 
   const entryLine = `- [${title}](${relLink}) (${status}, ${date})`;
 
@@ -176,13 +196,15 @@ function updateIndexFile(indexFile, { relLink, title, status, date }) {
   const lines = normalized.split('\n');
   const headingIdx = lines.findIndex(l => /^##\s+ADRs\s*$/i.test(l));
 
-  if (headingIdx !== -1) {
+  if (headingIdx === -1) {
+    lines.push(entryLine);
+  } else {
     // Insert after the heading (and any blank line after it)
     let insertAt = headingIdx + 1;
-    while (insertAt < lines.length && lines[insertAt].trim() === '') insertAt++;
+    while (insertAt < lines.length && lines[insertAt].trim() === '') {
+      insertAt++;
+    }
     lines.splice(insertAt, 0, entryLine);
-  } else {
-    lines.push(entryLine);
   }
 
   fs.writeFileSync(indexFile, lines.join('\n'), 'utf8');
@@ -192,7 +214,9 @@ function main() {
   const args = parseArgs(process.argv);
 
   const repoRoot = path.resolve(process.cwd(), args.repoRoot);
-  if (!fs.existsSync(repoRoot)) die(`Repo root does not exist: ${repoRoot}`);
+  if (!fs.existsSync(repoRoot)) {
+    die(`Repo root does not exist: ${repoRoot}`);
+  }
 
   const adrDir = path.resolve(repoRoot, args.dir);
   fs.mkdirSync(adrDir, { recursive: true });

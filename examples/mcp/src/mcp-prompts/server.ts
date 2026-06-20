@@ -14,20 +14,18 @@ server.prompt(
   'code_review',
   'Asks the LLM to analyze code quality and suggest improvements',
   { code: z.string() },
-  async ({ code }) => {
-    return {
-      description: 'Code review prompt',
-      messages: [
-        {
-          role: 'user',
-          content: {
-            type: 'text',
-            text: `Please review this code and suggest improvements:\n${code}`,
-          },
+  async ({ code }) => ({
+    description: 'Code review prompt',
+    messages: [
+      {
+        role: 'user',
+        content: {
+          type: 'text',
+          text: `Please review this code and suggest improvements:\n${code}`,
         },
-      ],
-    };
-  },
+      },
+    ],
+  }),
 );
 
 let transport: SSEServerTransport;

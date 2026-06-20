@@ -1,7 +1,7 @@
+import fs from 'node:fs';
 import type { GoogleLanguageModelOptions } from '@ai-sdk/google';
 import { googleVertex } from '@ai-sdk/google-vertex';
 import { generateText } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 run(async () => {

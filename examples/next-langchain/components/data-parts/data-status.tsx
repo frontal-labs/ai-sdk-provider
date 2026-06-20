@@ -1,8 +1,8 @@
 'use client';
 
 export interface DataStatusProps {
-  status: 'complete' | 'pending' | string;
   message: string;
+  status: 'complete' | 'pending' | string;
 }
 
 export function DataStatus({ status, message }: DataStatusProps) {
@@ -10,10 +10,10 @@ export function DataStatus({ status, message }: DataStatusProps) {
 
   return (
     <div
-      className={`p-3 rounded-lg border text-sm ${
+      className={`rounded-lg border p-3 text-sm ${
         isComplete
-          ? 'bg-green-500/10 border-green-500/30'
-          : 'bg-yellow-500/10 border-yellow-500/30'
+          ? 'border-green-500/30 bg-green-500/10'
+          : 'border-yellow-500/30 bg-yellow-500/10'
       }`}
     >
       <div className="flex items-center gap-2">
@@ -21,18 +21,18 @@ export function DataStatus({ status, message }: DataStatusProps) {
           <svg
             className="h-5 w-5 text-green-400"
             fill="none"
-            viewBox="0 0 24 24"
             stroke="currentColor"
+            viewBox="0 0 24 24"
           >
             <path
+              d="M5 13l4 4L19 7"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M5 13l4 4L19 7"
             />
           </svg>
         ) : (
-          <div className="h-5 w-5 border-2 border-yellow-400 border-t-transparent rounded-full animate-spin" />
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-yellow-400 border-t-transparent" />
         )}
         <span
           className={`font-medium ${

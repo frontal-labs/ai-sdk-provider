@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import { expect } from 'vitest';
-import { deepSeek as provider, type DeepSeekErrorData } from '@ai-sdk/deepseek';
+import { type DeepSeekErrorData, deepSeek as provider } from '@ai-sdk/deepseek';
 import type { APICallError } from 'ai';
+import { expect } from 'vitest';
 import {
   createFeatureTestSuite,
   createLanguageModelWithCapabilities,
@@ -16,7 +16,7 @@ createFeatureTestSuite({
     invalidModel: provider.chat('no-such-model'),
     languageModels: [createChatModel('deepseek-chat')],
   },
-  timeout: 10000,
+  timeout: 10_000,
   customAssertions: {
     errorValidator: (error: APICallError) => {
       expect(

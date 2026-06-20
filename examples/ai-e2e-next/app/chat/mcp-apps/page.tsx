@@ -1,16 +1,16 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
 import {
-  experimental_MCPAppRenderer as MCPAppRenderer,
-  useChat,
   type MCPAppBridgeHandlers,
   type MCPAppMetadata,
+  experimental_MCPAppRenderer as MCPAppRenderer,
   type MCPAppRendererProps,
   type MCPAppResource,
   type MCPAppSandboxConfig,
+  useChat,
 } from '@ai-sdk/react';
 import { DefaultChatTransport, isToolUIPart } from 'ai';
+import ChatInput from '@/components/chat-input';
 
 const chatTransport = new DefaultChatTransport({ api: '/chat/mcp-apps/chat' });
 
@@ -22,7 +22,7 @@ const mcpAppSandbox = {
 } satisfies MCPAppSandboxConfig;
 
 const mcpAppFallback = (
-  <div className="p-3 text-sm text-gray-500">Loading MCP App...</div>
+  <div className="p-3 text-gray-500 text-sm">Loading MCP App...</div>
 );
 
 async function fetchJson(url: string, init?: RequestInit) {
@@ -62,11 +62,11 @@ const mcpAppHandlers: MCPAppBridgeHandlers = {
 function MCPAppTool({ part }: { part: MCPAppRendererProps['part'] }) {
   return (
     <MCPAppRenderer
-      part={part}
-      loadResource={loadMCPAppResource}
-      handlers={mcpAppHandlers}
-      sandbox={mcpAppSandbox}
       fallback={mcpAppFallback}
+      handlers={mcpAppHandlers}
+      loadResource={loadMCPAppResource}
+      part={part}
+      sandbox={mcpAppSandbox}
     />
   );
 }
@@ -78,25 +78,25 @@ export default function Chat() {
   const isBusy = status === 'submitted' || status === 'streaming';
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-2xl stretch">
+    <div className="stretch mx-auto flex w-full max-w-2xl flex-col py-24">
       <div className="mb-6">
-        <h1 className="text-xl font-semibold">MCP Apps chat</h1>
-        <p className="mt-2 text-sm text-gray-600">
+        <h1 className="font-semibold text-xl">MCP Apps chat</h1>
+        <p className="mt-2 text-gray-600 text-sm">
           Ask for the dashboard. The MCP server advertises an app-backed tool;
           this page renders its UI resource in a sandboxed MCP App frame.
         </p>
       </div>
 
       {messages.map(m => (
-        <div key={m.id} className="mb-4">
+        <div className="mb-4" key={m.id}>
           <div className="mb-2 font-semibold">
             {m.role === 'user' ? 'User' : 'Assistant'}
           </div>
-          <div className="pl-4 space-y-2">
+          <div className="space-y-2 pl-4">
             {m.parts.map((part, index) => {
               if (part.type === 'text') {
                 return (
-                  <div key={index} className="whitespace-pre-wrap">
+                  <div className="whitespace-pre-wrap" key={index}>
                     {part.text}
                   </div>
                 );
@@ -104,7 +104,7 @@ export default function Chat() {
 
               if (part.type === 'step-start') {
                 return index > 0 ? (
-                  <div key={index} className="my-4">
+                  <div className="my-4" key={index}>
                     <hr className="border-gray-300" />
                   </div>
                 ) : null;
@@ -121,12 +121,12 @@ export default function Chat() {
       ))}
 
       {isBusy ? (
-        <div className="mt-4 text-sm text-gray-500">
+        <div className="mt-4 text-gray-500 text-sm">
           {status === 'submitted' ? <div>Loading...</div> : null}
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-sm text-blue-500 rounded-md border border-blue-500 hover:bg-blue-50"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500 text-sm hover:bg-blue-50"
             onClick={stop}
+            type="button"
           >
             Stop
           </button>
@@ -135,18 +135,18 @@ export default function Chat() {
 
       {error ? (
         <div className="mt-4">
-          <div className="text-sm text-red-500">An error occurred.</div>
+          <div className="text-red-500 text-sm">An error occurred.</div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-sm text-blue-500 rounded-md border border-blue-500 hover:bg-blue-50"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500 text-sm hover:bg-blue-50"
             onClick={() => regenerate()}
+            type="button"
           >
             Retry
           </button>
         </div>
       ) : null}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

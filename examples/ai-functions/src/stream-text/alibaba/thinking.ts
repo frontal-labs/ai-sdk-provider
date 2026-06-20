@@ -1,4 +1,4 @@
-import { alibaba, type AlibabaLanguageModelChatOptions } from '@ai-sdk/alibaba';
+import { type AlibabaLanguageModelChatOptions, alibaba } from '@ai-sdk/alibaba';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
 

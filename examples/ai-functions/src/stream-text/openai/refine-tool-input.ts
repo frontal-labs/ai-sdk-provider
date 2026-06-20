@@ -14,9 +14,7 @@ run(async () => {
         inputSchema: z.object({
           city: z.string(),
         }),
-        execute: async ({ city }) => {
-          return { city, weather: 'sunny' };
-        },
+        execute: async ({ city }) => ({ city, weather: 'sunny' }),
       }),
     },
     experimental_refineToolInput: {

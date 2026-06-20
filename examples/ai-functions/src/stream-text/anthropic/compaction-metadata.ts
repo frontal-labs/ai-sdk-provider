@@ -1,6 +1,6 @@
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
@@ -31,7 +31,7 @@ run(async () => {
           edits: [
             {
               type: 'compact_20260112',
-              trigger: { type: 'input_tokens', value: 50000 },
+              trigger: { type: 'input_tokens', value: 50_000 },
               instructions: 'Preserve all key facts and decisions.',
             },
           ],

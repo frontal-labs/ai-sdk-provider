@@ -1,10 +1,11 @@
-import { generateText } from 'ai';
-import { run } from '../../lib/run';
 import {
-  azure,
   type AzureResponsesReasoningProviderMetadata,
+  azure,
   type OpenAILanguageModelResponsesOptions,
 } from '@ai-sdk/azure';
+import { generateText } from 'ai';
+import { run } from '../../lib/run';
+
 run(async () => {
   const result = await generateText({
     model: azure('gpt-5'),
@@ -27,7 +28,9 @@ run(async () => {
         const providerMetadata = part.providerMetadata as
           | AzureResponsesReasoningProviderMetadata
           | undefined;
-        if (!providerMetadata) break;
+        if (!providerMetadata) {
+          break;
+        }
         const {
           azure: { itemId, reasoningEncryptedContent },
         } = providerMetadata;

@@ -1,6 +1,6 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
 import { Output, ToolLoopAgent } from 'ai';
 import { z } from 'zod';
@@ -36,6 +36,6 @@ run(async () => {
 
   for await (const partialObject of result.partialOutputStream) {
     console.clear();
-    console.dir(partialObject, { depth: Infinity });
+    console.dir(partialObject, { depth: Number.POSITIVE_INFINITY });
   }
 });

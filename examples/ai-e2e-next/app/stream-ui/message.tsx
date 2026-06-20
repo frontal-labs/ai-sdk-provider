@@ -1,6 +1,6 @@
 'use client';
 
-import { useStreamableValue, type StreamableValue } from '@ai-sdk/rsc';
+import { type StreamableValue, useStreamableValue } from '@ai-sdk/rsc';
 export function BotMessage({ textStream }: { textStream: StreamableValue }) {
   const [text] = useStreamableValue(textStream);
   return <Message role="assistant">{text}</Message>;

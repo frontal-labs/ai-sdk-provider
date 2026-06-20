@@ -1,7 +1,7 @@
-import { xai, type XaiSpeechModelOptions } from '@ai-sdk/xai';
+import { type XaiSpeechModelOptions, xai } from '@ai-sdk/xai';
 import { generateSpeech } from 'ai';
-import { saveAudioFile } from '../../lib/save-audio';
 import { run } from '../../lib/run';
+import { saveAudioFile } from '../../lib/save-audio';
 
 run(async () => {
   const result = await generateSpeech({
@@ -12,8 +12,8 @@ run(async () => {
     outputFormat: 'mp3',
     providerOptions: {
       xai: {
-        sampleRate: 44100,
-        bitRate: 192000,
+        sampleRate: 44_100,
+        bitRate: 192_000,
         textNormalization: true,
       } satisfies XaiSpeechModelOptions,
     },

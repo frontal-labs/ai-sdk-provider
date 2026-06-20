@@ -1,11 +1,11 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
-import { weatherTool } from '../../tools/weather-tool';
 import { isStepCount, streamText, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 run(async () => {
   const result = streamText({

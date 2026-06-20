@@ -1,6 +1,6 @@
 import {
-  byteDance,
   type ByteDanceVideoProviderOptions,
+  byteDance,
 } from '@ai-sdk/bytedance';
 import { experimental_generateVideo as generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
@@ -22,7 +22,7 @@ run(async () => {
         providerOptions: {
           bytedance: {
             watermark: false,
-            pollTimeoutMs: 600000,
+            pollTimeoutMs: 600_000,
           } satisfies ByteDanceVideoProviderOptions,
         },
       }),

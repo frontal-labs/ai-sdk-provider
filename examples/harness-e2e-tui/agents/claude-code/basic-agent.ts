@@ -1,7 +1,7 @@
 import {
-  HarnessAgent,
   createFileReporter,
   createTraceTreeReporter,
+  HarnessAgent,
 } from '@ai-sdk/harness/agent';
 import { claudeCode } from '@ai-sdk/harness-claude-code';
 import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';

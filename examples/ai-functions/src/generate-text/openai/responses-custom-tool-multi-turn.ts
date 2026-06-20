@@ -1,7 +1,7 @@
 import { openai } from '@ai-sdk/openai';
 import { generateText, isStepCount } from 'ai';
-import { run } from '../../lib/run';
 import { print } from '../../lib/print';
+import { run } from '../../lib/run';
 
 run(async () => {
   const result = await generateText({
@@ -16,7 +16,7 @@ run(async () => {
         },
         execute: async input => {
           console.log(`Executing SQL: ${input}`);
-          return `3 rows returned: Alice (30), Bob (28), Charlie (35)`;
+          return '3 rows returned: Alice (30), Bob (28), Charlie (35)';
         },
       }),
     },

@@ -1,8 +1,8 @@
+import * as readline from 'node:readline/promises';
 import { mistral } from '@ai-sdk/mistral';
 import { generateText, type ModelMessage } from 'ai';
-import * as readline from 'node:readline/promises';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 const terminal = readline.createInterface({
   input: process.stdin,
@@ -24,7 +24,7 @@ run(async () => {
       await generateText({
         model: mistral('mistral-large-latest'),
         tools: { weatherTool },
-        instructions: `You are a helpful, respectful and honest assistant.`,
+        instructions: 'You are a helpful, respectful and honest assistant.',
         messages,
       });
 

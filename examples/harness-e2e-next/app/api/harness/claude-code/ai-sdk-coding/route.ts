@@ -1,14 +1,14 @@
-import { aiSdkCodingHarnessAgent } from '@/agent/harness/claude-code/ai-sdk-coding-agent';
-import {
-  detachAndPersist,
-  resumeOrCreateSession,
-} from '@/util/harness-resume-store';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
   toUIMessageStream,
   type UIMessage,
 } from 'ai';
+import { aiSdkCodingHarnessAgent } from '@/agent/harness/claude-code/ai-sdk-coding-agent';
+import {
+  detachAndPersist,
+  resumeOrCreateSession,
+} from '@/util/harness-resume-store';
 
 export async function POST(request: Request) {
   const body: {

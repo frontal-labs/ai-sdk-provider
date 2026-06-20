@@ -1,14 +1,14 @@
-import { anthropicCodeExecutionAgent } from '@/agent/anthropic/code-execution-agent';
 import type { AnthropicMessageMetadata } from '@ai-sdk/anthropic';
 import {
   createAgentUIStreamResponse,
-  validateUIMessages,
   type UIMessage,
+  validateUIMessages,
 } from 'ai';
+import { anthropicCodeExecutionAgent } from '@/agent/anthropic/code-execution-agent';
 export async function POST(request: Request) {
   const { messages } = await request.json();
 
-  console.dir(messages, { depth: Infinity });
+  console.dir(messages, { depth: Number.POSITIVE_INFINITY });
 
   const uiMessages = await validateUIMessages<
     UIMessage<{ containerId: string }>

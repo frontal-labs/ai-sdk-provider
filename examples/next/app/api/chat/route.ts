@@ -1,4 +1,3 @@
-import type { MyUIMessage } from '@/util/chat-schema';
 import { readChat, saveChat } from '@util/chat-store';
 import {
   convertToModelMessages,
@@ -10,6 +9,7 @@ import {
 import { after } from 'next/server';
 import { createResumableStreamContext } from 'resumable-stream';
 import throttle from 'throttleit';
+import type { MyUIMessage } from '@/util/chat-schema';
 
 export async function POST(req: Request) {
   const {
@@ -28,7 +28,9 @@ export async function POST(req: Request) {
   let messages: MyUIMessage[] = chat.messages;
 
   if (trigger === 'submit-message') {
-    if (messageId != null) {
+    if (messageId == null) {
+      messages = [...messages, message!];
+    } else {
       const messageIndex = messages.findIndex(m => m.id === messageId);
 
       if (messageIndex === -1) {
@@ -37,8 +39,6 @@ export async function POST(req: Request) {
 
       messages = messages.slice(0, messageIndex);
       messages.push(message!);
-    } else {
-      messages = [...messages, message!];
     }
   } else if (trigger === 'regenerate-message') {
     const messageIndex =

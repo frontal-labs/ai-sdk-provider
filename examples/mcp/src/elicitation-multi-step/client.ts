@@ -1,8 +1,8 @@
+import { stdin, stdout } from 'node:process';
+import { createInterface } from 'node:readline/promises';
 import { createMCPClient, ElicitationRequestSchema } from '@ai-sdk/mcp';
 import { openai } from '@ai-sdk/openai';
 import { generateText, isStepCount } from 'ai';
-import { createInterface } from 'node:readline/promises';
-import { stdin, stdout } from 'node:process';
 import 'dotenv/config';
 
 type ElicitationAction = 'accept' | 'decline' | 'cancel';
@@ -73,7 +73,7 @@ async function getInputFromUser(
 
         const rawValue = (await rl.question(`${label}: `)).trim();
 
-        if (!rawValue && !requiredFields.has(key)) {
+        if (!(rawValue || requiredFields.has(key))) {
           continue;
         }
 

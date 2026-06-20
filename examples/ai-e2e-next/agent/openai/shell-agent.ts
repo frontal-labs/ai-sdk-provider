@@ -1,6 +1,7 @@
 import { openai } from '@ai-sdk/openai';
 import { Sandbox } from '@vercel/sandbox';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
+
 // warning: this is a demo sandbox that is shared across chats on localhost
 let globalSandboxName: string | null = null;
 async function getSandbox(): Promise<Sandbox> {
@@ -47,7 +48,7 @@ async function executeShellCommand(
     };
   } catch (error: any) {
     // Handle timeout or other errors
-    const timedOut = error?.message?.includes('timeout') || false;
+    const timedOut = error?.message?.includes('timeout');
     const exitCode = timedOut ? null : (error?.code ?? 1);
 
     return {

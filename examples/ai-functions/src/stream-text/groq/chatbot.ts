@@ -1,6 +1,6 @@
-import { groq } from '@ai-sdk/groq';
-import { isStepCount, streamText, tool, type ModelMessage } from 'ai';
 import * as readline from 'node:readline/promises';
+import { groq } from '@ai-sdk/groq';
+import { isStepCount, type ModelMessage, streamText, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
@@ -22,7 +22,7 @@ run(async () => {
       onError(error) {
         console.error(error);
       },
-      instructions: `You are a helpful, respectful and honest assistant.`,
+      instructions: 'You are a helpful, respectful and honest assistant.',
       tools: {
         weather: tool({
           description: 'Get the weather in a location',

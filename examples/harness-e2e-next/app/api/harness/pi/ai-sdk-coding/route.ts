@@ -1,14 +1,14 @@
-import { aiSdkCodingPiHarnessAgent } from '@/agent/harness/pi/ai-sdk-coding-agent';
-import {
-  detachAndPersist,
-  resumeOrCreateSession,
-} from '@/util/harness-resume-store';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
   toUIMessageStream,
   type UIMessage,
 } from 'ai';
+import { aiSdkCodingPiHarnessAgent } from '@/agent/harness/pi/ai-sdk-coding-agent';
+import {
+  detachAndPersist,
+  resumeOrCreateSession,
+} from '@/util/harness-resume-store';
 
 export async function POST(request: Request) {
   const body: {

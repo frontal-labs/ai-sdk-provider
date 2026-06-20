@@ -1,6 +1,6 @@
 import { huggingFace } from '@ai-sdk/huggingface';
-import { generateText, streamText, Output } from 'ai';
-import { describe, it, expect } from 'vitest';
+import { generateText, Output, streamText } from 'ai';
+import { describe, expect, it } from 'vitest';
 import { z } from 'zod/v4';
 import 'dotenv/config';
 

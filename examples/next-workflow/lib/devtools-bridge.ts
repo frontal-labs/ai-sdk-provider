@@ -9,7 +9,7 @@ function safeStringify(value: unknown): string {
   const seen = new WeakSet<object>();
   return JSON.stringify(value, (_key, raw) => {
     if (typeof raw === 'function') {
-      return undefined;
+      return;
     }
     if (raw == null || typeof raw !== 'object') {
       return raw;

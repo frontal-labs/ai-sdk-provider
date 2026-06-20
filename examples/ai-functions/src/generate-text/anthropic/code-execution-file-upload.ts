@@ -1,7 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { generateText, uploadFile } from 'ai';
-import { run } from '../../lib/run';
 import * as fs from 'fs';
+import { run } from '../../lib/run';
 
 run(async () => {
   const { providerReference } = await uploadFile({

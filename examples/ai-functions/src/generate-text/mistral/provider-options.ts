@@ -1,4 +1,4 @@
-import { mistral, type MistralLanguageModelChatOptions } from '@ai-sdk/mistral';
+import { type MistralLanguageModelChatOptions, mistral } from '@ai-sdk/mistral';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
 

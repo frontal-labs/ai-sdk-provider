@@ -18,5 +18,5 @@ createFeatureTestSuite({
       createChatModel('qwen-qwq-32b'),
     ],
   },
-  timeout: 30000,
+  timeout: 30_000,
 })();

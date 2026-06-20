@@ -1,7 +1,7 @@
+import fs from 'node:fs';
 import { moonshotai } from '@ai-sdk/moonshotai';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
-import fs from 'node:fs';
 
 run(async () => {
   const errorMessage = fs.readFileSync('data/error-message.txt', 'utf8');

@@ -1,8 +1,8 @@
 import { openai } from '@ai-sdk/openai';
 import { generateText, hasToolCall, tool } from 'ai';
 import { z } from 'zod';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 run(async () => {
   const result = await generateText({

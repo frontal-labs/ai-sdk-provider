@@ -74,11 +74,13 @@ export async function verifyChangesets(
   // Iterate through all changed .changeset/*.md files
   for (const path of env.CHANGED_FILES.trim().split(' ')) {
     // ignore README.md file
-    if (path === '.changeset/README.md') continue;
+    if (path === '.changeset/README.md') {
+      continue;
+    }
 
     // Check if the file is a .changeset file
     if (!/^\.changeset\/[a-z0-9-]+\.md/.test(path)) {
-      throw Object.assign(new Error(`Invalid file - not a .changeset file`), {
+      throw Object.assign(new Error('Invalid file - not a .changeset file'), {
         path,
       });
     }
@@ -88,7 +90,7 @@ export async function verifyChangesets(
     const stat = await lstat(filePath);
     if (stat.isSymbolicLink()) {
       throw Object.assign(
-        new Error(`Invalid .changeset file - symlinks are not allowed`),
+        new Error('Invalid .changeset file - symlinks are not allowed'),
         { path },
       );
     }
@@ -98,7 +100,7 @@ export async function verifyChangesets(
     const result = content.match(/---\n([\s\S]+?)\n---/);
     if (!result) {
       throw Object.assign(
-        new Error(`Invalid .changeset file - no frontmatter found`),
+        new Error('Invalid .changeset file - no frontmatter found'),
         { path },
       );
     }
@@ -115,9 +117,9 @@ export async function verifyChangesets(
     const versionBumps = {};
     for (const line of lines) {
       const [packageName, versionBump] = line.split(':').map(s => s.trim());
-      if (!packageName || !versionBump) {
+      if (!(packageName && versionBump)) {
         throw Object.assign(
-          new Error(`Invalid .changeset file - invalid frontmatter`),
+          new Error('Invalid .changeset file - invalid frontmatter'),
           { path, frontmatter },
         );
       }

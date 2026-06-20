@@ -1,14 +1,14 @@
 import { HarnessAgent } from '@ai-sdk/harness/agent';
 import { pi } from '@ai-sdk/harness-pi';
+import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';
 import { tool } from 'ai';
 import { z } from 'zod';
-import { printFullStream } from '../../lib/print-full-stream';
-import { run } from '../../lib/run';
 import {
   createToolApprovalResponseMessages,
   printFullStreamAndCaptureToolApproval,
 } from '../../lib/harness-tool-approval';
-import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';
+import { printFullStream } from '../../lib/print-full-stream';
+import { run } from '../../lib/run';
 
 run(async () => {
   const sandbox = createVercelSandbox({

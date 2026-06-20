@@ -1,10 +1,10 @@
 import { anthropic } from '@ai-sdk/anthropic';
-import { registerTelemetry, streamText } from 'ai';
-import { z } from 'zod';
-import { LegacyOpenTelemetry, OpenTelemetry } from '@ai-sdk/otel';
 import { DevToolsTelemetry } from '@ai-sdk/devtools';
+import { LegacyOpenTelemetry } from '@ai-sdk/otel';
 import { LangfuseSpanProcessor } from '@langfuse/otel';
 import { NodeSDK } from '@opentelemetry/sdk-node';
+import { registerTelemetry, streamText } from 'ai';
+import { z } from 'zod';
 import { run } from '../../lib/run';
 
 registerTelemetry(new LegacyOpenTelemetry(), DevToolsTelemetry());
@@ -37,7 +37,7 @@ run(async () => {
       },
     },
     telemetry: {
-      functionId: `cook-recipe`,
+      functionId: 'cook-recipe',
     },
   });
 

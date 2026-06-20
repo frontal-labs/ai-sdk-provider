@@ -1,11 +1,11 @@
 import {
-  openai,
   type OpenaiResponsesSourceDocumentProviderMetadata,
   type OpenaiResponsesTextProviderMetadata,
+  openai,
 } from '@ai-sdk/openai';
 import { streamText } from 'ai';
-import { run } from '../../lib/run';
 import { downloadOpenaiContainerFile } from '../../lib/download-openai-container-file';
+import { run } from '../../lib/run';
 
 run(async () => {
   // Basic text generation
@@ -36,25 +36,27 @@ run(async () => {
       const providerMetadata = part.providerMetadata as
         | OpenaiResponsesTextProviderMetadata
         | undefined;
-      if (!providerMetadata) continue;
+      if (!providerMetadata) {
+        continue;
+      }
       const { openai } = providerMetadata;
       console.log('-- text-part-- ');
-      console.dir({ openai }, { depth: Infinity });
-    } else if (part.type === 'source') {
-      if (part.sourceType === 'document') {
-        const providerMetadata = part.providerMetadata as
-          | OpenaiResponsesSourceDocumentProviderMetadata
-          | undefined;
-        if (!providerMetadata) continue;
-        const { openai } = providerMetadata;
-        console.log('-- source-document-part-- ');
-        console.dir({ openai }, { depth: Infinity });
-        if (openai.type === 'container_file_citation') {
-          containerfileList.push({
-            containerId: openai.containerId,
-            fileId: openai.fileId,
-          });
-        }
+      console.dir({ openai }, { depth: Number.POSITIVE_INFINITY });
+    } else if (part.type === 'source' && part.sourceType === 'document') {
+      const providerMetadata = part.providerMetadata as
+        | OpenaiResponsesSourceDocumentProviderMetadata
+        | undefined;
+      if (!providerMetadata) {
+        continue;
+      }
+      const { openai } = providerMetadata;
+      console.log('-- source-document-part-- ');
+      console.dir({ openai }, { depth: Number.POSITIVE_INFINITY });
+      if (openai.type === 'container_file_citation') {
+        containerfileList.push({
+          containerId: openai.containerId,
+          fileId: openai.fileId,
+        });
       }
     }
   }

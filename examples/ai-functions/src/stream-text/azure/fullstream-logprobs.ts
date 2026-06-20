@@ -1,4 +1,4 @@
-import { azure, type AzureResponsesProviderMetadata } from '@ai-sdk/azure';
+import { type AzureResponsesProviderMetadata, azure } from '@ai-sdk/azure';
 import type { OpenAILanguageModelChatOptions } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
@@ -27,13 +27,17 @@ run(async () => {
         const providerMetadata = part.providerMetadata as
           | AzureResponsesProviderMetadata
           | undefined;
-        if (!providerMetadata) continue;
+        if (!providerMetadata) {
+          continue;
+        }
         const {
           azure: { responseId, logprobs, serviceTier },
         } = providerMetadata;
         responseId && console.log(`responseId: ${responseId}`);
         serviceTier && console.log(`serviceTier: ${serviceTier}`);
-        if (!logprobs) continue;
+        if (!logprobs) {
+          continue;
+        }
         let printed = 0;
         for (const logprob of logprobs) {
           if (logprob != null) {
@@ -45,7 +49,9 @@ run(async () => {
             console.log();
             printed++;
           }
-          if (printed >= 5) break; // Output only the first 5 entries to prevent excessive logging
+          if (printed >= 5) {
+            break; // Output only the first 5 entries to prevent excessive logging
+          }
         }
         break;
       }

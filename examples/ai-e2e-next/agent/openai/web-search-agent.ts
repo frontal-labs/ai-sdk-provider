@@ -1,8 +1,8 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
 export const openaiWebSearchAgent = new ToolLoopAgent({
   model: openai('gpt-5-mini'),
   tools: {
@@ -24,7 +24,7 @@ export const openaiWebSearchAgent = new ToolLoopAgent({
     } satisfies OpenAILanguageModelResponsesOptions,
   },
   onStepFinish: ({ request }) => {
-    console.dir(request.body, { depth: Infinity });
+    console.dir(request.body, { depth: Number.POSITIVE_INFINITY });
   },
 });
 

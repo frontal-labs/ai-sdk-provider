@@ -1,4 +1,4 @@
-import { klingai, type KlingAIVideoModelOptions } from '@ai-sdk/klingai';
+import { type KlingAIVideoModelOptions, klingai } from '@ai-sdk/klingai';
 import { experimental_generateVideo as generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
@@ -22,7 +22,7 @@ run(async () => {
             // End frame image for start+end frame control
             imageTail:
               'https://raw.githubusercontent.com/vercel/ai/refs/heads/main/examples/ai-functions/data/comic-dog.png',
-            pollTimeoutMs: 600000, // 10 minutes
+            pollTimeoutMs: 600_000, // 10 minutes
           } satisfies KlingAIVideoModelOptions,
         },
       }),

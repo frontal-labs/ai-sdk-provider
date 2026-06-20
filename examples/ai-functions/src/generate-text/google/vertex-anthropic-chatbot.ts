@@ -1,8 +1,8 @@
+import * as readline from 'node:readline/promises';
 import { vertexAnthropic } from '@ai-sdk/google-vertex/anthropic';
 import { generateText, type ModelMessage } from 'ai';
-import * as readline from 'node:readline/promises';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 const terminal = readline.createInterface({
   input: process.stdin,
@@ -24,7 +24,7 @@ run(async () => {
       await generateText({
         model: vertexAnthropic('claude-3-5-sonnet-v2@20241022'),
         tools: { weatherTool },
-        instructions: `You are a helpful, respectful and honest assistant.`,
+        instructions: 'You are a helpful, respectful and honest assistant.',
         messages,
       });
 

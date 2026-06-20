@@ -44,7 +44,7 @@ run(async () => {
   }
 
   // Break down the same tagged traffic by provider to see routing
-  console.log(`\n--- Same traffic grouped by provider ---\n`);
+  console.log('\n--- Same traffic grouped by provider ---\n');
 
   const byProvider = await gateway.getSpendReport({
     startDate: thirtyDaysAgo,

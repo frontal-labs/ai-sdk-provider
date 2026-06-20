@@ -1,9 +1,9 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
 import { useChat } from '@ai-sdk/react';
-import { DefaultChatTransport, generateId, type FileUIPart } from 'ai';
+import { DefaultChatTransport, type FileUIPart, generateId } from 'ai';
 import { useRef, useState } from 'react';
+import ChatInput from '@/components/chat-input';
 
 const MODELS = [
   {
@@ -79,7 +79,9 @@ export default function UploadFilePage() {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      return;
+    }
 
     setUploadingIds(prev => new Set(prev).add('new'));
     try {
@@ -131,7 +133,9 @@ export default function UploadFilePage() {
     provider: string;
   }) => {
     const file = uploadedFiles.find(f => f.id === fileId);
-    if (!file) return;
+    if (!file) {
+      return;
+    }
 
     setUploadingIds(prev => new Set(prev).add(fileId));
     try {
@@ -210,24 +214,24 @@ export default function UploadFilePage() {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <div className="w-64 border-r border-gray-200 p-4 flex flex-col gap-4">
+      <div className="flex w-64 flex-col gap-4 border-gray-200 border-r p-4">
         <h2 className="font-bold text-sm">Uploaded Files</h2>
 
-        <div className="flex flex-col gap-2 flex-1 overflow-y-auto">
+        <div className="flex flex-1 flex-col gap-2 overflow-y-auto">
           {uploadedFiles.map(f => (
-            <div key={f.id} className="flex flex-col gap-1 text-sm">
-              <label className="flex items-start gap-2 cursor-pointer">
+            <div className="flex flex-col gap-1 text-sm" key={f.id}>
+              <label className="flex cursor-pointer items-start gap-2">
                 <input
-                  type="checkbox"
                   checked={selectedFileIds.has(f.id)}
-                  onChange={() => toggleFile(f.id)}
                   className="mt-0.5"
+                  onChange={() => toggleFile(f.id)}
+                  type="checkbox"
                 />
                 {f.mediaType.startsWith('image/') && (
                   <img
-                    src={f.dataUrl}
                     alt={f.filename}
-                    className="w-8 h-8 rounded object-cover flex-shrink-0"
+                    className="h-8 w-8 flex-shrink-0 rounded object-cover"
+                    src={f.dataUrl}
                   />
                 )}
                 <div className="min-w-0">
@@ -237,15 +241,15 @@ export default function UploadFilePage() {
               <div className="ml-5 flex flex-wrap gap-1">
                 {Object.keys(f.providerReference).map(p => (
                   <span
+                    className="rounded bg-green-100 px-1.5 py-0.5 text-green-800 text-xs"
                     key={p}
-                    className="text-xs bg-green-100 text-green-800 rounded px-1.5 py-0.5"
                   >
                     {p}
                   </span>
                 ))}
                 {!f.providerReference[selectedModel.provider] && (
                   <button
-                    type="button"
+                    className="rounded bg-blue-100 px-1.5 py-0.5 text-blue-700 text-xs hover:bg-blue-200 disabled:opacity-50"
                     disabled={uploadingIds.has(f.id)}
                     onClick={() =>
                       handleUploadToProvider({
@@ -253,7 +257,7 @@ export default function UploadFilePage() {
                         provider: selectedModel.provider,
                       })
                     }
-                    className="text-xs bg-blue-100 text-blue-700 rounded px-1.5 py-0.5 hover:bg-blue-200 disabled:opacity-50"
+                    type="button"
                   >
                     {uploadingIds.has(f.id)
                       ? 'Uploading...'
@@ -267,27 +271,27 @@ export default function UploadFilePage() {
 
         <div>
           <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileUpload}
-            disabled={uploadingIds.has('new')}
             className="text-sm"
+            disabled={uploadingIds.has('new')}
+            onChange={handleFileUpload}
+            ref={fileInputRef}
+            type="file"
           />
           {uploadingIds.has('new') && (
-            <div className="text-xs text-gray-500 mt-1">Uploading...</div>
+            <div className="mt-1 text-gray-500 text-xs">Uploading...</div>
           )}
         </div>
       </div>
 
       {/* Main area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex flex-1 flex-col">
         {/* Top bar */}
-        <div className="border-b border-gray-200 p-4 flex items-center gap-4">
+        <div className="flex items-center gap-4 border-gray-200 border-b p-4">
           <h1 className="font-bold">Upload File Chat</h1>
           <select
-            value={selectedModelIndex}
+            className="rounded border border-gray-300 px-2 py-1 text-sm"
             onChange={e => setSelectedModelIndex(Number(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-sm"
+            value={selectedModelIndex}
           >
             {MODELS.map((m, i) => (
               <option key={m.id} value={i}>
@@ -299,16 +303,16 @@ export default function UploadFilePage() {
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto p-4">
-          <div className="max-w-2xl mx-auto flex flex-col gap-4 pb-20">
+          <div className="mx-auto flex max-w-2xl flex-col gap-4 pb-20">
             {messages.map(message => (
-              <div key={message.id} className="flex flex-col gap-1">
-                <div className="text-xs text-gray-500 font-bold">
+              <div className="flex flex-col gap-1" key={message.id}>
+                <div className="font-bold text-gray-500 text-xs">
                   {message.role === 'user' ? 'User' : 'AI'}
                 </div>
                 {message.parts.map((part, index) => {
                   if (part.type === 'text') {
                     return (
-                      <div key={index} className="whitespace-pre-wrap">
+                      <div className="whitespace-pre-wrap" key={index}>
                         {part.text}
                       </div>
                     );
@@ -316,8 +320,8 @@ export default function UploadFilePage() {
                   if (part.type === 'file') {
                     return (
                       <div
+                        className="inline-block rounded bg-gray-100 px-2 py-1 text-gray-500 text-xs"
                         key={index}
-                        className="text-xs text-gray-500 bg-gray-100 rounded px-2 py-1 inline-block"
                       >
                         📎 {part.filename ?? 'file'}
                       </div>
@@ -332,8 +336,7 @@ export default function UploadFilePage() {
               <div className="mt-4">
                 <div className="text-red-500">An error occurred.</div>
                 <button
-                  type="button"
-                  className="px-4 py-2 mt-4 text-blue-500 rounded-md border border-blue-500"
+                  className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
                   onClick={() =>
                     regenerate({
                       body: {
@@ -342,6 +345,7 @@ export default function UploadFilePage() {
                       },
                     })
                   }
+                  type="button"
                 >
                   Retry
                 </button>
@@ -351,9 +355,9 @@ export default function UploadFilePage() {
         </div>
 
         {/* Input */}
-        <div className="border-t border-gray-200 p-4">
-          <div className="max-w-2xl mx-auto">
-            <ChatInput status={status} onSubmit={handleSend} />
+        <div className="border-gray-200 border-t p-4">
+          <div className="mx-auto max-w-2xl">
+            <ChatInput onSubmit={handleSend} status={status} />
           </div>
         </div>
       </div>

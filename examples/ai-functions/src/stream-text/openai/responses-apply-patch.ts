@@ -1,17 +1,17 @@
-import { openai } from '@ai-sdk/openai';
-import { streamText } from 'ai';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
+import { openai } from '@ai-sdk/openai';
+import { streamText } from 'ai';
 import { createApplyPatchExecutor } from '../../lib/apply-patch-file-editor';
 import { run } from '../../lib/run';
 
 run(async () => {
-  const workspaceRoot = path.join(__dirname, '../output');
+  const workspaceRoot = path.join(import.meta.dirname, '../output');
   await fs.mkdir(workspaceRoot, { recursive: true });
 
   const result = await streamText({
     model: openai.responses('gpt-5.1'),
-    prompt: `Create a markdown file with a shopping checklist of 5 entries.`,
+    prompt: 'Create a markdown file with a shopping checklist of 5 entries.',
     tools: {
       apply_patch: openai.tools.applyPatch({
         execute: createApplyPatchExecutor(workspaceRoot),

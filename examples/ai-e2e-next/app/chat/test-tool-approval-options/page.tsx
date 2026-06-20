@@ -1,14 +1,14 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
-import DynamicToolWithApprovalView from '@/components/tool/dynamic-tool-with-approval-view';
 import { useChat } from '@ai-sdk/react';
 import {
+  type ChatRequestOptions,
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithApprovalResponses,
-  type ChatRequestOptions,
 } from 'ai';
 import { useState } from 'react';
+import ChatInput from '@/components/chat-input';
+import DynamicToolWithApprovalView from '@/components/tool/dynamic-tool-with-approval-view';
 
 export default function TestToolApprovalOptions() {
   const [systemInstruction, setSystemInstruction] = useState('');
@@ -25,25 +25,25 @@ export default function TestToolApprovalOptions() {
   });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
-      <h1 className="mb-4 text-xl font-bold">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h1 className="mb-4 font-bold text-xl">
         Tool Approval with Options Test
       </h1>
 
       <label className="mb-4">
-        <span className="block mb-1 text-sm font-medium">
+        <span className="mb-1 block font-medium text-sm">
           System Instruction (optional):
         </span>
         <input
-          className="w-full p-2 border border-gray-300 rounded"
+          className="w-full rounded border border-gray-300 p-2"
+          onChange={e => setSystemInstruction(e.target.value)}
           placeholder="e.g. Always respond in French."
           value={systemInstruction}
-          onChange={e => setSystemInstruction(e.target.value)}
         />
       </label>
 
       {messages.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={message.id}>
           {message.role === 'user' ? 'User: ' : 'AI: '}
           {message.parts.map((part, index) => {
             switch (part.type) {
@@ -52,9 +52,9 @@ export default function TestToolApprovalOptions() {
               case 'dynamic-tool':
                 return (
                   <DynamicToolWithApprovalView
-                    key={index}
-                    invocation={part}
                     addToolApprovalResponse={addToolApprovalResponse}
+                    invocation={part}
+                    key={index}
                     requestOptions={requestOptions}
                   />
                 );
@@ -64,8 +64,8 @@ export default function TestToolApprovalOptions() {
       ))}
 
       <ChatInput
-        status={status}
         onSubmit={text => sendMessage({ text }, requestOptions)}
+        status={status}
       />
     </div>
   );

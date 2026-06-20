@@ -47,7 +47,7 @@ app.post('/mcp', async (req, res) => {
       res.status(500).json({
         jsonrpc: '2.0',
         error: {
-          code: -32603,
+          code: -32_603,
           message: 'Internal server error',
         },
         id: null,

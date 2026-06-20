@@ -1,10 +1,10 @@
 'use client';
 
-import type { OpenAICompactionMessage } from '@/agent/openai/compaction-agent';
-import ChatInput from '@/components/chat-input';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import { useMemo } from 'react';
+import type { OpenAICompactionMessage } from '@/agent/openai/compaction-agent';
+import ChatInput from '@/components/chat-input';
 
 export default function Page() {
   const transport = useMemo(
@@ -20,16 +20,16 @@ export default function Page() {
   });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-2xl stretch">
-      <div className="p-4 mb-6 bg-blue-50 border border-blue-200 rounded-lg">
-        <h1 className="text-lg font-bold">OpenAI Compaction Test</h1>
-        <p className="text-sm text-zinc-600 mt-1">
+    <div className="stretch mx-auto flex w-full max-w-2xl flex-col py-24">
+      <div className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
+        <h1 className="font-bold text-lg">OpenAI Compaction Test</h1>
+        <p className="mt-1 text-sm text-zinc-600">
           Context is pre-loaded with a large document corpus (~50k tokens) and 5
           conversation turns. Your messages will be appended to this context.
           Compaction should trigger soon - a notification will appear when it
           does.
         </p>
-        <p className="text-xs text-zinc-500 mt-1">
+        <p className="mt-1 text-xs text-zinc-500">
           Try asking: &quot;Summarize the key algorithms and data structures
           from the documentation&quot;
         </p>
@@ -37,7 +37,7 @@ export default function Page() {
 
       <div className="flex flex-col gap-4 pb-40">
         {messages.map(message => (
-          <div key={message.id} className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2" key={message.id}>
             <div className="font-semibold text-sm text-zinc-500">
               {message.role === 'user' ? 'You' : 'Assistant'}
             </div>
@@ -46,15 +46,15 @@ export default function Page() {
               if (part.type === 'custom' && part.kind === 'openai.compaction') {
                 return (
                   <div
+                    className="flex items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 p-3"
                     key={index}
-                    className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-300 rounded-lg"
                   >
                     <span className="text-amber-600 text-lg">⚡</span>
                     <div>
                       <span className="font-semibold text-amber-700 text-sm">
                         Context Compacted
                       </span>
-                      <p className="text-xs text-amber-600 mt-0.5">
+                      <p className="mt-0.5 text-amber-600 text-xs">
                         The server compressed the conversation context to reduce
                         token usage. The encrypted compaction state will be
                         passed forward automatically.
@@ -66,7 +66,7 @@ export default function Page() {
 
               if (part.type === 'text') {
                 return (
-                  <div key={index} className="whitespace-pre-wrap">
+                  <div className="whitespace-pre-wrap" key={index}>
                     {part.text}
                   </div>
                 );
@@ -76,13 +76,13 @@ export default function Page() {
         ))}
 
         {status === 'streaming' && (
-          <div className="text-zinc-400 text-sm animate-pulse">
+          <div className="animate-pulse text-sm text-zinc-400">
             Streaming...
           </div>
         )}
       </div>
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

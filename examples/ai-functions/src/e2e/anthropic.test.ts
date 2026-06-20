@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import { expect } from 'vitest';
 import { anthropic as provider } from '@ai-sdk/anthropic';
 import type { APICallError } from 'ai';
+import { expect } from 'vitest';
 import {
   createFeatureTestSuite,
   createLanguageModelWithCapabilities,
@@ -19,7 +19,7 @@ createFeatureTestSuite({
       createChatModel('claude-haiku-4-5-20251001'),
     ],
   },
-  timeout: 30000,
+  timeout: 30_000,
   customAssertions: {
     errorValidator: (error: APICallError) => {
       expect(error.message).toMatch(/model:/i);

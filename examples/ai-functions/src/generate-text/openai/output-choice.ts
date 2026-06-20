@@ -1,8 +1,8 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
-import { generateText, Output, isStepCount } from 'ai';
+import { generateText, isStepCount, Output } from 'ai';
 import { print } from '../../lib/print';
 import { run } from '../../lib/run';
 import { weatherTool } from '../../tools/weather-tool';

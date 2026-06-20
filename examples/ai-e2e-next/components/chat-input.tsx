@@ -15,23 +15,25 @@ export default function ChatInput({
     <form
       onSubmit={e => {
         e.preventDefault();
-        if (text.trim() === '') return;
+        if (text.trim() === '') {
+          return;
+        }
         onSubmit(text);
         setText('');
       }}
     >
       <input
-        className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-        placeholder="Say something..."
+        className="fixed bottom-0 mb-8 w-full max-w-md rounded border border-gray-300 p-2 shadow-xl"
         disabled={status !== 'ready'}
-        value={text}
         onChange={e => setText(e.target.value)}
+        placeholder="Say something..."
+        value={text}
       />
       {stop && (status === 'streaming' || status === 'submitted') && (
         <button
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-          type="submit"
+          className="fixed bottom-0 mb-8 w-full max-w-md rounded border border-gray-300 p-2 shadow-xl"
           onClick={stop}
+          type="submit"
         >
           Stop
         </button>

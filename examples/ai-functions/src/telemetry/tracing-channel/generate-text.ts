@@ -1,8 +1,8 @@
 import { tracingChannel } from 'node:diagnostics_channel';
 import {
   AI_SDK_TELEMETRY_TRACING_CHANNEL,
-  generateText,
   gateway,
+  generateText,
   type TelemetryTracingChannelMessage,
 } from 'ai';
 import { run } from '../../lib/run';

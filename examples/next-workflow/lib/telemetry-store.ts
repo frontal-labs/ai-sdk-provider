@@ -14,11 +14,11 @@ export type TelemetryEventSource =
 
 export interface TelemetryEventRecord {
   id: number;
-  telemetryRunId: string;
-  source: TelemetryEventSource;
   name: string;
-  timestamp: string;
+  source: TelemetryEventSource;
   summary?: unknown;
+  telemetryRunId: string;
+  timestamp: string;
 }
 
 type TelemetryStore = {

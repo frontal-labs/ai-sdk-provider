@@ -1,9 +1,9 @@
 'use client';
 
+import { useActions, useUIState } from '@ai-sdk/rsc';
+import { generateId } from 'ai';
 import { Fragment, useState } from 'react';
 import type { AI } from './ai';
-import { useActions, useAIState, useUIState } from '@ai-sdk/rsc';
-import { generateId } from 'ai';
 import { Message } from './message';
 
 export default function Home() {
@@ -27,27 +27,27 @@ export default function Home() {
 
   return (
     <div className="flex flex-col-reverse">
-      <div className="flex flex-row gap-2 p-2 bg-zinc-100 w-full">
+      <div className="flex w-full flex-row gap-2 bg-zinc-100 p-2">
         <input
-          className="bg-zinc-100 w-full p-2 outline-none"
-          value={input}
+          className="w-full bg-zinc-100 p-2 outline-none"
           onChange={event => setInput(event.target.value)}
-          placeholder="Ask a question"
           onKeyDown={event => {
             if (event.key === 'Enter') {
               handleSubmission();
             }
           }}
+          placeholder="Ask a question"
+          value={input}
         />
         <button
-          className="p-2 bg-zinc-900 text-zinc-100 rounded-md"
+          className="rounded-md bg-zinc-900 p-2 text-zinc-100"
           onClick={handleSubmission}
         >
           Send
         </button>
       </div>
 
-      <div className="flex flex-col h-[calc(100dvh-56px)] overflow-y-scroll">
+      <div className="flex h-[calc(100dvh-56px)] flex-col overflow-y-scroll">
         <div>
           {messages.map(message => (
             <Fragment key={message.id}>{message.display}</Fragment>

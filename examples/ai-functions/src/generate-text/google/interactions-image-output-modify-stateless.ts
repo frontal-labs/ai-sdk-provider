@@ -1,6 +1,6 @@
 import {
-  google,
   type GoogleLanguageModelInteractionsOptions,
+  google,
 } from '@ai-sdk/google';
 import { generateText, type ModelMessage } from 'ai';
 import { presentImages } from '../../lib/present-image';

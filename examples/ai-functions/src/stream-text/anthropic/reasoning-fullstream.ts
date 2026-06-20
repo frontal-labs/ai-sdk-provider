@@ -1,17 +1,17 @@
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
 import {
   extractReasoningMiddleware,
   isStepCount,
   streamText,
-  wrapLanguageModel,
   type ToolCallPart,
   type ToolResultPart,
+  wrapLanguageModel,
 } from 'ai';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 run(async () => {
   const result = streamText({

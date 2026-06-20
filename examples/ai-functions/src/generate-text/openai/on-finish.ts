@@ -7,7 +7,7 @@ run(async () => {
     model: openai('gpt-4o'),
     prompt: 'Invent a new holiday and describe its traditions.',
     onFinish(event) {
-      console.dir(event, { depth: Infinity });
+      console.dir(event, { depth: Number.POSITIVE_INFINITY });
     },
   });
 });

@@ -1,6 +1,6 @@
 import { createAI } from '@ai-sdk/rsc';
-import { submitUserMessage, type AIState, type UIState } from './actions';
 import { generateId } from 'ai';
+import { type AIState, submitUserMessage, type UIState } from './actions';
 
 export const AI = createAI({
   actions: { submitUserMessage },

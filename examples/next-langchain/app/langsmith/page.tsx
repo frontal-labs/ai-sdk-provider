@@ -1,8 +1,8 @@
 'use client';
 
-import { useChat } from '@ai-sdk/react';
 import { LangSmithDeploymentTransport } from '@ai-sdk/langchain';
-import { useState, useMemo } from 'react';
+import { useChat } from '@ai-sdk/react';
+import { useMemo, useState } from 'react';
 import { ChatContainer } from '../../components/chat-container';
 import { LangsmithConfigPanel } from '../../components/langsmith-config-panel';
 import type { CustomDataMessage } from '../types';
@@ -30,7 +30,16 @@ export default function LangSmithPage() {
 
   return (
     <ChatContainer
-      title="LangSmith Deployment"
+      configPanel={
+        <LangsmithConfigPanel
+          apiKey={apiKey}
+          customUrl={customUrl}
+          deploymentUrl={deploymentUrl}
+          localDevUrl={LOCAL_DEV_URL}
+          setApiKey={setApiKey}
+          setCustomUrl={setCustomUrl}
+        />
+      }
       description={
         <>
           Uses <code>LangSmithDeploymentTransport</code> to communicate directly
@@ -38,26 +47,17 @@ export default function LangSmithPage() {
           route.
         </>
       }
+      error={error}
       messages={messages}
       onSend={text => sendMessage({ text })}
-      status={status}
-      error={error}
       placeholder="Send a message..."
+      status={status}
       suggestions={[
         "What's the weather in Paris?",
         'Calculate 25 * 4 + 10',
         'Tell me a fun fact',
       ]}
-      configPanel={
-        <LangsmithConfigPanel
-          deploymentUrl={deploymentUrl}
-          customUrl={customUrl}
-          setCustomUrl={setCustomUrl}
-          apiKey={apiKey}
-          setApiKey={setApiKey}
-          localDevUrl={LOCAL_DEV_URL}
-        />
-      }
+      title="LangSmith Deployment"
     />
   );
 }

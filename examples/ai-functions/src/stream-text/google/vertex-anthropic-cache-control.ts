@@ -1,7 +1,7 @@
+import fs from 'node:fs';
 import type { AnthropicLanguageModelOptions } from '@ai-sdk/anthropic';
 import { vertexAnthropic } from '@ai-sdk/google-vertex/anthropic';
 import { streamText } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 const errorMessage = fs.readFileSync('data/error-message.txt', 'utf8');

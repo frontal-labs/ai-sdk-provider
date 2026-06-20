@@ -11,17 +11,18 @@ export default function Page() {
   });
 
   return (
-    <div className="flex flex-col gap-4 justify-end items-center h-screen">
+    <div className="flex h-screen flex-col items-center justify-end gap-4">
       <h1 className="p-4 text-xl">My AI Assistant</h1>
 
-      <div className="flex flex-col gap-2 p-4 mt-auto">
+      <div className="mt-auto flex flex-col gap-2 p-4">
         {messages.map(message => (
           <div key={message.id}>
             <strong>{`${message.role}: `}</strong>
             {message.parts.map((part, index) => {
               if (part.type === 'text') {
                 return <span key={index}>{part.text}</span>;
-              } else if (isStaticToolUIPart(part)) {
+              }
+              if (isStaticToolUIPart(part)) {
                 return <pre key={index}>{JSON.stringify(part, null, 2)}</pre>;
               }
             })}
@@ -29,17 +30,17 @@ export default function Page() {
         ))}
       </div>
 
-      <div className="flex flex-col gap-2 items-center p-4">
+      <div className="flex flex-col items-center gap-2 p-4">
         <textarea
-          value={input}
+          className="h-32 w-96 rounded-md border-2 border-gray-300 p-2"
           onChange={e => setInput(e.target.value)}
           placeholder="Start chatting"
-          className="p-2 w-96 h-32 rounded-md border-2 border-gray-300"
+          value={input}
         />
         <button
-          className="p-2 px-4 w-full text-white bg-blue-500 rounded-md"
-          type="button"
+          className="w-full rounded-md bg-blue-500 p-2 px-4 text-white"
           onClick={() => sendMessage({ text: input })}
+          type="button"
         >
           Send
         </button>

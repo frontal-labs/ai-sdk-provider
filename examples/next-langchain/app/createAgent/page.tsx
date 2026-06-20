@@ -16,7 +16,6 @@ export default function AgentPage() {
 
   return (
     <ChatContainer
-      title="Multi-Tool Agent"
       description={
         <>
           Uses LangChain&apos;s <code>createAgent</code> with{' '}
@@ -26,17 +25,18 @@ export default function AgentPage() {
           thought process.
         </>
       }
+      error={error}
       messages={messages}
       onSend={text => sendMessage({ text })}
-      status={status}
-      error={error}
       placeholder="Ask me anything - I can search, check weather, get time, and create images..."
+      status={status}
       suggestions={[
         "What's the weather in Tokyo and what time is it there?",
         'Tell me about artificial intelligence',
         'What time is it in New York right now?',
         'Draw a futuristic city skyline',
       ]}
+      title="Multi-Tool Agent"
     />
   );
 }

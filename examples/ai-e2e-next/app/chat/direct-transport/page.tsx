@@ -1,14 +1,14 @@
 'use client';
 
-import { useChat, type UIMessage } from '@ai-sdk/react';
-import ChatInput from '@/components/chat-input';
+import { createOpenAI } from '@ai-sdk/openai';
+import { type UIMessage, useChat } from '@ai-sdk/react';
 import {
+  type ChatTransport,
   convertToModelMessages,
   streamText,
   toUIMessageStream,
-  type ChatTransport,
 } from 'ai';
-import { createOpenAI } from '@ai-sdk/openai';
+import ChatInput from '@/components/chat-input';
 
 // Note: this needs a client-side OpenAI API key to work.
 // DO NOT USE THIS IN ENVIRONMENTS WHERE THE API KEY IS CONFIDENTIAL.
@@ -36,9 +36,9 @@ export default function Chat() {
   });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
       {messages.map(m => (
-        <div key={m.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={m.id}>
           {m.role === 'user' ? 'User: ' : 'AI: '}
           {m.parts.map(part => {
             if (part.type === 'text') {
@@ -52,9 +52,9 @@ export default function Chat() {
         <div className="mt-4 text-gray-500">
           {status === 'submitted' && <div>Loading...</div>}
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 rounded-md border border-blue-500"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={stop}
+            type="button"
           >
             Stop
           </button>
@@ -65,16 +65,16 @@ export default function Chat() {
         <div className="mt-4">
           <div className="text-red-500">An error occurred.</div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 rounded-md border border-blue-500"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={() => regenerate()}
+            type="button"
           >
             Retry
           </button>
         </div>
       )}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

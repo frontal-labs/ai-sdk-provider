@@ -1,5 +1,5 @@
-import { vertexAnthropic } from '@ai-sdk/google-vertex/anthropic';
 import type { AnthropicLanguageModelOptions } from '@ai-sdk/anthropic';
+import { vertexAnthropic } from '@ai-sdk/google-vertex/anthropic';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
 
@@ -9,7 +9,7 @@ run(async () => {
     prompt: 'How many "r"s are in the word "strawberry"?',
     providerOptions: {
       anthropic: {
-        thinking: { type: 'enabled', budgetTokens: 10000 },
+        thinking: { type: 'enabled', budgetTokens: 10_000 },
       } satisfies AnthropicLanguageModelOptions,
     },
     maxRetries: 0,

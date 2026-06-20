@@ -7,7 +7,9 @@ export async function collectStream(
   try {
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
+      if (done) {
+        break;
+      }
       if (value) {
         chunks.push(value);
         total += value.byteLength;

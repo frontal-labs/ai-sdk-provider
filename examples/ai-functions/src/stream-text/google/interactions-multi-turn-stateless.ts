@@ -1,8 +1,8 @@
 import {
-  google,
   type GoogleLanguageModelInteractionsOptions,
+  google,
 } from '@ai-sdk/google';
-import { streamText, type ModelMessage } from 'ai';
+import { type ModelMessage, streamText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {

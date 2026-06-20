@@ -19,7 +19,7 @@ run(async () => {
           console.log('Starting tool call');
 
           // simulate compute for 10 seconds, check abort signal every 50ms
-          for (let i = 0; i < 10000 / 50; i++) {
+          for (let i = 0; i < 10_000 / 50; i++) {
             await new Promise(resolve => setTimeout(resolve, 50));
             abortSignal?.throwIfAborted();
           }

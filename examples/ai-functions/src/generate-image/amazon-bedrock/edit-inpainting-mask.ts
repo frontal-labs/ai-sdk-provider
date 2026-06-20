@@ -26,7 +26,7 @@ run(async () => {
     prompt: {
       text: prompt,
       images: [image],
-      mask: mask,
+      mask,
     },
     providerOptions: {
       bedrock: {

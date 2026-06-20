@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { mistral } from '@ai-sdk/mistral';
 import { generateText } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 run(async () => {

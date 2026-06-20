@@ -1,6 +1,6 @@
 import {
-  azure,
   type AzureResponsesReasoningProviderMetadata,
+  azure,
   type OpenAILanguageModelResponsesOptions,
 } from '@ai-sdk/azure';
 import { streamText } from 'ai';
@@ -28,13 +28,15 @@ run(async () => {
         process.stdout.write(chunk.text);
         break;
 
-      case 'reasoning-end':
+      case 'reasoning-end': {
         process.stdout.write('\x1b[0m');
         process.stdout.write('\n');
         const providerMetadata = chunk.providerMetadata as
           | AzureResponsesReasoningProviderMetadata
           | undefined;
-        if (!providerMetadata) break;
+        if (!providerMetadata) {
+          break;
+        }
         const {
           azure: { itemId, reasoningEncryptedContent },
         } = providerMetadata;
@@ -44,6 +46,7 @@ run(async () => {
         // The reasoning tokens from that interaction are also cached, and as a result, reasoningEncryptedContent returns null.
         console.log(`reasoningEncryptedContent: ${reasoningEncryptedContent}`);
         break;
+      }
 
       case 'text-start':
         process.stdout.write('\x1b[0m');

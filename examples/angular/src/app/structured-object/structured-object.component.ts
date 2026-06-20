@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
 import { StructuredObject } from '@ai-sdk/angular';
-import { z } from 'zod';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { z } from 'zod';
 
 const schema = z.object({
   title: z.string(),
@@ -76,7 +76,9 @@ export class StructuredObjectComponent {
   });
 
   async analyze() {
-    if (!this.input.trim()) return;
+    if (!this.input.trim()) {
+      return;
+    }
     await this.structuredObject.submit(this.input);
   }
 }

@@ -14,9 +14,7 @@ run(async () => {
           unit: z.enum(['celsius', 'fahrenheit']),
         }),
         strict: true,
-        execute: async ({ city, unit }) => {
-          return { city, unit, temperature: 72 };
-        },
+        execute: async ({ city, unit }) => ({ city, unit, temperature: 72 }),
       }),
     },
     prompt: 'What is the weather in Boston?',

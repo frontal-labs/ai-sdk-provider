@@ -20,8 +20,8 @@ export default function AnthropicCodeExecutionView({
       return (
         <>
           <InputView input={invocation.input} />
-          <div className="mb-2 bg-red-900 rounded-xl border border-red-700 shadow-lg">
-            <pre className="overflow-x-auto p-4 text-sm text-red-100 whitespace-pre-wrap">
+          <div className="mb-2 rounded-xl border border-red-700 bg-red-900 shadow-lg">
+            <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-red-100 text-sm">
               <span className="font-semibold">Code Execution Error</span>
               <br />
               {invocation.errorText}
@@ -35,8 +35,8 @@ export default function AnthropicCodeExecutionView({
         <>
           <InputView input={invocation.input} />
 
-          <div className="mb-2 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-            <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+          <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 shadow-lg">
+            <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
               {invocation.output.type === 'code_execution_result' && (
                 <>
                   <span className="font-semibold">Stdout:</span>
@@ -77,7 +77,7 @@ export default function AnthropicCodeExecutionView({
                   )}
                   <br />
                   {invocation.output.content.length > 0 && (
-                    <div className="bg-gray-200 py-2 px-2 rounded-lg flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 rounded-lg bg-gray-200 px-2 py-2">
                       <div className="px-1">
                         {invocation.output.content.length > 1 ? (
                           <p className="text-black">downloads</p>
@@ -87,7 +87,7 @@ export default function AnthropicCodeExecutionView({
                       </div>
                       {invocation.output.content.map(file => (
                         <button
-                          className="bg-cyan-800 hover:bg-cyan-700 text-white rounded-lg py-1 px-2 border border-white cursor-pointer"
+                          className="cursor-pointer rounded-lg border border-white bg-cyan-800 px-2 py-1 text-white hover:bg-cyan-700"
                           key={file.file_id}
                           onClick={() =>
                             window.open(
@@ -96,7 +96,7 @@ export default function AnthropicCodeExecutionView({
                             )
                           }
                         >
-                          <div className="flex gap-1 items-center justify-center">
+                          <div className="flex items-center justify-center gap-1">
                             <Download />
                             <p>{file.file_id}</p>
                           </div>
@@ -205,8 +205,8 @@ function InputView({
     // Handle programmatic tool calling format
     case 'programmatic-tool-call': {
       return (
-        <div className="mb-2 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-          <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+        <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 shadow-lg">
+          <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
             <span className="font-semibold">Code Execution</span>
             <br />
             <span className="font-semibold">Code:</span>
@@ -221,8 +221,8 @@ function InputView({
       switch (input.command) {
         case 'view': {
           return (
-            <div className="mb-2 text-gray-100 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-              <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+            <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 text-gray-100 shadow-lg">
+              <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
                 <span className="font-semibold">Text Editor (View)</span>
                 <br />
                 {input.path && (
@@ -238,8 +238,8 @@ function InputView({
         }
         case 'create': {
           return (
-            <div className="mb-2 text-gray-100 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-              <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+            <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 text-gray-100 shadow-lg">
+              <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
                 <span className="font-semibold">Text Editor (Create)</span>
                 <br />
                 {input.path && (
@@ -262,8 +262,8 @@ function InputView({
         }
         case 'str_replace': {
           return (
-            <div className="mb-2 text-gray-100 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-              <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+            <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 text-gray-100 shadow-lg">
+              <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
                 <span className="font-semibold">Text Editor (Replace)</span>
                 <br />
                 {input.path && (
@@ -301,8 +301,8 @@ function InputView({
       const command = input.command;
 
       return (
-        <div className="mb-2 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-          <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+        <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 shadow-lg">
+          <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
             <span className="font-semibold">Bash</span>
             <br />
             {command && (

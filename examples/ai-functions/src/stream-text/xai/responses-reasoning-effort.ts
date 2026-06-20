@@ -22,7 +22,9 @@ run(async () => {
     }
     if (part.type === 'text-delta') {
       if (!inText) {
-        if (inReasoning) console.log('\n');
+        if (inReasoning) {
+          console.log('\n');
+        }
         console.log('Response:');
         inText = true;
       }

@@ -1,4 +1,4 @@
-import { fal, type FalVideoModelOptions } from '@ai-sdk/fal';
+import { type FalVideoModelOptions, fal } from '@ai-sdk/fal';
 import { experimental_generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
@@ -14,7 +14,7 @@ run(async () => {
       duration: 5,
       providerOptions: {
         fal: {
-          pollTimeoutMs: 600000, // 10 minutes
+          pollTimeoutMs: 600_000, // 10 minutes
           resolution: '540p',
         } satisfies FalVideoModelOptions,
       },

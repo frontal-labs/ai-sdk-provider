@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { openai, type OpenAIImageModelEditOptions } from '@ai-sdk/openai';
+import { type OpenAIImageModelEditOptions, openai } from '@ai-sdk/openai';
 import { generateImage } from 'ai';
 import { presentImages } from '../../lib/present-image';
 import { run } from '../../lib/run';

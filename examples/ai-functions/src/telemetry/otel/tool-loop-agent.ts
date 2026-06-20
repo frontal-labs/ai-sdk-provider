@@ -3,7 +3,7 @@ import { LegacyOpenTelemetry } from '@ai-sdk/otel';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-node';
-import { registerTelemetry, tool, ToolLoopAgent } from 'ai';
+import { registerTelemetry, ToolLoopAgent, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 

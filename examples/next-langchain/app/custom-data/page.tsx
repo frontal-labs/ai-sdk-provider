@@ -17,7 +17,6 @@ export default function CustomDataPage() {
   return (
     <>
       <ChatContainer
-        title="Custom Data Parts Demo"
         description={
           <>
             Demonstrates <strong>typed custom streaming events</strong> with
@@ -30,17 +29,18 @@ export default function CustomDataPage() {
             real-time events!
           </>
         }
+        error={error}
         messages={messages}
         onSend={text => sendMessage({ text })}
-        status={status}
-        error={error}
         placeholder="Try: 'Analyze sales data for trends' or 'Process report.pdf file'"
+        status={status}
         suggestions={[
           'Analyze sales data for trends',
           'Run anomaly analysis on customer data',
           'Process quarterly-report.csv and validate it',
           'Analyze transactions for correlations',
         ]}
+        title="Custom Data Parts Demo"
       />
     </>
   );

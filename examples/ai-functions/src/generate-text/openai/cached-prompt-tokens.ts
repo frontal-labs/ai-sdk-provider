@@ -1,7 +1,7 @@
-import { openai, type OpenAILanguageModelChatOptions } from '@ai-sdk/openai';
-import { generateText } from 'ai';
-import { setTimeout } from 'node:timers/promises';
 import { performance } from 'node:perf_hooks';
+import { setTimeout } from 'node:timers/promises';
+import { type OpenAILanguageModelChatOptions, openai } from '@ai-sdk/openai';
+import { generateText } from 'ai';
 import { run } from '../../lib/run';
 
 const longPrompt = `
@@ -161,9 +161,9 @@ run(async () => {
     If you don't get a cache hit the first time, try several additional times.`,
   );
 
-  console.log(`First pass text:`, text);
-  console.log(`First pass usage:`, usage);
-  console.log(`First pass provider metadata:`, providerMetadata);
+  console.log('First pass text:', text);
+  console.log('First pass usage:', usage);
+  console.log('First pass provider metadata:', providerMetadata);
   console.log(`First pass time: ${Math.floor(end - start)} ms`);
 
   console.log();
@@ -178,8 +178,8 @@ run(async () => {
   } = await runCompletion();
   end = performance.now();
 
-  console.log(`Second pass text:`, text2);
-  console.log(`Second pass usage:`, usage2);
-  console.log(`Second pass provider metadata:`, providerMetadata2);
+  console.log('Second pass text:', text2);
+  console.log('Second pass usage:', usage2);
+  console.log('Second pass provider metadata:', providerMetadata2);
   console.log(`First pass time: ${Math.floor(end - start)} ms`);
 });

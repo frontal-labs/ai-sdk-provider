@@ -1,4 +1,4 @@
-import { klingai, type KlingAIVideoModelOptions } from '@ai-sdk/klingai';
+import { type KlingAIVideoModelOptions, klingai } from '@ai-sdk/klingai';
 import { experimental_generateVideo as generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
@@ -24,7 +24,7 @@ run(async () => {
             // Required: 'std' (standard) or 'pro' (professional)
             mode: 'std',
             // Optional: reference element from element library (v3.0+, max 1)
-            elementList: [{ element_id: 829836802793406551 }],
+            elementList: [{ element_id: 829_836_802_793_406_551 }],
           } satisfies KlingAIVideoModelOptions,
         },
       }),

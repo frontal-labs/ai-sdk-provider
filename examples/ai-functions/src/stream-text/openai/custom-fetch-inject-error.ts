@@ -17,7 +17,9 @@ const openai = createOpenAI({
         async start(controller) {
           while (true) {
             const { done, value } = await reader.read();
-            if (done) break;
+            if (done) {
+              break;
+            }
 
             characterCount += value.length;
             controller.enqueue(value);

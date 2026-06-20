@@ -1,12 +1,12 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
-import ChatInput from '@/components/chat-input';
 import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithToolCalls,
 } from 'ai';
 import type { StreamingToolCallsMessage } from '@/app/api/chat/streaming-tool-calls/route';
+import ChatInput from '@/components/chat-input';
 
 export default function Chat() {
   const { messages, status, sendMessage, addToolOutput } =
@@ -31,16 +31,16 @@ export default function Chat() {
     });
 
   // used to only render the role when it changes:
-  let lastRole: string | undefined = undefined;
+  let lastRole: string | undefined;
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
       {messages?.map(m => {
         const isNewRole = m.role !== lastRole;
         lastRole = m.role;
 
         return (
-          <div key={m.id} className="whitespace-pre-wrap">
+          <div className="whitespace-pre-wrap" key={m.id}>
             {isNewRole && <strong>{`${m.role}: `}</strong>}
             {m.parts.map(part => {
               if (part.type === 'text') {
@@ -50,8 +50,8 @@ export default function Chat() {
               if (part.type === 'tool-showWeatherInformation') {
                 return (
                   <div
+                    className="my-2 rounded border border-gray-300 p-4 text-gray-500"
                     key={part.toolCallId}
-                    className="p-4 my-2 text-gray-500 rounded border border-gray-300"
                   >
                     <h4 className="mb-2">{part.input?.city ?? ''}</h4>
                     <div className="flex flex-col gap-2">
@@ -73,7 +73,7 @@ export default function Chat() {
         );
       })}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

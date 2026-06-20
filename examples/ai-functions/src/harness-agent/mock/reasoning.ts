@@ -1,6 +1,6 @@
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
 import { HarnessAgent } from '@ai-sdk/harness/agent';
 import { createJustBashSandbox } from '@ai-sdk/sandbox-just-bash';

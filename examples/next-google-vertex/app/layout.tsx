@@ -1,5 +1,5 @@
+import { GeistMono, GeistSans } from 'geist/font';
 import type { Metadata } from 'next';
-import { GeistSans, GeistMono } from 'geist/font';
 import './globals.css';
 
 export const metadata: Metadata = {

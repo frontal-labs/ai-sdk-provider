@@ -32,9 +32,9 @@ run(async () => {
         `Tokens: ${result.usage.inputTokens} in / ${result.usage.outputTokens} out`,
       );
       console.log(`Duration: ${duration}ms`);
-      console.log(`Status: PASS`);
+      console.log('Status: PASS');
     } catch (error) {
-      console.log(`Status: FAIL`);
+      console.log('Status: FAIL');
       console.log(`Error: ${error instanceof Error ? error.message : error}`);
     }
   }

@@ -11,24 +11,24 @@ export default function Chat() {
   });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
       <button
-        onClick={clearChat}
+        className="mb-4 rounded border border-gray-300 px-3 py-1.5 text-gray-600 text-sm hover:bg-gray-50 hover:text-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={messages.length === 0}
-        className="mb-4 px-3 py-1.5 text-sm text-gray-600 border border-gray-300 rounded hover:bg-gray-50 hover:text-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+        onClick={clearChat}
       >
         Clear Chat
       </button>
 
       {messages?.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={message.id}>
           <strong>{`${message.role}: `}</strong>
           {message.parts.map((part, index) => {
             if (part.type === 'text') {
               return (
                 <div
+                  className="max-w-full overflow-x-auto whitespace-pre-wrap break-words"
                   key={index}
-                  className="overflow-x-auto max-w-full whitespace-pre-wrap break-words"
                 >
                   {part.text}
                 </div>

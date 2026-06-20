@@ -1,10 +1,10 @@
 'use client';
 
-import { experimental_useRealtime } from '@ai-sdk/react';
 import {
-  google,
   type Experimental_GoogleRealtimeModelOptions as GoogleRealtimeModelOptions,
+  google,
 } from '@ai-sdk/google';
+import { experimental_useRealtime } from '@ai-sdk/react';
 import { Activity, Languages, Mic, Pause, Power } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -37,7 +37,7 @@ const statusColor: Record<string, string> = {
 
 function CodeBadge({ children }: { children: string }) {
   return (
-    <code className="rounded-md bg-zinc-100 px-1.5 py-0.5 font-mono text-[11px] font-medium text-zinc-500">
+    <code className="rounded-md bg-zinc-100 px-1.5 py-0.5 font-medium font-mono text-[11px] text-zinc-500">
       {children}
     </code>
   );
@@ -91,8 +91,8 @@ export default function LiveTranslatePage() {
   const sessionConfig = useMemo(
     () => ({
       outputModalities: ['audio' as const],
-      inputAudioFormat: { type: 'audio/pcm', rate: 16000 },
-      outputAudioFormat: { type: 'audio/pcm', rate: 24000 },
+      inputAudioFormat: { type: 'audio/pcm', rate: 16_000 },
+      outputAudioFormat: { type: 'audio/pcm', rate: 24_000 },
       inputAudioTranscription: {},
       outputAudioTranscription: {},
       providerOptions: {
@@ -172,7 +172,9 @@ export default function LiveTranslatePage() {
     captureRequestPendingRef.current = false;
     setCaptureStarting(false);
 
-    if (!captureActiveRef.current) return;
+    if (!captureActiveRef.current) {
+      return;
+    }
 
     captureActiveRef.current = false;
     captureStreamRef.current = null;
@@ -218,7 +220,9 @@ export default function LiveTranslatePage() {
       captureActiveRef.current = true;
       realtimeActionsRef.current.startAudioCapture(stream);
     } catch (nextError) {
-      if (requestId !== captureRequestIdRef.current) return;
+      if (requestId !== captureRequestIdRef.current) {
+        return;
+      }
 
       captureActiveRef.current = false;
       captureStreamRef.current?.getTracks().forEach(track => track.stop());
@@ -242,15 +246,16 @@ export default function LiveTranslatePage() {
     }
   }, [status, stopListening]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       statusRef.current = 'disconnected';
       captureRequestIdRef.current += 1;
       captureStreamRef.current?.getTracks().forEach(track => track.stop());
       captureStreamRef.current = null;
       captureActiveRef.current = false;
-    };
-  }, []);
+    },
+    [],
+  );
 
   useEffect(() => {
     if (status !== 'connected') {
@@ -269,7 +274,9 @@ export default function LiveTranslatePage() {
   }, [status]);
 
   useEffect(() => {
-    if (status !== 'connected' || autoStartAttemptedRef.current) return;
+    if (status !== 'connected' || autoStartAttemptedRef.current) {
+      return;
+    }
 
     autoStartAttemptedRef.current = true;
     void startListening();
@@ -279,7 +286,9 @@ export default function LiveTranslatePage() {
     if (status === 'connected') {
       stopListening();
       statusRef.current = 'disconnected';
-      if (isPlaying) stopPlayback();
+      if (isPlaying) {
+        stopPlayback();
+      }
       disconnect();
       return;
     }
@@ -314,23 +323,23 @@ export default function LiveTranslatePage() {
     <main className="flex min-h-screen items-start justify-center bg-[#fafafa] px-5 py-20 text-zinc-950">
       {showConnectedPrompt && (
         <div
-          role="status"
           className="fixed top-5 right-5 z-50 flex max-w-sm items-start gap-3 rounded-lg border border-emerald-200 bg-white px-4 py-3 shadow-lg"
+          role="status"
         >
           <span className="mt-1 h-2.5 w-2.5 shrink-0 animate-pulse rounded-full bg-emerald-500" />
           <div className="min-w-0">
-            <div className="text-sm font-semibold text-zinc-900">
+            <div className="font-semibold text-sm text-zinc-900">
               You&apos;re connected
             </div>
-            <div className="mt-0.5 text-xs leading-5 text-zinc-500">
+            <div className="mt-0.5 text-xs text-zinc-500 leading-5">
               Start speaking. Translation will appear as you talk.
             </div>
           </div>
           <button
-            type="button"
-            onClick={() => setShowConnectedPrompt(false)}
             aria-label="Dismiss connected message"
-            className="ml-1 text-lg leading-none text-zinc-400 hover:text-zinc-700"
+            className="ml-1 text-lg text-zinc-400 leading-none hover:text-zinc-700"
+            onClick={() => setShowConnectedPrompt(false)}
+            type="button"
           >
             &times;
           </button>
@@ -340,12 +349,12 @@ export default function LiveTranslatePage() {
       <section className="w-full max-w-[470px] rounded-xl border border-zinc-200 bg-white p-7 shadow-[0_18px_60px_rgba(0,0,0,0.10)]">
         <header className="mb-6">
           <div className="mb-3 flex items-center gap-2">
-            <Languages size={18} className="text-zinc-700" aria-hidden />
-            <h1 className="text-xl font-semibold tracking-normal text-zinc-900">
+            <Languages aria-hidden className="text-zinc-700" size={18} />
+            <h1 className="font-semibold text-xl text-zinc-900 tracking-normal">
               Google Gemini Live Translate
             </h1>
           </div>
-          <p className="text-[13px] leading-5 text-zinc-500">
+          <p className="text-[13px] text-zinc-500 leading-5">
             Speech-to-speech via <CodeBadge>@ai-sdk/google</CodeBadge> and{' '}
             <CodeBadge>.experimental_realtime()</CodeBadge> through{' '}
             <CodeBadge>gemini-3.5-live-translate-preview</CodeBadge>.
@@ -354,13 +363,13 @@ export default function LiveTranslatePage() {
 
         <div className="grid gap-4">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <label className="grid gap-1.5 text-xs font-semibold text-zinc-700">
+            <label className="grid gap-1.5 font-semibold text-xs text-zinc-700">
               Target language
               <select
-                value={targetLanguageCode}
+                className="h-10 rounded-md border border-zinc-300 bg-white px-3 font-normal text-sm text-zinc-900 outline-none transition focus:border-zinc-500 disabled:cursor-not-allowed disabled:bg-zinc-50 disabled:text-zinc-500"
                 disabled={controlsLocked}
                 onChange={event => setTargetLanguageCode(event.target.value)}
-                className="h-10 rounded-md border border-zinc-300 bg-white px-3 text-sm font-normal text-zinc-900 outline-none transition focus:border-zinc-500 disabled:cursor-not-allowed disabled:bg-zinc-50 disabled:text-zinc-500"
+                value={targetLanguageCode}
               >
                 {languageOptions.map(language => (
                   <option key={language.code} value={language.code}>
@@ -370,15 +379,15 @@ export default function LiveTranslatePage() {
               </select>
             </label>
 
-            <label className="grid gap-1.5 text-xs font-semibold text-zinc-700">
+            <label className="grid gap-1.5 font-semibold text-xs text-zinc-700">
               Echo
               <select
-                value={echoTargetLanguage ? 'on' : 'off'}
+                className="h-10 rounded-md border border-zinc-300 bg-white px-3 font-normal text-sm text-zinc-900 outline-none transition focus:border-zinc-500 disabled:cursor-not-allowed disabled:bg-zinc-50 disabled:text-zinc-500"
                 disabled={controlsLocked}
                 onChange={event =>
                   setEchoTargetLanguage(event.target.value === 'on')
                 }
-                className="h-10 rounded-md border border-zinc-300 bg-white px-3 text-sm font-normal text-zinc-900 outline-none transition focus:border-zinc-500 disabled:cursor-not-allowed disabled:bg-zinc-50 disabled:text-zinc-500"
+                value={echoTargetLanguage ? 'on' : 'off'}
               >
                 <option value="on">Echo target language</option>
                 <option value="off">Silence target language</option>
@@ -387,12 +396,12 @@ export default function LiveTranslatePage() {
           </div>
 
           <button
-            type="button"
-            onClick={connectOrDisconnect}
+            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-zinc-950 px-4 font-semibold text-sm text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:bg-zinc-400"
             disabled={status === 'connecting'}
-            className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-zinc-950 px-4 text-sm font-semibold text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:bg-zinc-400"
+            onClick={connectOrDisconnect}
+            type="button"
           >
-            <Power size={16} aria-hidden />
+            <Power aria-hidden size={16} />
             {status === 'connected'
               ? 'Disconnect'
               : status === 'connecting'
@@ -400,10 +409,10 @@ export default function LiveTranslatePage() {
                 : 'Connect'}
           </button>
 
-          <div className="my-5 border-t border-zinc-200" />
+          <div className="my-5 border-zinc-200 border-t" />
 
           <div>
-            <p className="mb-4 text-[13px] leading-5 text-zinc-500">
+            <p className="mb-4 text-[13px] text-zinc-500 leading-5">
               Speak naturally once connected. Audio input and translated output
               transcripts are enabled.
             </p>
@@ -423,10 +432,10 @@ export default function LiveTranslatePage() {
                       : 'bg-zinc-200 text-zinc-500'
                   }`}
                 >
-                  <Mic size={17} aria-hidden />
+                  <Mic aria-hidden size={17} />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="text-sm font-semibold text-zinc-900">
+                  <div className="font-semibold text-sm text-zinc-900">
                     {isCapturing
                       ? 'Listening...'
                       : captureStarting
@@ -445,19 +454,19 @@ export default function LiveTranslatePage() {
               </div>
 
               <button
-                type="button"
-                onClick={isCapturing ? () => stopListening() : startListening}
-                disabled={status !== 'connected' || captureStarting}
-                className={`mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md px-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:bg-zinc-200 disabled:text-zinc-400 ${
+                className={`mt-4 inline-flex h-10 w-full items-center justify-center gap-2 rounded-md px-3 font-semibold text-sm transition disabled:cursor-not-allowed disabled:bg-zinc-200 disabled:text-zinc-400 ${
                   isCapturing
                     ? 'border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50'
                     : 'bg-zinc-950 text-white hover:bg-zinc-800'
                 }`}
+                disabled={status !== 'connected' || captureStarting}
+                onClick={isCapturing ? () => stopListening() : startListening}
+                type="button"
               >
                 {isCapturing ? (
-                  <Pause size={15} aria-hidden />
+                  <Pause aria-hidden size={15} />
                 ) : (
-                  <Mic size={15} aria-hidden />
+                  <Mic aria-hidden size={15} />
                 )}
                 {isCapturing ? 'Stop listening' : 'Start listening'}
               </button>
@@ -465,39 +474,39 @@ export default function LiveTranslatePage() {
 
             <div className="mt-4 grid grid-cols-2 gap-3">
               <button
-                type="button"
-                onClick={stopPlayback}
+                className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-zinc-300 bg-white px-3 font-semibold text-sm text-zinc-700 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:bg-zinc-50 disabled:text-zinc-400"
                 disabled={!isPlaying}
-                className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-zinc-300 bg-white px-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:bg-zinc-50 disabled:text-zinc-400"
+                onClick={stopPlayback}
+                type="button"
               >
-                <Pause size={15} aria-hidden />
+                <Pause aria-hidden size={15} />
                 Stop audio
               </button>
               <button
-                type="button"
+                className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-zinc-300 bg-white px-3 font-semibold text-sm text-zinc-700 transition hover:bg-zinc-50"
                 onClick={() => {
                   shouldFollowEventsRef.current = true;
                   setShowEvents(value => !value);
                 }}
-                className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-zinc-300 bg-white px-3 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50"
+                type="button"
               >
-                <Activity size={15} aria-hidden />
+                <Activity aria-hidden size={15} />
                 {showEvents ? 'Hide events' : 'Show events'}
               </button>
             </div>
           </div>
 
-          <div className="mt-1 text-[13px] font-medium">
+          <div className="mt-1 font-medium text-[13px]">
             <span className={statusColor[status]}>{resultStatus}</span>
           </div>
 
           {error != null && (
-            <div className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-[13px] leading-5 text-rose-800">
+            <div className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-[13px] text-rose-800 leading-5">
               {error}
             </div>
           )}
 
-          <div className="rounded-md bg-zinc-100 px-4 py-3 font-mono text-[13px] leading-6 text-zinc-700">
+          <div className="rounded-md bg-zinc-100 px-4 py-3 font-mono text-[13px] text-zinc-700 leading-6">
             {outputText}
           </div>
 
@@ -518,7 +527,7 @@ export default function LiveTranslatePage() {
 
           {showEvents && (
             <div
-              ref={eventsContainerRef}
+              className="max-h-64 overflow-y-auto rounded-md border border-zinc-200 bg-zinc-50 p-3 text-xs text-zinc-600"
               onScroll={event => {
                 const container = event.currentTarget;
                 shouldFollowEventsRef.current =
@@ -527,7 +536,7 @@ export default function LiveTranslatePage() {
                     container.clientHeight <
                   24;
               }}
-              className="max-h-64 overflow-y-auto rounded-md border border-zinc-200 bg-zinc-50 p-3 text-xs text-zinc-600"
+              ref={eventsContainerRef}
             >
               <div className="mb-2 font-semibold text-zinc-800">
                 Events ({visibleEvents.length})
@@ -539,13 +548,13 @@ export default function LiveTranslatePage() {
               ) : (
                 visibleEvents.map((event, index) => (
                   <details
+                    className="border-zinc-200 border-t py-2 first:border-t-0"
                     key={`${event.type}-${index}`}
-                    className="border-t border-zinc-200 py-2 first:border-t-0"
                   >
                     <summary className="cursor-pointer font-mono text-zinc-700">
                       {event.type}
                     </summary>
-                    <pre className="mt-2 max-h-44 overflow-auto rounded-md bg-white p-2 font-mono text-[11px] leading-5 text-zinc-600">
+                    <pre className="mt-2 max-h-44 overflow-auto rounded-md bg-white p-2 font-mono text-[11px] text-zinc-600 leading-5">
                       {JSON.stringify(event, null, 2)}
                     </pre>
                   </details>

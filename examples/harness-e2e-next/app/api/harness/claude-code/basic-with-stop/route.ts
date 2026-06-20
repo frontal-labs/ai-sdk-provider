@@ -1,14 +1,14 @@
-import { claudeCodeHarnessAgent } from '@/agent/harness/claude-code/basic-agent';
-import {
-  resumeOrCreateSession,
-  stopAndPersist,
-} from '@/util/harness-resume-store';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
   toUIMessageStream,
   type UIMessage,
 } from 'ai';
+import { claudeCodeHarnessAgent } from '@/agent/harness/claude-code/basic-agent';
+import {
+  resumeOrCreateSession,
+  stopAndPersist,
+} from '@/util/harness-resume-store';
 
 export async function POST(request: Request) {
   const body: {

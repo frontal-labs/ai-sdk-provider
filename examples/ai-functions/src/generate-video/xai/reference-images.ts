@@ -1,4 +1,4 @@
-import { xai, type XaiVideoModelOptions } from '@ai-sdk/xai';
+import { type XaiVideoModelOptions, xai } from '@ai-sdk/xai';
 import { experimental_generateVideo as generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
@@ -27,7 +27,7 @@ run(async () => {
               'https://raw.githubusercontent.com/vercel/ai/refs/heads/main/examples/ai-functions/data/comic-cat.png',
               'https://raw.githubusercontent.com/vercel/ai/refs/heads/main/examples/ai-functions/data/comic-dog.png',
             ],
-            pollTimeoutMs: 600000, // 10 minutes
+            pollTimeoutMs: 600_000, // 10 minutes
           } satisfies XaiVideoModelOptions,
         },
       }),

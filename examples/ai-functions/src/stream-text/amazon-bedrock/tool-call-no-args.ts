@@ -1,8 +1,8 @@
 import { amazonBedrock } from '@ai-sdk/amazon-bedrock';
 import { streamText, tool } from 'ai';
 import { z } from 'zod';
-import { run } from '../../lib/run';
 import { printFullStream } from '../../lib/print-full-stream';
+import { run } from '../../lib/run';
 
 run(async () => {
   const result = streamText({

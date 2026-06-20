@@ -7,9 +7,9 @@ export default function Page() {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-col p-2 gap-2">
+      <div className="flex flex-col gap-2 p-2">
         {messages.map((message, index) => (
-          <div key={`${message.role}-${index}`} className="flex flex-row gap-2">
+          <div className="flex flex-row gap-2" key={`${message.role}-${index}`}>
             <div className="w-24 text-zinc-500">{`${message.role}: `}</div>
             <div className="w-full">
               {typeof message.content === 'string'
@@ -17,7 +17,7 @@ export default function Page() {
                 : message.content
                     .filter(part => part.type === 'text')
                     .map((part, partIndex) => (
-                      // @ts-ignore
+                      // @ts-expect-error
                       <div key={partIndex}>{part.text}</div>
                     ))}
             </div>
@@ -25,14 +25,12 @@ export default function Page() {
         ))}
       </div>
 
-      <div className="fixed bottom-0 p-2 w-full">
+      <div className="fixed bottom-0 w-full p-2">
         <input
-          value={input}
-          placeholder="Send message..."
+          className="w-full bg-zinc-100 p-2"
           onChange={event => {
             setInput(event.target.value);
           }}
-          className="bg-zinc-100 w-full p-2"
           onKeyDown={async event => {
             if (event.key === 'Enter') {
               setInput('');
@@ -57,6 +55,8 @@ export default function Page() {
               ]);
             }
           }}
+          placeholder="Send message..."
+          value={input}
         />
       </div>
     </div>

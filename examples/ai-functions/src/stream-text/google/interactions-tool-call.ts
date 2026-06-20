@@ -1,7 +1,7 @@
 import { google } from '@ai-sdk/google';
-import { streamText, isStepCount } from 'ai';
-import { weatherTool } from '../../tools/weather-tool';
+import { isStepCount, streamText } from 'ai';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 run(async () => {
   const result = streamText({

@@ -1,5 +1,5 @@
-import { openai } from '@ai-sdk/openai';
 import { splitMCPAppTools } from '@ai-sdk/mcp';
+import { openai } from '@ai-sdk/openai';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,

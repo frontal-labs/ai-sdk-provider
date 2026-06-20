@@ -1,8 +1,8 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
+import ChatInput from '@/components/chat-input';
 
 export default function Chat() {
   const { error, status, sendMessage, messages, regenerate, stop } = useChat({
@@ -10,13 +10,13 @@ export default function Chat() {
   });
 
   return (
-    <div className="flex flex-col w-full max-w-2xl py-24 mx-auto stretch">
+    <div className="stretch mx-auto flex w-full max-w-2xl flex-col py-24">
       {messages.map(message => (
         <div
+          className="mb-6 flex gap-4 border-gray-100 border-b pb-4 last:border-0"
           key={message.id}
-          className="flex gap-4 pb-4 mb-6 border-b border-gray-100 last:border-0"
         >
-          <div className="font-medium min-w-[50px]">
+          <div className="min-w-[50px] font-medium">
             {message.role === 'user' ? 'User:' : 'AI:'}
           </div>
           <div className="flex-1">
@@ -24,8 +24,8 @@ export default function Chat() {
               if (part.type === 'text') {
                 return (
                   <pre
+                    className="max-w-full overflow-x-auto whitespace-pre-wrap break-words"
                     key={index}
-                    className="max-w-full overflow-x-auto break-words whitespace-pre-wrap"
                   >
                     {part.text}
                   </pre>
@@ -35,8 +35,8 @@ export default function Chat() {
               if (part.type === 'reasoning') {
                 return (
                   <pre
+                    className="mb-4 max-w-full overflow-x-auto whitespace-pre-wrap break-words text-gray-500 italic"
                     key={index}
-                    className="max-w-full mb-4 overflow-x-auto italic text-gray-500 break-words whitespace-pre-wrap"
                   >
                     {part.text}
                   </pre>
@@ -51,9 +51,9 @@ export default function Chat() {
         <div className="mt-4 text-gray-500">
           {status === 'submitted' && <div>Loading...</div>}
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={stop}
+            type="button"
           >
             Stop
           </button>
@@ -64,16 +64,16 @@ export default function Chat() {
         <div className="mt-4">
           <div className="text-red-500">An error occurred.</div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={() => regenerate()}
+            type="button"
           >
             Retry
           </button>
         </div>
       )}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

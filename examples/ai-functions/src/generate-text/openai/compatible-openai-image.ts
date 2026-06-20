@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { generateText } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 run(async () => {

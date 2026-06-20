@@ -1,6 +1,6 @@
 import './globals.css';
-import { Sidebar } from '../components/sidebar';
 import { MobileNav } from '../components/mobile-nav';
+import { Sidebar } from '../components/sidebar';
 
 export const metadata = {
   title: 'AI SDK + LangChain Examples',
@@ -16,13 +16,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className="flex flex-col lg:flex-row h-screen overflow-hidden"
+        className="flex h-screen flex-col overflow-hidden lg:flex-row"
         suppressHydrationWarning
       >
         <Sidebar />
-        <div className="flex-1 flex flex-col overflow-hidden bg-[var(--background)] relative">
+        <div className="relative flex flex-1 flex-col overflow-hidden bg-[var(--background)]">
           <MobileNav />
-          <main className="flex-1 flex flex-col overflow-hidden border border-[var(--border-hover)] m-2 lg:m-3 rounded-xl bg-[var(--background-secondary)]">
+          <main className="m-2 flex flex-1 flex-col overflow-hidden rounded-xl border border-[var(--border-hover)] bg-[var(--background-secondary)] lg:m-3">
             {children}
           </main>
         </div>

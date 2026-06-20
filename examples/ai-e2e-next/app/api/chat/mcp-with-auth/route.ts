@@ -1,20 +1,20 @@
-import { openai } from '@ai-sdk/openai';
+import { createServer } from 'node:http';
 import {
-  convertToModelMessages,
-  isStepCount,
-  streamText,
-  createUIMessageStream,
-  createUIMessageStreamResponse,
-  toUIMessageStream,
-} from 'ai';
-import {
-  createMCPClient,
   auth,
+  createMCPClient,
   type OAuthClientInformation,
   type OAuthClientMetadata,
   type OAuthTokens,
 } from '@ai-sdk/mcp';
-import { createServer } from 'node:http';
+import { openai } from '@ai-sdk/openai';
+import {
+  convertToModelMessages,
+  createUIMessageStream,
+  createUIMessageStreamResponse,
+  isStepCount,
+  streamText,
+  toUIMessageStream,
+} from 'ai';
 
 type AuthGlobalState = {
   pendingAuthorizationUrl: string | null;
@@ -80,7 +80,9 @@ class InMemoryOAuthClientProvider {
 
   async codeVerifier(): Promise<string> {
     const verifier = this.getState().codeVerifier;
-    if (!verifier) throw new Error('No code verifier saved');
+    if (!verifier) {
+      throw new Error('No code verifier saved');
+    }
     return verifier;
   }
 
@@ -142,7 +144,9 @@ class InMemoryOAuthClientProvider {
 
     if (chosen === 'client_secret_post') {
       params.set('client_id', clientId);
-      if (clientSecret) params.set('client_secret', clientSecret);
+      if (clientSecret) {
+        params.set('client_secret', clientSecret);
+      }
       return;
     }
 
@@ -151,10 +155,15 @@ class InMemoryOAuthClientProvider {
 
   async invalidateCredentials(scope: 'all' | 'client' | 'tokens' | 'verifier') {
     const state = this.getState();
-    if (scope === 'all' || scope === 'tokens') state.tokens = undefined;
-    if (scope === 'all' || scope === 'client')
+    if (scope === 'all' || scope === 'tokens') {
+      state.tokens = undefined;
+    }
+    if (scope === 'all' || scope === 'client') {
       state.clientInformation = undefined;
-    if (scope === 'all' || scope === 'verifier') state.codeVerifier = undefined;
+    }
+    if (scope === 'all' || scope === 'verifier') {
+      state.codeVerifier = undefined;
+    }
   }
 }
 

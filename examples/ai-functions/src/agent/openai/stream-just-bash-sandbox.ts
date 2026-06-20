@@ -1,7 +1,7 @@
 import { createJustBashSandbox } from '@ai-sdk/sandbox-just-bash';
+import { printFullStream } from '../../lib/print-full-stream';
 import { run } from '../../lib/run';
 import { sandboxAgent } from './sandbox-agent';
-import { printFullStream } from '../../lib/print-full-stream';
 
 run(async () => {
   const sandboxSession = await createJustBashSandbox({

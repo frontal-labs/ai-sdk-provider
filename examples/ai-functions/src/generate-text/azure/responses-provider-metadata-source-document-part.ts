@@ -1,6 +1,6 @@
 import {
-  azure,
   type AzureResponsesSourceDocumentProviderMetadata,
+  azure,
 } from '@ai-sdk/azure';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
@@ -18,34 +18,34 @@ run(async () => {
   });
 
   for (const part of result.content) {
-    if (part.type === 'source') {
-      if (part.sourceType === 'document') {
-        const providerMetadata = part.providerMetadata as
-          | AzureResponsesSourceDocumentProviderMetadata
-          | undefined;
-        if (!providerMetadata) continue;
-        const annotation = providerMetadata.azure;
-        switch (annotation.type) {
-          case 'file_citation':
-            // file_citation is returned from file_search and provides:
-            // properties: type, fileId and index
-            // The filename can be accessed via part.filename.
-            break;
-          case 'container_file_citation':
-            // container_file_citation is returned from code_interpreter and provides:
-            // properties: type, containerId and fileId
-            // The filename can be accessed via part.filename.
-            break;
-          case 'file_path':
-            // file_path provides:
-            // properties: type, fileId and index
-            break;
-          default: {
-            const _exhaustiveCheck: never = annotation;
-            throw new Error(
-              `Unhandled annotation: ${JSON.stringify(_exhaustiveCheck)}`,
-            );
-          }
+    if (part.type === 'source' && part.sourceType === 'document') {
+      const providerMetadata = part.providerMetadata as
+        | AzureResponsesSourceDocumentProviderMetadata
+        | undefined;
+      if (!providerMetadata) {
+        continue;
+      }
+      const annotation = providerMetadata.azure;
+      switch (annotation.type) {
+        case 'file_citation':
+          // file_citation is returned from file_search and provides:
+          // properties: type, fileId and index
+          // The filename can be accessed via part.filename.
+          break;
+        case 'container_file_citation':
+          // container_file_citation is returned from code_interpreter and provides:
+          // properties: type, containerId and fileId
+          // The filename can be accessed via part.filename.
+          break;
+        case 'file_path':
+          // file_path provides:
+          // properties: type, fileId and index
+          break;
+        default: {
+          const _exhaustiveCheck: never = annotation;
+          throw new Error(
+            `Unhandled annotation: ${JSON.stringify(_exhaustiveCheck)}`,
+          );
         }
       }
     }

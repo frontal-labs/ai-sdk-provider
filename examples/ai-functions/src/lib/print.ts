@@ -1,7 +1,7 @@
 export function print(
   label: string,
   value: unknown,
-  options: { depth?: number } = { depth: Infinity },
+  options: { depth?: number } = { depth: Number.POSITIVE_INFINITY },
 ): void {
   console.log(label);
   console.dir(removeUndefinedEntries(value), { depth: options.depth });

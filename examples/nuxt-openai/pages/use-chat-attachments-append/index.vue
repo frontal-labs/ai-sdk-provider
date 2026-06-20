@@ -27,7 +27,9 @@ const submit = async (e: Event) => {
 };
 
 const filesWithUrl = computed(() => {
-  if (!files.value) return [];
+  if (!files.value) {
+    return [];
+  }
 
   return Array.from(files.value).map(file => ({
     file,

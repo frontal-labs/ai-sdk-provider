@@ -1,8 +1,8 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import {
-  tool,
-  ToolLoopAgent,
   type InferAgentUIMessage,
+  ToolLoopAgent,
+  tool,
   type UIToolInvocation,
 } from 'ai';
 import { z } from 'zod';

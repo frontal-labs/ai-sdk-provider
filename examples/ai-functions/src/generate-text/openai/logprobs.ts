@@ -1,7 +1,7 @@
 import {
-  openai,
   type OpenAILanguageModelChatOptions,
   type OpenaiResponsesProviderMetadata,
+  openai,
 } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
@@ -20,13 +20,17 @@ run(async () => {
   const providerMetadata = result.finalStep.providerMetadata as
     | OpenaiResponsesProviderMetadata
     | undefined;
-  if (!providerMetadata) return;
+  if (!providerMetadata) {
+    return;
+  }
   const {
     openai: { responseId, logprobs, serviceTier },
   } = providerMetadata;
   responseId && console.log(`responseId: ${responseId}`);
   serviceTier && console.log(`serviceTier: ${serviceTier}`);
-  if (!logprobs) return;
+  if (!logprobs) {
+    return;
+  }
   let printed = 0;
   for (const logprob of logprobs) {
     if (logprob != null) {
@@ -38,6 +42,8 @@ run(async () => {
       console.log();
       printed++;
     }
-    if (printed >= 5) break; // Output only the first 5 entries to prevent excessive logging
+    if (printed >= 5) {
+      break; // Output only the first 5 entries to prevent excessive logging
+    }
   }
 });

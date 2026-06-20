@@ -1,24 +1,20 @@
 <script lang="ts">
-  import ArrowUp from '$lib/components/icons/arrow-up.svelte';
-  import { Button } from '$lib/components/ui/button/index.js';
-  import { Textarea } from '$lib/components/ui/textarea/index.js';
-  import { Experimental_StructuredObject } from '@ai-sdk/svelte';
-  import { notificationSchema } from './schema.js';
-  import Trash from '$lib/components/icons/trash.svelte';
+import { Experimental_StructuredObject } from '@ai-sdk/svelte';
+import { notificationSchema } from './schema.js';
 
-  const structuredObject = new Experimental_StructuredObject({
-    api: '/api/structured-object',
-    schema: notificationSchema,
-  });
-  let input = $state('');
-  let userMessage = $state('');
+const structuredObject = new Experimental_StructuredObject({
+  api: '/api/structured-object',
+  schema: notificationSchema,
+});
+let input = $state('');
+let userMessage = $state('');
 
-  function handleSubmit(e: Event) {
-    userMessage = input;
-    e.preventDefault();
-    structuredObject.submit(input);
-    input = '';
-  }
+function handleSubmit(e: Event) {
+  userMessage = input;
+  e.preventDefault();
+  structuredObject.submit(input);
+  input = '';
+}
 </script>
 
 <main class="flex flex-col items-center h-dvh w-dvw">

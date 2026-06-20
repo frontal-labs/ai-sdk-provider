@@ -2,14 +2,14 @@
 
 import {
   isDataUIPart,
-  isTextUIPart,
-  isReasoningUIPart,
   isFileUIPart,
+  isReasoningUIPart,
+  isTextUIPart,
   isToolUIPart,
 } from 'ai';
-import { Reasoning, Text, File, ToolInvocation } from './message-parts';
-import { DataProgress, DataStatus, DataFileStatus } from './data-parts';
 import type { CustomDataMessage } from '../app/types';
+import { DataFileStatus, DataProgress, DataStatus } from './data-parts';
+import { File, Reasoning, Text, ToolInvocation } from './message-parts';
 
 interface ChatMessageProps {
   message: CustomDataMessage;
@@ -22,7 +22,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
     <div className={`flex gap-3 ${isUser ? 'flex-row-reverse' : ''}`}>
       {/* Avatar */}
       <div
-        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full font-medium text-sm ${
           isUser
             ? 'bg-gradient-to-br from-amber-500 to-orange-400 text-white'
             : 'bg-gradient-to-br from-amber-700 to-yellow-600 text-white'
@@ -33,13 +33,13 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
       {/* Message content */}
       <div
-        className={`flex-1 max-w-[85%] ${isUser ? 'flex flex-col items-end' : ''}`}
+        className={`max-w-[85%] flex-1 ${isUser ? 'flex flex-col items-end' : ''}`}
       >
         <div
-          className={`px-4 py-3 rounded-2xl flex flex-col gap-3 ${
+          className={`flex flex-col gap-3 rounded-2xl px-4 py-3 ${
             isUser
-              ? 'bg-[var(--accent)] text-white rounded-tr-md'
-              : 'bg-[var(--background-tertiary)] border border-[var(--border)] rounded-tl-md'
+              ? 'rounded-tr-md bg-[var(--accent)] text-white'
+              : 'rounded-tl-md border border-[var(--border)] bg-[var(--background-tertiary)]'
           }`}
         >
           {message.parts.map((part, i) => {
@@ -48,8 +48,8 @@ export function ChatMessage({ message }: ChatMessageProps) {
               return (
                 <Reasoning
                   key={i}
-                  text={part.text}
                   state={part.state || 'done'}
+                  text={part.text}
                 />
               );
             }
@@ -61,7 +61,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
             // Handle file parts (including generated images)
             if (isFileUIPart(part)) {
-              return <File key={i} url={part.url} mediaType={part.mediaType} />;
+              return <File key={i} mediaType={part.mediaType} url={part.url} />;
             }
 
             // Handle tool parts
@@ -75,10 +75,10 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
               return (
                 <ToolInvocation
-                  key={i}
-                  toolName={toolName}
                   input={input}
+                  key={i}
                   output={output}
+                  toolName={toolName}
                 />
               );
             }
@@ -87,11 +87,11 @@ export function ChatMessage({ message }: ChatMessageProps) {
               if (part.type === 'data-progress') {
                 return (
                   <DataProgress
+                    currentStep={part.data.currentStep}
                     key={i}
-                    step={part.data.step}
                     message={part.data.message}
                     progress={part.data.progress}
-                    currentStep={part.data.currentStep}
+                    step={part.data.step}
                     totalSteps={part.data.totalSteps}
                   />
                 );
@@ -101,8 +101,8 @@ export function ChatMessage({ message }: ChatMessageProps) {
                 return (
                   <DataStatus
                     key={i}
-                    status={part.data.status}
                     message={part.data.message}
+                    status={part.data.status}
                   />
                 );
               }
@@ -110,11 +110,11 @@ export function ChatMessage({ message }: ChatMessageProps) {
               if (part.type === 'data-file-status') {
                 return (
                   <DataFileStatus
-                    key={i}
                     filename={part.data.filename}
+                    key={i}
                     operation={part.data.operation}
-                    status={part.data.status}
                     size={part.data.size}
+                    status={part.data.status}
                   />
                 );
               }

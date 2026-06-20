@@ -14,9 +14,7 @@ run(async () => {
       getExams: tool({
         description: 'Get list of available exams',
         inputSchema: z.object({}),
-        execute: async () => {
-          return { exams: ['Math', 'Science'] };
-        },
+        execute: async () => ({ exams: ['Math', 'Science'] }),
       }),
     },
     stopWhen: isStepCount(5),

@@ -2,8 +2,8 @@ import { openai } from '@ai-sdk/openai';
 import { Controller, Post, Res } from '@nestjs/common';
 import {
   createUIMessageStream,
-  streamText,
   pipeUIMessageStreamToResponse,
+  streamText,
   toUIMessageStream,
 } from 'ai';
 import type { Response } from 'express';

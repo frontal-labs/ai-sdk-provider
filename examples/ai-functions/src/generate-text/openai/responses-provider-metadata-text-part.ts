@@ -1,6 +1,6 @@
 import {
-  openai,
   type OpenaiResponsesTextProviderMetadata,
+  openai,
 } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
@@ -22,10 +22,14 @@ run(async () => {
       const providerMetadata = part.providerMetadata as
         | OpenaiResponsesTextProviderMetadata
         | undefined;
-      if (!providerMetadata) continue;
+      if (!providerMetadata) {
+        continue;
+      }
       const { itemId: _itemId, annotations } = providerMetadata.openai;
 
-      if (!annotations) continue;
+      if (!annotations) {
+        continue;
+      }
       for (const annotation of annotations) {
         switch (annotation.type) {
           case 'url_citation':

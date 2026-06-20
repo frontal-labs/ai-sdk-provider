@@ -1,4 +1,4 @@
-import { google, type GoogleProviderMetadata } from '@ai-sdk/google';
+import { type GoogleProviderMetadata, google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
 

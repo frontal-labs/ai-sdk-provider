@@ -1,7 +1,7 @@
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import { readFileSync } from 'fs';
-import { join, dirname } from 'path';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { run } from '../../lib/run';
 
@@ -244,7 +244,7 @@ run(async () => {
     providerOptions: {
       openai: {
         store: false,
-        contextManagement: [{ type: 'compaction', compactThreshold: 50000 }],
+        contextManagement: [{ type: 'compaction', compactThreshold: 50_000 }],
       },
     },
     onError: error => {

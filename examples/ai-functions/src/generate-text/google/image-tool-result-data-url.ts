@@ -1,17 +1,20 @@
-import { google } from '@ai-sdk/google';
-import { generateText, isStepCount, tool } from 'ai';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { run } from '../../lib/run';
+import { google } from '@ai-sdk/google';
+import { generateText, isStepCount, tool } from 'ai';
 import { z } from 'zod';
+import { run } from '../../lib/run';
 
 run(async () => {
   const readImage = tool({
-    description: `Read and return an image`,
+    description: 'Read and return an image',
     inputSchema: z.object({}),
     execute: async () => {
       try {
-        const imagePath = path.join(__dirname, '../../../data/comic-cat.png');
+        const imagePath = path.join(
+          import.meta.dirname,
+          '../../../data/comic-cat.png',
+        );
         const imageData = await fs.readFile(imagePath);
         const base64Data = imageData.toString('base64');
 

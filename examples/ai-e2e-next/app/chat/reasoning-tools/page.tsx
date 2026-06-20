@@ -1,9 +1,9 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import type { ReasoningToolsMessage } from '@/app/api/chat/reasoning-tools/route';
+import ChatInput from '@/components/chat-input';
 
 export default function Chat() {
   const { messages, sendMessage, addToolOutput, status } =
@@ -16,16 +16,16 @@ export default function Chat() {
   console.log(structuredClone(messages));
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
       {messages?.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={message.id}>
           <strong>{`${message.role}: `}</strong>
           {message.parts.map((part, index) => {
             if (part.type === 'text') {
               return (
                 <pre
+                  className="max-w-full overflow-x-auto whitespace-pre-wrap break-words"
                   key={index}
-                  className="overflow-x-auto max-w-full whitespace-pre-wrap break-words"
                 >
                   {part.text}
                 </pre>
@@ -35,8 +35,8 @@ export default function Chat() {
             if (part.type === 'reasoning') {
               return (
                 <pre
+                  className="mb-4 max-w-full overflow-x-auto whitespace-pre-wrap break-words text-gray-500 italic"
                   key={index}
-                  className="overflow-x-auto mb-4 max-w-full italic text-gray-500 whitespace-pre-wrap break-words"
                 >
                   {part.text}
                 </pre>
@@ -54,13 +54,13 @@ export default function Chat() {
                   );
                 case 'input-available':
                   return (
-                    <div key={part.toolCallId} className="text-gray-500">
+                    <div className="text-gray-500" key={part.toolCallId}>
                       Searching the web...
                     </div>
                   );
                 case 'output-available':
                   return (
-                    <div key={part.toolCallId} className="text-gray-500">
+                    <div className="text-gray-500" key={part.toolCallId}>
                       Finished searching the web.
                     </div>
                   );
@@ -70,7 +70,7 @@ export default function Chat() {
         </div>
       ))}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

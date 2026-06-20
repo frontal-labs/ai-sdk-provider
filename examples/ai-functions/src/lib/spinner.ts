@@ -15,7 +15,9 @@ export class Spinner {
   }
 
   start(): this {
-    if (this.interval) return this;
+    if (this.interval) {
+      return this;
+    }
     this.startTime = performance.now();
 
     // Hide cursor
@@ -54,11 +56,17 @@ export class Spinner {
   }
 
   private formatDuration(): string {
-    if (this.startTime === null) return '';
+    if (this.startTime === null) {
+      return '';
+    }
     const ms = performance.now() - this.startTime;
-    if (ms < 1000) return ` (${Math.round(ms)}ms)`;
+    if (ms < 1000) {
+      return ` (${Math.round(ms)}ms)`;
+    }
     const seconds = ms / 1000;
-    if (seconds < 60) return ` (${seconds.toFixed(1)}s)`;
+    if (seconds < 60) {
+      return ` (${seconds.toFixed(1)}s)`;
+    }
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return ` (${minutes}m ${remainingSeconds.toFixed(1)}s)`;

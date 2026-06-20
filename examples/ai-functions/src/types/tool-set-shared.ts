@@ -1,4 +1,4 @@
-import { tool, type InferUITools, type Tool, type UIMessage } from 'ai';
+import { type InferUITools, type Tool, tool, type UIMessage } from 'ai';
 import { z } from 'zod';
 
 type WeatherTool = Tool<
@@ -22,10 +22,8 @@ export type MyUIMessage = UIMessage<never, never, MyUITools>;
 const myUIMessage: MyUIMessage = undefined!;
 
 myUIMessage.parts.forEach(part => {
-  if (part.type === 'tool-weather') {
-    if (part.state === 'input-available') {
-      part.input.location;
-    }
+  if (part.type === 'tool-weather' && part.state === 'input-available') {
+    part.input.location;
   }
 });
 

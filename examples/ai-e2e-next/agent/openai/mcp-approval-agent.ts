@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
 export const openaiMCPApprovalAgent = new ToolLoopAgent({
   model: openai.responses('gpt-5'),
   instructions:

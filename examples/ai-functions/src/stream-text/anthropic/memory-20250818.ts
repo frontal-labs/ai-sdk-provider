@@ -1,7 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic';
-import { streamText, isStepCount } from 'ai';
-import { run } from '../../lib/run';
+import { isStepCount, streamText } from 'ai';
 import { anthropicLocalFsMemoryTool } from '../../lib/anthropic-local-fs-memory-tool';
+import { run } from '../../lib/run';
 
 run(async () => {
   const result = streamText({

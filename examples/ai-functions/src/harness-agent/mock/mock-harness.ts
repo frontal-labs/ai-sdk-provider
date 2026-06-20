@@ -4,11 +4,11 @@ import type {
   HarnessAgentStreamPart,
 } from '@ai-sdk/harness/agent';
 import {
-  isLoopFinished,
-  streamText,
   type AssistantModelMessage,
+  isLoopFinished,
   type LanguageModel,
   type ModelMessage,
+  streamText,
   type TextStreamPart,
   type ToolModelMessage,
   type ToolSet,
@@ -64,7 +64,9 @@ export function mockHarness(options: {
             try {
               for await (const part of result.fullStream) {
                 const event = translateBackward(part);
-                if (event != null) promptOpts.emit(event);
+                if (event != null) {
+                  promptOpts.emit(event);
+                }
               }
               const responseMessages = await result.responseMessages;
               history.push(

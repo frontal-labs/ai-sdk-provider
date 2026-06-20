@@ -11,10 +11,10 @@ export default function Chat() {
   });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
       {messages.length > 0
         ? messages.map(m => (
-            <div key={m.id} className="whitespace-pre-wrap">
+            <div className="whitespace-pre-wrap" key={m.id}>
               {m.role === 'user' ? 'User: ' : 'AI: '}
               {m.parts
                 .map(part => (part.type === 'text' ? part.text : ''))
@@ -31,10 +31,10 @@ export default function Chat() {
         }}
       >
         <input
-          className="fixed bottom-0 p-2 mb-8 w-full max-w-md rounded border border-gray-300 shadow-xl"
-          value={input}
-          placeholder="Say something..."
+          className="fixed bottom-0 mb-8 w-full max-w-md rounded border border-gray-300 p-2 shadow-xl"
           onChange={e => setInput(e.target.value)}
+          placeholder="Say something..."
+          value={input}
         />
       </form>
     </div>

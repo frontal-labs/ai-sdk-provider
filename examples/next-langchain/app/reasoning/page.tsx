@@ -18,7 +18,6 @@ export default function ReasoningChat() {
 
   return (
     <ChatContainer
-      title="Reasoning Example"
       description={
         <>
           Uses <code>ChatOpenAI</code> with OpenAI Responses API and reasoning
@@ -27,16 +26,17 @@ export default function ReasoningChat() {
           support for reasoning content.
         </>
       }
+      error={error}
       messages={messages}
       onSend={text => sendMessage({ text })}
-      status={status}
-      error={error}
       placeholder="Ask a question that requires reasoning..."
+      status={status}
       suggestions={[
         'How many rs are in strawberry?',
         'What is 15% of 80?',
         'If I have 3 apples and give away half, how many do I have?',
       ]}
+      title="Reasoning Example"
     />
   );
 }

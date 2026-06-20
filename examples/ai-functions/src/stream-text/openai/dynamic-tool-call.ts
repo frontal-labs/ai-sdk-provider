@@ -1,8 +1,8 @@
 import { openai } from '@ai-sdk/openai';
-import { weatherTool } from '../../tools/weather-tool';
-import { isStepCount, streamText, dynamicTool, type ToolSet } from 'ai';
+import { dynamicTool, isStepCount, streamText, type ToolSet } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 function dynamicTools(): ToolSet {
   return {

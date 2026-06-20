@@ -1,8 +1,8 @@
 import { HarnessAgent } from '@ai-sdk/harness/agent';
 import { createPi } from '@ai-sdk/harness-pi';
+import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';
 import { printFullStream } from '../../lib/print-full-stream';
 import { run } from '../../lib/run';
-import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';
 
 run(async () => {
   const sandbox = createVercelSandbox({

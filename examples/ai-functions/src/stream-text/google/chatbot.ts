@@ -1,6 +1,6 @@
-import { google } from '@ai-sdk/google';
-import { isStepCount, streamText, tool, type ModelMessage } from 'ai';
 import * as readline from 'node:readline/promises';
+import { google } from '@ai-sdk/google';
+import { isStepCount, type ModelMessage, streamText, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
@@ -44,7 +44,7 @@ run(async () => {
           }),
           execute: async ({ value, operation }) => {
             const numValue =
-              typeof value === 'string' ? parseFloat(value) : value;
+              typeof value === 'string' ? Number.parseFloat(value) : value;
             const multiplier = operation === 'double' ? 2 : 3;
             return {
               input: value,

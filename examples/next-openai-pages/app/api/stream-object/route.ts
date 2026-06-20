@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       }),
     }),
     prompt:
-      `Generate 3 notifications for a messages app in this context:` + context,
+      'Generate 3 notifications for a messages app in this context:' + context,
   });
 
   return createTextStreamResponse({

@@ -43,8 +43,8 @@ run(async () => {
     },
     prompt: 'What are the tourist attractions in San Francisco?',
 
-    experimental_repairToolCall: async ({ toolCall }) => {
-      return toolCall.toolName === 'attractions'
+    experimental_repairToolCall: async ({ toolCall }) =>
+      toolCall.toolName === 'attractions'
         ? {
             type: 'tool-call' as const,
             toolCallType: 'function' as const,
@@ -52,8 +52,7 @@ run(async () => {
             toolName: 'cityAttractions',
             input: toolCall.input,
           }
-        : null;
-    },
+        : null,
   });
 
   for await (const part of result.stream) {

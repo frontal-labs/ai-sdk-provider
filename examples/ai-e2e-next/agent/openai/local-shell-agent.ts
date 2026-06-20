@@ -1,6 +1,7 @@
 import { openai } from '@ai-sdk/openai';
 import { Sandbox } from '@vercel/sandbox';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
+
 // warning: this is a demo sandbox that is shared across chats on localhost
 let globalSandboxName: string | null = null;
 async function getSandbox(): Promise<Sandbox> {

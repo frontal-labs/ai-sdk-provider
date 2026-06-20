@@ -1,5 +1,5 @@
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { generateText, tool, isStepCount, type ModelMessage } from 'ai';
+import { generateText, isStepCount, type ModelMessage, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
@@ -20,25 +20,21 @@ run(async () => {
       inputSchema: z.object({
         flight: z.string().describe('The flight number to check'),
       }),
-      execute: async ({ flight }) => {
-        return {
-          flight,
-          status: 'delayed',
-          departure_time: '12 PM',
-        };
-      },
+      execute: async ({ flight }) => ({
+        flight,
+        status: 'delayed',
+        departure_time: '12 PM',
+      }),
     }),
     book_taxi: tool({
       description: 'Book a taxi for a specific time',
       inputSchema: z.object({
         time: z.string().describe('Time to book the taxi'),
       }),
-      execute: async ({ time }) => {
-        return {
-          booking_status: 'success',
-          pickup_time: time,
-        };
-      },
+      execute: async ({ time }) => ({
+        booking_status: 'success',
+        pickup_time: time,
+      }),
     }),
   };
 

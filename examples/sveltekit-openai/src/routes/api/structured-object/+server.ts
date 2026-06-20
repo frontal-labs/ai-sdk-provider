@@ -1,7 +1,7 @@
-import { Output, createTextStreamResponse, streamText, toTextStream } from 'ai';
-import { notificationSchema } from '../../structured-object/schema.js';
 import { createOpenAI } from '@ai-sdk/openai';
+import { createTextStreamResponse, Output, streamText, toTextStream } from 'ai';
 import { env } from '$env/dynamic/private';
+import { notificationSchema } from '../../structured-object/schema.js';
 
 const openai = createOpenAI({
   apiKey: env?.OPENAI_API_KEY,
@@ -14,7 +14,7 @@ export async function POST({ request }: { request: Request }) {
     model: openai('gpt-4o'),
     output: Output.object({ schema: notificationSchema }),
     prompt:
-      `Generate 3 notifications for a messages app in this context:` + context,
+      'Generate 3 notifications for a messages app in this context:' + context,
     onError: error => {
       console.error(error);
     },

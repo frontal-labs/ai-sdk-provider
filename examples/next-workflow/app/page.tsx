@@ -4,7 +4,7 @@ import { useChat } from '@ai-sdk/react';
 import { WorkflowChatTransport } from '@ai-sdk/workflow';
 import { lastAssistantMessageIsCompleteWithApprovalResponses } from 'ai';
 import Link from 'next/link';
-import { useRef, useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 export default function Chat() {
   const transport = useMemo(
@@ -28,25 +28,25 @@ export default function Chat() {
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-screen max-w-2xl mx-auto">
-      <header className="p-4 border-b">
-        <h1 className="text-lg font-semibold">WorkflowAgent Chat</h1>
-        <p className="text-sm text-gray-500">
+    <div className="mx-auto flex h-screen max-w-2xl flex-col">
+      <header className="border-b p-4">
+        <h1 className="font-semibold text-lg">WorkflowAgent Chat</h1>
+        <p className="text-gray-500 text-sm">
           A workflow AI agent with weather, calculator, and file tools
         </p>
         <Link
+          className="mt-2 inline-block text-blue-600 text-sm hover:underline"
           href="/telemetry"
-          className="mt-2 inline-block text-sm text-blue-600 hover:underline"
         >
           Open telemetry e2e harness
         </Link>
       </header>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 space-y-4 overflow-y-auto p-4">
         {messages.map(message => (
           <div
-            key={message.id}
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            key={message.id}
           >
             <div
               className={`max-w-[80%] rounded-lg px-4 py-2 ${
@@ -59,7 +59,7 @@ export default function Chat() {
                 const p = part as any;
                 if (part.type === 'text') {
                   return (
-                    <div key={index} className="whitespace-pre-wrap">
+                    <div className="whitespace-pre-wrap" key={index}>
                       {part.text}
                     </div>
                   );
@@ -70,10 +70,10 @@ export default function Chat() {
                   if (p.state === 'approval-requested' && p.approval?.id) {
                     return (
                       <div
+                        className="my-2 rounded border border-amber-200 bg-amber-50 p-3"
                         key={index}
-                        className="my-2 p-3 bg-amber-50 rounded border border-amber-200"
                       >
-                        <div className="flex items-center gap-2 mb-2">
+                        <div className="mb-2 flex items-center gap-2">
                           <span className="text-amber-600 text-lg">
                             &#9888;
                           </span>
@@ -81,28 +81,29 @@ export default function Chat() {
                             Approval Required
                           </span>
                         </div>
-                        <p className="text-sm text-gray-700 mb-1">
+                        <p className="mb-1 text-gray-700 text-sm">
                           The assistant wants to use{' '}
-                          <code className="bg-amber-100 px-1 rounded font-semibold">
+                          <code className="rounded bg-amber-100 px-1 font-semibold">
                             {toolName}
                           </code>
                         </p>
-                        <pre className="text-xs bg-white rounded p-2 mb-3 border overflow-x-auto">
+                        <pre className="mb-3 overflow-x-auto rounded border bg-white p-2 text-xs">
                           {JSON.stringify(p.input, null, 2)}
                         </pre>
                         <div className="flex gap-2">
                           <button
+                            className="rounded-lg bg-green-500 px-4 py-1.5 text-sm text-white transition-colors hover:bg-green-600"
                             onClick={() =>
                               addToolApprovalResponse({
                                 id: p.approval.id,
                                 approved: true,
                               })
                             }
-                            className="rounded-lg bg-green-500 px-4 py-1.5 text-sm text-white hover:bg-green-600 transition-colors"
                           >
                             Approve
                           </button>
                           <button
+                            className="rounded-lg bg-red-500 px-4 py-1.5 text-sm text-white transition-colors hover:bg-red-600"
                             onClick={() =>
                               addToolApprovalResponse({
                                 id: p.approval.id,
@@ -110,7 +111,6 @@ export default function Chat() {
                                 reason: 'User denied the operation.',
                               })
                             }
-                            className="rounded-lg bg-red-500 px-4 py-1.5 text-sm text-white hover:bg-red-600 transition-colors"
                           >
                             Deny
                           </button>
@@ -122,12 +122,12 @@ export default function Chat() {
                   if (p.state === 'approval-responded') {
                     return (
                       <div
-                        key={index}
-                        className={`my-2 p-2 rounded text-sm border ${
+                        className={`my-2 rounded border p-2 text-sm ${
                           p.approval?.approved
-                            ? 'bg-green-50 border-green-200 text-green-800'
-                            : 'bg-red-50 border-red-200 text-red-800'
+                            ? 'border-green-200 bg-green-50 text-green-800'
+                            : 'border-red-200 bg-red-50 text-red-800'
                         }`}
+                        key={index}
                       >
                         <code>{toolName}</code>{' '}
                         {p.approval?.approved
@@ -139,14 +139,14 @@ export default function Chat() {
 
                   return (
                     <div
+                      className="my-2 rounded border bg-white/50 p-2 text-sm"
                       key={index}
-                      className="my-2 p-2 bg-white/50 rounded text-sm border"
                     >
-                      <div className="font-mono text-xs text-gray-500">
+                      <div className="font-mono text-gray-500 text-xs">
                         {toolName}
                       </div>
                       {p.state === 'output-available' && (
-                        <pre className="mt-1 text-xs overflow-x-auto">
+                        <pre className="mt-1 overflow-x-auto text-xs">
                           {JSON.stringify(p.output, null, 2)}
                         </pre>
                       )}
@@ -162,7 +162,7 @@ export default function Chat() {
       </div>
 
       <form
-        className="p-4 border-t flex gap-2"
+        className="flex gap-2 border-t p-4"
         onSubmit={e => {
           e.preventDefault();
           const input = e.currentTarget.elements.namedItem(
@@ -175,16 +175,16 @@ export default function Chat() {
         }}
       >
         <input
-          name="message"
-          type="text"
-          placeholder="Ask about weather, math, or file operations..."
           className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           disabled={status === 'streaming' || status === 'submitted'}
+          name="message"
+          placeholder="Ask about weather, math, or file operations..."
+          type="text"
         />
         <button
-          type="submit"
           className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:opacity-50"
           disabled={status === 'streaming' || status === 'submitted'}
+          type="submit"
         >
           Send
         </button>

@@ -1,10 +1,10 @@
 import 'dotenv/config';
-import { expect } from 'vitest';
 import {
-  fireworks as provider,
   type FireworksErrorData,
+  fireworks as provider,
 } from '@ai-sdk/fireworks';
 import type { APICallError } from '@ai-sdk/provider';
+import { expect } from 'vitest';
 import {
   createEmbeddingModelWithCapabilities,
   createFeatureTestSuite,
@@ -45,7 +45,7 @@ createFeatureTestSuite({
       ),
     ],
   },
-  timeout: 10000,
+  timeout: 10_000,
   customAssertions: {
     errorValidator: (error: APICallError) => {
       expect((error.data as FireworksErrorData).error).toBe(

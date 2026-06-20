@@ -1,5 +1,5 @@
 import { bedrockAnthropic } from '@ai-sdk/amazon-bedrock/anthropic';
-import { Output, isStepCount, streamText, tool } from 'ai';
+import { isStepCount, Output, streamText, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
@@ -41,7 +41,7 @@ run(async () => {
         console.log(`\n--- Tool Call: ${part.toolName} ---`);
         break;
       case 'tool-result':
-        console.log(`--- Tool Result ---`);
+        console.log('--- Tool Result ---');
         console.log(JSON.stringify(part.output, null, 2));
         break;
     }

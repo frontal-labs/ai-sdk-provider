@@ -1,13 +1,10 @@
 import { isAbsolute, join } from 'node:path';
 import {
-  extractLines,
   type Experimental_SandboxProcess,
+  extractLines,
 } from '@ai-sdk/provider-utils';
-import { type Experimental_SandboxSession as SandboxSession } from 'ai';
-import {
-  type SandboxCommand,
-  type Sandbox as JustBashSandboxSDK,
-} from 'just-bash';
+import type { Experimental_SandboxSession as SandboxSession } from 'ai';
+import type { Sandbox as JustBashSandboxSDK, SandboxCommand } from 'just-bash';
 import {
   bytesToStream,
   collectStream,
@@ -67,9 +64,9 @@ export class JustBashSandboxSession implements SandboxSession {
       cmd: 'bash',
       args: ['-c', command],
       detached: true,
-      ...(workingDirectory !== undefined ? { cwd: workingDirectory } : {}),
-      ...(env !== undefined ? { env } : {}),
-      ...(abortSignal !== undefined ? { signal: abortSignal } : {}),
+      ...(workingDirectory === undefined ? {} : { cwd: workingDirectory }),
+      ...(env === undefined ? {} : { env }),
+      ...(abortSignal === undefined ? {} : { signal: abortSignal }),
     });
 
     return createSandboxProcess(live, abortSignal);
@@ -125,7 +122,9 @@ export class JustBashSandboxSession implements SandboxSession {
     abortSignal?: AbortSignal;
   }): Promise<Uint8Array | null> {
     const stream = await this.readFile({ path, abortSignal });
-    if (stream == null) return null;
+    if (stream == null) {
+      return null;
+    }
     return collectStream(stream);
   }
 
@@ -159,7 +158,9 @@ export class JustBashSandboxSession implements SandboxSession {
     abortSignal?: AbortSignal;
   }): Promise<string | null> {
     const bytes = await this.readBinaryFile({ path, abortSignal });
-    if (bytes == null) return null;
+    if (bytes == null) {
+      return null;
+    }
     const text = Buffer.from(bytes).toString(encoding as BufferEncoding);
     return extractLines({ text, startLine, endLine });
   }

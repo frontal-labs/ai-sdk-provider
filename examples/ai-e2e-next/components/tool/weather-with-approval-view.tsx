@@ -1,5 +1,5 @@
-import type { WeatherUIToolInvocation } from '@/tool/weather-tool';
 import type { ChatAddToolApproveResponseFunction } from 'ai';
+import type { WeatherUIToolInvocation } from '@/tool/weather-tool';
 
 export default function WeatherWithApprovalView({
   invocation,
@@ -19,7 +19,7 @@ export default function WeatherWithApprovalView({
           Can I retrieve the weather for {invocation.input.city}?
           <div>
             <button
-              className="px-4 py-2 mr-2 text-white bg-blue-500 rounded transition-colors hover:bg-blue-600"
+              className="mr-2 rounded bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
               onClick={() =>
                 addToolApprovalResponse({
                   id: invocation.approval.id,
@@ -30,7 +30,7 @@ export default function WeatherWithApprovalView({
               Approve
             </button>
             <button
-              className="px-4 py-2 text-white bg-red-500 rounded transition-colors hover:bg-red-600"
+              className="rounded bg-red-500 px-4 py-2 text-white transition-colors hover:bg-red-600"
               onClick={() =>
                 addToolApprovalResponse({
                   id: invocation.approval.id,
@@ -56,9 +56,9 @@ export default function WeatherWithApprovalView({
               <span className="text-red-600">denied</span>
             )}
             .
-            {invocation.approval.reason != null
-              ? ` Reason: ${invocation.approval.reason}`
-              : ''}
+            {invocation.approval.reason == null
+              ? ''
+              : ` Reason: ${invocation.approval.reason}`}
           </div>
         );
       }
@@ -84,9 +84,9 @@ export default function WeatherWithApprovalView({
                 <span className="text-red-600">denied</span>
               )}
               .
-              {invocation.approval.reason != null
-                ? ` Reason: ${invocation.approval.reason}`
-                : ''}
+              {invocation.approval.reason == null
+                ? ''
+                : ` Reason: ${invocation.approval.reason}`}
             </div>
           )}
           <div className="text-gray-500">
@@ -104,9 +104,9 @@ export default function WeatherWithApprovalView({
           <span className="font-semibold">{invocation.input.city}</span> was
           {invocation.approval.isAutomatic ? ' automatically' : ''}{' '}
           <span className="text-red-600">denied</span>.
-          {invocation.approval.reason != null
-            ? ` Reason: ${invocation.approval.reason}`
-            : ''}
+          {invocation.approval.reason == null
+            ? ''
+            : ` Reason: ${invocation.approval.reason}`}
         </div>
       );
 

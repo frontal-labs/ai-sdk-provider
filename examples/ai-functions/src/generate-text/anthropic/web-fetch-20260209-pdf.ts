@@ -13,6 +13,6 @@ run(async () => {
     },
   });
 
-  console.dir(result.response.body, { depth: Infinity });
-  console.dir(result.content, { depth: Infinity });
+  console.dir(result.response.body, { depth: Number.POSITIVE_INFINITY });
+  console.dir(result.content, { depth: Number.POSITIVE_INFINITY });
 });

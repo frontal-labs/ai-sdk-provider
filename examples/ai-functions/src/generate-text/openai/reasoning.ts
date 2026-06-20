@@ -1,7 +1,7 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
   type OpenaiResponsesReasoningProviderMetadata,
+  openai,
 } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
@@ -26,7 +26,9 @@ run(async () => {
         const providerMetadata = part.providerMetadata as
           | OpenaiResponsesReasoningProviderMetadata
           | undefined;
-        if (!providerMetadata) break;
+        if (!providerMetadata) {
+          break;
+        }
         const {
           openai: { itemId, reasoningEncryptedContent },
         } = providerMetadata;

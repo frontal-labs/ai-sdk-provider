@@ -1,10 +1,10 @@
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
 import { generateText } from 'ai';
 import { readFileSync } from 'fs';
-import { join, dirname } from 'path';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { run } from '../../lib/run';
 
@@ -252,7 +252,7 @@ run(async () => {
               type: 'compact_20260112',
               trigger: {
                 type: 'input_tokens',
-                value: 50000,
+                value: 50_000,
               },
             },
           ],
@@ -265,7 +265,7 @@ run(async () => {
   console.log(result.text);
 
   console.log('\n=== Raw Response Body ===');
-  console.dir(result.response.body, { depth: Infinity });
+  console.dir(result.response.body, { depth: Number.POSITIVE_INFINITY });
 
   console.log('\n=== Provider Metadata ===');
   console.log(JSON.stringify(result.finalStep.providerMetadata, null, 2));

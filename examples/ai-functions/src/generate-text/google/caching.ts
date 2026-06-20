@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { google } from '@ai-sdk/google';
 import { generateText } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 const errorMessage = fs.readFileSync('data/error-message.txt', 'utf8');

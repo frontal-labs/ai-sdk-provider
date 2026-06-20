@@ -1,5 +1,10 @@
 'use client';
 
+import { useChat } from '@ai-sdk/react';
+import {
+  DefaultChatTransport,
+  lastAssistantMessageIsCompleteWithApprovalResponses,
+} from 'ai';
 import type { WeatherClaudeCodeHarnessAgentMessage } from '@/agent/harness/claude-code/weather-agent';
 import { Response } from '@/components/ai-elements/response';
 import { useChatId } from '@/components/chat-id-provider';
@@ -9,11 +14,6 @@ import HarnessBashToolView from '@/components/tool/harness-bash-tool-view';
 import HarnessFileToolView from '@/components/tool/harness-file-tool-view';
 import HarnessToolView from '@/components/tool/harness-tool-view';
 import WeatherView from '@/components/tool/weather-tool-view';
-import { useChat } from '@ai-sdk/react';
-import {
-  DefaultChatTransport,
-  lastAssistantMessageIsCompleteWithApprovalResponses,
-} from 'ai';
 
 export default function WeatherClaudeCodeHarnessChat({
   apiRoute,
@@ -39,23 +39,23 @@ export default function WeatherClaudeCodeHarnessChat({
   });
 
   return (
-    <div className="flex flex-col pt-12 pb-24 mx-auto w-full max-w-5xl stretch">
-      <h1 className="mb-2 text-xl font-bold">Claude Code — {exampleLabel}</h1>
-      <p className="mb-4 text-xs text-gray-500">
+    <div className="stretch mx-auto flex w-full max-w-5xl flex-col pt-12 pb-24">
+      <h1 className="mb-2 font-bold text-xl">Claude Code — {exampleLabel}</h1>
+      <p className="mb-4 text-gray-500 text-xs">
         chat id: <code>{chatId}</code>
-        <button type="button" className="ml-2 underline" onClick={resetChatId}>
+        <button className="ml-2 underline" onClick={resetChatId} type="button">
           new session
         </button>
       </p>
 
       {messages.map(message => (
-        <div key={message.id} className="mb-3">
+        <div className="mb-3" key={message.id}>
           <strong>{message.role === 'user' ? 'You: ' : 'AI: '}</strong>
           {message.parts.map((part, index) => {
             switch (part.type) {
               case 'text': {
                 return (
-                  <Response key={index} className="mb-2">
+                  <Response className="mb-2" key={index}>
                     {part.text}
                   </Response>
                 );
@@ -63,8 +63,8 @@ export default function WeatherClaudeCodeHarnessChat({
               case 'reasoning': {
                 return (
                   <Response
+                    className="mb-2 whitespace-pre-wrap text-gray-500 italic"
                     key={index}
-                    className="italic text-gray-500 whitespace-pre-wrap mb-2"
                   >
                     {part.text}
                   </Response>
@@ -76,10 +76,10 @@ export default function WeatherClaudeCodeHarnessChat({
                   return (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                      key={index}
-                      src={part.url}
                       alt="Generated image"
                       className="mb-2"
+                      key={index}
+                      src={part.url}
                     />
                   );
                 }
@@ -88,9 +88,9 @@ export default function WeatherClaudeCodeHarnessChat({
               case 'tool-get_weather': {
                 return (
                   <WeatherView
-                    key={index}
-                    invocation={part}
                     addToolApprovalResponse={addToolApprovalResponse}
+                    invocation={part}
+                    key={index}
                   />
                 );
               }
@@ -101,14 +101,14 @@ export default function WeatherClaudeCodeHarnessChat({
                 return (
                   <HarnessToolView
                     key={index}
-                    toolName="Agent"
-                    toolArg={part.input?.subagent_type}
-                    state={part.state}
                     output={
                       part.state === 'output-available'
                         ? part.output
                         : undefined
                     }
+                    state={part.state}
+                    toolArg={part.input?.subagent_type}
+                    toolName="Agent"
                   />
                 );
               }
@@ -116,21 +116,21 @@ export default function WeatherClaudeCodeHarnessChat({
                 return (
                   <HarnessToolView
                     key={index}
-                    toolName="Skill"
-                    toolArg={part.input?.skill}
-                    state={part.state}
                     output={
                       part.state === 'output-available'
                         ? part.output
                         : undefined
                     }
+                    state={part.state}
+                    toolArg={part.input?.skill}
+                    toolName="Skill"
                   />
                 );
               }
               case 'tool-read':
               case 'tool-write':
               case 'tool-edit': {
-                return <HarnessFileToolView key={index} invocation={part} />;
+                return <HarnessFileToolView invocation={part} key={index} />;
               }
               case 'dynamic-tool': {
                 return <DynamicToolView invocation={part} key={index} />;
@@ -143,19 +143,19 @@ export default function WeatherClaudeCodeHarnessChat({
       {status === 'submitted' && (
         <div
           aria-label="Loading"
-          className="w-4 h-4 mb-3 rounded-full border-2 border-gray-300 border-t-gray-700 animate-spin"
+          className="mb-3 h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-gray-700"
         />
       )}
 
       {error && (
         <div className="mt-4">
-          <div className="text-red-500 whitespace-pre-wrap break-words">
+          <div className="whitespace-pre-wrap break-words text-red-500">
             {error.message || String(error)}
           </div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 rounded-md border border-blue-500"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={() => regenerate()}
+            type="button"
           >
             Retry
           </button>
@@ -164,13 +164,13 @@ export default function WeatherClaudeCodeHarnessChat({
 
       <div
         aria-hidden
-        className="fixed inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none"
+        className="pointer-events-none fixed inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent"
       />
 
       <ChatInput
-        status={status}
         maxWidth="5xl"
         onSubmit={text => sendMessage({ text })}
+        status={status}
       />
     </div>
   );

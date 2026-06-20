@@ -1,6 +1,6 @@
 import { generateSpeech } from 'ai';
-import { registry } from './setup-registry';
 import { run } from '../lib/run';
+import { registry } from './setup-registry';
 
 run(async () => {
   const { audio } = await generateSpeech({

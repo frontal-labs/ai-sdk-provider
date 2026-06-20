@@ -42,7 +42,9 @@ async function main() {
   // Helper for flattened package to group map
   const packageToGroup: Record<string, string> = {};
   for (const [group, pkgs] of Object.entries(packageGroups)) {
-    for (const pkg of pkgs) packageToGroup[pkg] = group;
+    for (const pkg of pkgs) {
+      packageToGroup[pkg] = group;
+    }
   }
 
   type Row = {
@@ -148,25 +150,23 @@ function fetchWithRetry(
   url: string,
   options: RequestInit = {},
   retries = 5,
-  backoff = 10000,
+  backoff = 10_000,
 ): Promise<Response> {
   return new Promise((resolve, reject) => {
     const attemptFetch = (n: number) => {
       fetch(url, options)
         .then(response => {
-          if (!response.ok) {
-            if (n > 0) {
-              console.warn(
-                `Fetch failed for ${url}. Retrying in ${backoff}ms... (${n} retries left)`,
-              );
-              setTimeout(() => attemptFetch(n - 1), backoff);
-            } else {
-              reject(
-                new Error(`Failed to fetch ${url} after multiple attempts.`),
-              );
-            }
-          } else {
+          if (response.ok) {
             resolve(response);
+          } else if (n > 0) {
+            console.warn(
+              `Fetch failed for ${url}. Retrying in ${backoff}ms... (${n} retries left)`,
+            );
+            setTimeout(() => attemptFetch(n - 1), backoff);
+          } else {
+            reject(
+              new Error(`Failed to fetch ${url} after multiple attempts.`),
+            );
           }
         })
         .catch(err => {

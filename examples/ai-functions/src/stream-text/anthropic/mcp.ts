@@ -1,11 +1,11 @@
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
 import { streamText } from 'ai';
-import { run } from '../../lib/run';
 import { print } from '../../lib/print';
 import { printFullStream } from '../../lib/print-full-stream';
+import { run } from '../../lib/run';
 
 run(async () => {
   const result = streamText({

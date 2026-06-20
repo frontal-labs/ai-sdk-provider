@@ -1,12 +1,12 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
-import ChatInput from '@/components/chat-input';
 import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithToolCalls,
 } from 'ai';
 import type { VertexStreamingToolCallsMessage } from '@/app/api/chat/vertex-streaming-tool-calls/route';
+import ChatInput from '@/components/chat-input';
 
 export default function Chat() {
   const { messages, status, sendMessage, addToolOutput } =
@@ -28,11 +28,11 @@ export default function Chat() {
       },
     });
 
-  let lastRole: string | undefined = undefined;
+  let lastRole: string | undefined;
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
-      <h1 className="text-lg font-bold mb-4">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h1 className="mb-4 font-bold text-lg">
         Vertex AI — Streaming Tool Call Arguments
       </h1>
 
@@ -41,9 +41,9 @@ export default function Chat() {
         lastRole = m.role;
 
         return (
-          <div key={m.id} className="whitespace-pre-wrap mb-2">
+          <div className="mb-2 whitespace-pre-wrap" key={m.id}>
             {isNewRole && (
-              <strong className="block mb-1">{`${m.role}: `}</strong>
+              <strong className="mb-1 block">{`${m.role}: `}</strong>
             )}
             {m.parts.map((part, i) => {
               if (part.type === 'text') {
@@ -54,10 +54,10 @@ export default function Chat() {
                 if (part.state === 'input-streaming') {
                   return (
                     <div
+                      className="my-2 rounded border border-blue-300 bg-blue-50 p-3"
                       key={i}
-                      className="p-3 my-2 rounded border border-blue-300 bg-blue-50"
                     >
-                      <div className="text-xs font-mono text-blue-600 mb-1">
+                      <div className="mb-1 font-mono text-blue-600 text-xs">
                         streaming tool args…
                       </div>
                       <pre className="text-sm">
@@ -70,10 +70,10 @@ export default function Chat() {
                 if (part.state === 'input-available') {
                   return (
                     <div
+                      className="my-2 rounded border border-yellow-300 bg-yellow-50 p-3"
                       key={i}
-                      className="p-3 my-2 rounded border border-yellow-300 bg-yellow-50"
                     >
-                      <div className="text-xs text-yellow-700 mb-1">
+                      <div className="mb-1 text-xs text-yellow-700">
                         tool call complete — awaiting result
                       </div>
                       <pre className="text-sm">
@@ -86,16 +86,16 @@ export default function Chat() {
                 if (part.state === 'output-available') {
                   return (
                     <div
+                      className="my-2 rounded border border-green-300 bg-green-50 p-4"
                       key={i}
-                      className="p-4 my-2 rounded border border-green-300 bg-green-50"
                     >
-                      <h4 className="font-semibold mb-1">{part.input.city}</h4>
+                      <h4 className="mb-1 font-semibold">{part.input.city}</h4>
                       <div className="flex gap-3 text-sm">
                         <span>🌡 {part.input.temperature}°C</span>
                         <span>☁ {part.input.weather}</span>
                       </div>
                       {part.input.description && (
-                        <p className="mt-1 text-sm text-gray-600">
+                        <p className="mt-1 text-gray-600 text-sm">
                           {part.input.description}
                         </p>
                       )}
@@ -110,7 +110,7 @@ export default function Chat() {
         );
       })}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

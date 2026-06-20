@@ -56,7 +56,7 @@ run(async () => {
       let fileData: string;
 
       if (testCase.file) {
-        const filePath = join(__dirname, '../../data', testCase.file);
+        const filePath = join(import.meta.dirname, '../../data', testCase.file);
         const fileBuffer = readFileSync(filePath);
         fileData = fileBuffer.toString('base64');
       } else {

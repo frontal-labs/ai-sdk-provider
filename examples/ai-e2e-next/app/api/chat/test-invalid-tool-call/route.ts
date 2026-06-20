@@ -2,11 +2,11 @@ import { openai } from '@ai-sdk/openai';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
+  type InferUITools,
   isStepCount,
   streamText,
   tool,
   toUIMessageStream,
-  type InferUITools,
   type UIDataTypes,
   type UIMessage,
 } from 'ai';

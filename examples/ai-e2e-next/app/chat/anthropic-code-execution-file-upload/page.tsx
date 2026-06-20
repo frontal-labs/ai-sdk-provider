@@ -1,12 +1,12 @@
 'use client';
 
+import { useChat } from '@ai-sdk/react';
+import { DefaultChatTransport, type FileUIPart } from 'ai';
+import { useRef, useState } from 'react';
 import type { AnthropicCodeExecutionFileUploadMessage } from '@/agent/anthropic/code-execution-file-upload-agent';
 import { Response } from '@/components/ai-elements/response';
 import ChatInput from '@/components/chat-input';
 import AnthropicCodeExecutionView from '@/components/tool/anthropic-code-execution-view';
-import { useChat } from '@ai-sdk/react';
-import { DefaultChatTransport, type FileUIPart } from 'ai';
-import { useRef, useState } from 'react';
 
 type UploadedFile = {
   filename: string;
@@ -60,7 +60,9 @@ export default function AnthropicCodeExecutionFileUploadPage() {
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = event.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      return;
+    }
 
     setIsUploading(true);
     try {
@@ -117,11 +119,11 @@ export default function AnthropicCodeExecutionFileUploadPage() {
   };
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-2xl stretch">
-      <h1 className="mb-2 text-xl font-bold">
+    <div className="stretch mx-auto flex w-full max-w-2xl flex-col py-24">
+      <h1 className="mb-2 font-bold text-xl">
         Anthropic Code Execution File Upload
       </h1>
-      <p className="mb-4 text-sm text-gray-600">
+      <p className="mb-4 text-gray-600 text-sm">
         Upload a CSV, ask Claude to analyze it with code execution, then ask a
         follow-up question. The follow-up reuses the container ID returned by
         the previous assistant message.
@@ -129,11 +131,11 @@ export default function AnthropicCodeExecutionFileUploadPage() {
 
       <div className="mb-6 rounded border border-gray-200 p-3 text-sm">
         <input
-          ref={fileInputRef}
-          type="file"
           accept=".csv,text/csv"
           disabled={isUploading || status !== 'ready'}
           onChange={handleFileUpload}
+          ref={fileInputRef}
+          type="file"
         />
         {isUploading && <div className="mt-2 text-gray-500">Uploading...</div>}
         {uploadedFile && (
@@ -146,9 +148,9 @@ export default function AnthropicCodeExecutionFileUploadPage() {
               </span>
             ) : (
               <button
-                type="button"
                 className="ml-2 text-blue-600 underline"
                 onClick={() => setAttachUploadedFile(true)}
+                type="button"
               >
                 attach again
               </button>
@@ -163,11 +165,11 @@ export default function AnthropicCodeExecutionFileUploadPage() {
         )?.containerId;
 
         return (
-          <div key={message.id} className="mb-6 whitespace-pre-wrap">
-            <div className="mb-2 text-sm font-semibold">
+          <div className="mb-6 whitespace-pre-wrap" key={message.id}>
+            <div className="mb-2 font-semibold text-sm">
               {message.role === 'user' ? 'User' : 'Assistant'}
               {containerId && (
-                <span className="ml-2 rounded bg-gray-100 px-2 py-1 text-xs font-normal">
+                <span className="ml-2 rounded bg-gray-100 px-2 py-1 font-normal text-xs">
                   container: {containerId}
                 </span>
               )}
@@ -180,15 +182,15 @@ export default function AnthropicCodeExecutionFileUploadPage() {
                 case 'file':
                   return (
                     <div
+                      className="mb-2 inline-block rounded bg-gray-100 px-2 py-1 text-gray-700 text-xs"
                       key={index}
-                      className="mb-2 inline-block rounded bg-gray-100 px-2 py-1 text-xs text-gray-700"
                     >
                       Attached file: {part.filename ?? 'file'}
                     </div>
                   );
                 case 'tool-code_execution':
                   return (
-                    <AnthropicCodeExecutionView key={index} invocation={part} />
+                    <AnthropicCodeExecutionView invocation={part} key={index} />
                   );
               }
             })}
@@ -200,16 +202,16 @@ export default function AnthropicCodeExecutionFileUploadPage() {
         <div className="mt-4">
           <div className="text-red-500">An error occurred.</div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 rounded-md border border-blue-500"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={() => regenerate()}
+            type="button"
           >
             Retry
           </button>
         </div>
       )}
 
-      <ChatInput status={status} onSubmit={handleSend} />
+      <ChatInput onSubmit={handleSend} status={status} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { isStepCount, tool, ToolLoopAgent } from 'ai';
+import { isStepCount, ToolLoopAgent, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
@@ -14,9 +14,7 @@ const agent = new ToolLoopAgent({
       inputSchema: z.object({
         city: z.string(),
       }),
-      execute: async ({ city }) => {
-        return { city, weather: 'sunny' };
-      },
+      execute: async ({ city }) => ({ city, weather: 'sunny' }),
     }),
   },
   experimental_refineToolInput: {

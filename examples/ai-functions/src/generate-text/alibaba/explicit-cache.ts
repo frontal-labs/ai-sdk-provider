@@ -1,4 +1,4 @@
-import { alibaba, type AlibabaUsage } from '@ai-sdk/alibaba';
+import { type AlibabaUsage, alibaba } from '@ai-sdk/alibaba';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
 

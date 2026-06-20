@@ -2,13 +2,14 @@ import { azure } from '@ai-sdk/azure';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
-  streamText,
-  toUIMessageStream,
   type InferUITools,
+  streamText,
   type ToolSet,
+  toUIMessageStream,
   type UIDataTypes,
   type UIMessage,
 } from 'ai';
+
 const tools = {
   web_search: azure.tools.webSearch({}),
 } satisfies ToolSet;

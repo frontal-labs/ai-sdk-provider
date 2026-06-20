@@ -1,6 +1,6 @@
 import {
-  google,
   type GoogleLanguageModelInteractionsOptions,
+  google,
 } from '@ai-sdk/google';
 import {
   convertToModelMessages,
@@ -15,7 +15,9 @@ export const maxDuration = 30;
 function findLatestInteractionId(messages: UIMessage[]): string | undefined {
   for (let i = messages.length - 1; i >= 0; i--) {
     const message = messages[i];
-    if (message.role !== 'assistant') continue;
+    if (message.role !== 'assistant') {
+      continue;
+    }
     for (const part of message.parts) {
       const id = (
         part as {
@@ -27,7 +29,7 @@ function findLatestInteractionId(messages: UIMessage[]): string | undefined {
       }
     }
   }
-  return undefined;
+  return;
 }
 
 export async function POST(req: Request) {
@@ -43,7 +45,7 @@ export async function POST(req: Request) {
       google: {
         responseModalities: ['text', 'image'],
         thinkingSummaries: 'auto',
-        ...(previousInteractionId != null ? { previousInteractionId } : {}),
+        ...(previousInteractionId == null ? {} : { previousInteractionId }),
       } satisfies GoogleLanguageModelInteractionsOptions,
     },
   });

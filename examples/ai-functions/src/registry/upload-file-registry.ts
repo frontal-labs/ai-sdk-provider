@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import { openai } from '@ai-sdk/openai';
 import {
   createProviderRegistry,
@@ -5,7 +6,6 @@ import {
   generateText,
   uploadFile,
 } from 'ai';
-import fs from 'node:fs';
 import { run } from '../lib/run';
 
 const registry = createProviderRegistry({

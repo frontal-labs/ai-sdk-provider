@@ -1,7 +1,7 @@
 import { generateImage } from 'ai';
-import { myImageModels } from './setup-registry';
 import { presentImages } from '../lib/present-image';
 import { run } from '../lib/run';
+import { myImageModels } from './setup-registry';
 
 run(async () => {
   const { image } = await generateImage({

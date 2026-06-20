@@ -2,11 +2,10 @@
 
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, isDataUIPart } from 'ai';
-import { useState, useEffect, useRef } from 'react';
-import {
-  ElicitationDataTypes,
-  type MCPElicitationUIMessage,
-  type ElicitationAction,
+import { useEffect, useRef, useState } from 'react';
+import type {
+  ElicitationAction,
+  MCPElicitationUIMessage,
 } from '@/app/api/chat/mcp-elicitation/types';
 export default function MCPElicitationChat() {
   const [input, setInput] = useState('');
@@ -32,7 +31,9 @@ export default function MCPElicitationChat() {
     // Loop through messages in REVERSE order to find the most recent unhandled elicitation
     for (let i = messages.length - 1; i >= 0; i--) {
       const message = messages[i];
-      if (!message.parts) continue;
+      if (!message.parts) {
+        continue;
+      }
 
       for (const part of message.parts) {
         if (isDataUIPart(part) && part.type === 'data-elicitation-request') {
@@ -125,45 +126,50 @@ export default function MCPElicitationChat() {
     const type = property.type;
 
     return (
-      <div key={key} className="mb-4">
-        <label className="block mb-2">
+      <div className="mb-4" key={key}>
+        <label className="mb-2 block">
           <span className="font-semibold">
             {label}
             {isRequired && <span className="text-red-500">*</span>}
           </span>
           {description && (
-            <span className="block text-sm text-gray-600">{description}</span>
+            <span className="block text-gray-600 text-sm">{description}</span>
           )}
         </label>
         {type === 'boolean' ? (
           <input
-            type="checkbox"
-            checked={formData[key] || false}
+            checked={formData[key]}
+            className="h-4 w-4"
             onChange={e =>
               setFormData({ ...formData, [key]: e.target.checked })
             }
-            className="w-4 h-4"
+            type="checkbox"
           />
         ) : type === 'number' || type === 'integer' ? (
           <input
-            type="number"
-            value={formData[key] || ''}
+            className="w-full rounded border border-gray-300 p-2"
+            max={property.maximum}
+            min={property.minimum}
             onChange={e =>
               setFormData({
                 ...formData,
                 [key]:
                   type === 'integer'
-                    ? parseInt(e.target.value) || 0
-                    : parseFloat(e.target.value) || 0,
+                    ? Number.parseInt(e.target.value) || 0
+                    : Number.parseFloat(e.target.value) || 0,
               })
             }
-            className="w-full p-2 border border-gray-300 rounded"
             required={isRequired}
-            min={property.minimum}
-            max={property.maximum}
+            type="number"
+            value={formData[key] || ''}
           />
         ) : (
           <input
+            className="w-full rounded border border-gray-300 p-2"
+            maxLength={property.maxLength}
+            minLength={property.minLength}
+            onChange={e => setFormData({ ...formData, [key]: e.target.value })}
+            required={isRequired}
             type={
               property.format === 'email'
                 ? 'email'
@@ -172,11 +178,6 @@ export default function MCPElicitationChat() {
                   : 'text'
             }
             value={formData[key] || ''}
-            onChange={e => setFormData({ ...formData, [key]: e.target.value })}
-            className="w-full p-2 border border-gray-300 rounded"
-            required={isRequired}
-            minLength={property.minLength}
-            maxLength={property.maxLength}
           />
         )}
       </div>
@@ -184,19 +185,19 @@ export default function MCPElicitationChat() {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-2xl py-24 mx-auto">
-      <h1 className="mb-8 text-2xl font-bold">MCP Elicitation Example</h1>
+    <div className="mx-auto flex w-full max-w-2xl flex-col py-24">
+      <h1 className="mb-8 font-bold text-2xl">MCP Elicitation Example</h1>
 
-      <div className="flex-1 mb-4 overflow-y-auto">
+      <div className="mb-4 flex-1 overflow-y-auto">
         {messages?.map(m => (
-          <div key={m.id} className="mb-4 whitespace-pre-wrap">
-            <div className="font-bold mb-1">
+          <div className="mb-4 whitespace-pre-wrap" key={m.id}>
+            <div className="mb-1 font-bold">
               {m.role === 'user' ? 'You' : 'Assistant'}:
             </div>
             {m.parts?.map((part, i) => {
               if (part.type === 'text') {
                 return (
-                  <div key={i} className="text-gray-800">
+                  <div className="text-gray-800" key={i}>
                     {part.text}
                   </div>
                 );
@@ -205,10 +206,10 @@ export default function MCPElicitationChat() {
                 if (part.type === 'data-elicitation-request') {
                   return (
                     <div
+                      className="mt-2 border-blue-500 border-l-4 bg-blue-50 p-3"
                       key={i}
-                      className="p-3 mt-2 border-l-4 border-blue-500 bg-blue-50"
                     >
-                      <div className="text-sm text-blue-600">
+                      <div className="text-blue-600 text-sm">
                         📋 Elicitation Request
                       </div>
                       <div className="mt-1 text-gray-700">
@@ -220,14 +221,14 @@ export default function MCPElicitationChat() {
                 if (part.type === 'data-elicitation-response') {
                   return (
                     <div
+                      className="mt-2 border-green-500 border-l-4 bg-green-50 p-3"
                       key={i}
-                      className="p-3 mt-2 border-l-4 border-green-500 bg-green-50"
                     >
-                      <div className="text-sm text-green-600">
+                      <div className="text-green-600 text-sm">
                         ✅ Response: {part.data.action}
                       </div>
                       {part.data.content && (
-                        <pre className="mt-1 text-xs text-gray-700">
+                        <pre className="mt-1 text-gray-700 text-xs">
                           {JSON.stringify(part.data.content, null, 2)}
                         </pre>
                       )}
@@ -242,32 +243,34 @@ export default function MCPElicitationChat() {
       </div>
 
       <form
+        className="mt-4"
         onSubmit={e => {
           e.preventDefault();
-          if (!input.trim()) return;
+          if (!input.trim()) {
+            return;
+          }
           sendMessage({ text: input });
           setInput('');
         }}
-        className="mt-4"
       >
         <input
+          className="w-full rounded border border-gray-300 p-3 shadow-sm disabled:bg-gray-100"
           disabled={showModal}
-          className="w-full p-3 border border-gray-300 rounded shadow-sm disabled:bg-gray-100"
-          value={input}
+          onChange={e => setInput(e.target.value)}
           placeholder={
             showModal
               ? 'Please complete the form above...'
               : 'Type a message... (try: "register me as a new user")'
           }
-          onChange={e => setInput(e.target.value)}
+          value={input}
         />
       </form>
 
       {/* Elicitation Modal */}
       {showModal && currentElicitation && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-xl max-h-[80vh] overflow-y-auto">
-            <h2 className="mb-4 text-xl font-bold">Information Required</h2>
+          <div className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-lg bg-white p-6 shadow-xl">
+            <h2 className="mb-4 font-bold text-xl">Information Required</h2>
             <p className="mb-6 text-gray-700">{currentElicitation.message}</p>
 
             <form
@@ -278,7 +281,9 @@ export default function MCPElicitationChat() {
             >
               {(() => {
                 const schema = currentElicitation.requestedSchema as any;
-                if (!schema?.properties) return null;
+                if (!schema?.properties) {
+                  return null;
+                }
 
                 const requiredFields = new Set(schema.required || []);
 
@@ -288,24 +293,24 @@ export default function MCPElicitationChat() {
                 );
               })()}
 
-              <div className="flex gap-2 mt-6">
+              <div className="mt-6 flex gap-2">
                 <button
+                  className="flex-1 rounded bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700"
                   type="submit"
-                  className="flex-1 px-4 py-2 font-semibold text-white bg-blue-600 rounded hover:bg-blue-700"
                 >
                   Submit
                 </button>
                 <button
-                  type="button"
+                  className="flex-1 rounded bg-yellow-600 px-4 py-2 font-semibold text-white hover:bg-yellow-700"
                   onClick={() => handleElicitationResponse('decline')}
-                  className="flex-1 px-4 py-2 font-semibold text-white bg-yellow-600 rounded hover:bg-yellow-700"
+                  type="button"
                 >
                   Decline
                 </button>
                 <button
-                  type="button"
+                  className="flex-1 rounded bg-red-600 px-4 py-2 font-semibold text-white hover:bg-red-700"
                   onClick={() => handleElicitationResponse('cancel')}
-                  className="flex-1 px-4 py-2 font-semibold text-white bg-red-600 rounded hover:bg-red-700"
+                  type="button"
                 >
                   Cancel
                 </button>

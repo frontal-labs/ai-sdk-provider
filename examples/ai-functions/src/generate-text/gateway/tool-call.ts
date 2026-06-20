@@ -1,7 +1,7 @@
 import { generateText, tool } from 'ai';
 import { z } from 'zod';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 run(async () => {
   const result = await generateText({

@@ -105,7 +105,7 @@ async function main() {
         break;
       case 'tool-input-end':
         sawToolInputEnd = true;
-        ts(`[tool-input-end]`);
+        ts('[tool-input-end]');
         process.stdout.write(`\n[tool-input-end] id=${part.id}\n`);
         break;
       case 'tool-call': {

@@ -1,4 +1,4 @@
-import { xai, type XaiVideoModelOptions } from '@ai-sdk/xai';
+import { type XaiVideoModelOptions, xai } from '@ai-sdk/xai';
 import { experimental_generateVideo as generateVideo } from 'ai';
 import { run } from '../../lib/run';
 
@@ -11,7 +11,7 @@ run(async () => {
     prompt: 'A cat sitting on a windowsill.',
     duration: 3,
     providerOptions: {
-      xai: { pollTimeoutMs: 600000 } satisfies XaiVideoModelOptions,
+      xai: { pollTimeoutMs: 600_000 } satisfies XaiVideoModelOptions,
     },
   });
 
@@ -35,7 +35,7 @@ run(async () => {
       xai: {
         mode: 'extend-video',
         videoUrl: sourceUrl,
-        pollTimeoutMs: 600000,
+        pollTimeoutMs: 600_000,
       } satisfies XaiVideoModelOptions,
     },
   });

@@ -1,7 +1,7 @@
 import { openai } from '@ai-sdk/openai';
 import { generateText } from 'ai';
-import { run } from '../../lib/run';
 import { getMCPToken } from '../../lib/mcp-oauth';
+import { run } from '../../lib/run';
 
 run(async () => {
   const serverUrl = 'https://mcp.vercel.com/';
@@ -23,9 +23,9 @@ run(async () => {
   });
 
   console.log('\nTOOL CALLS:\n');
-  console.dir(result.toolCalls, { depth: Infinity });
+  console.dir(result.toolCalls, { depth: Number.POSITIVE_INFINITY });
   console.log('\nTOOL RESULTS:\n');
-  console.dir(result.toolResults, { depth: Infinity });
+  console.dir(result.toolResults, { depth: Number.POSITIVE_INFINITY });
   console.log('\nTEXT RESULT:\n');
   console.log(result.text);
 });

@@ -1,13 +1,13 @@
 'use client';
 
-import type { DynamicWeatherWithApprovalAgentUIMessage } from '@/agent/anthropic/dynamic-weather-with-approval-agent';
-import ChatInput from '@/components/chat-input';
-import DynamicToolWithApprovalView from '@/components/tool/dynamic-tool-with-approval-view';
 import { useChat } from '@ai-sdk/react';
 import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithApprovalResponses,
 } from 'ai';
+import type { DynamicWeatherWithApprovalAgentUIMessage } from '@/agent/anthropic/dynamic-weather-with-approval-agent';
+import ChatInput from '@/components/chat-input';
+import DynamicToolWithApprovalView from '@/components/tool/dynamic-tool-with-approval-view';
 
 export default function TestToolApproval() {
   const { status, sendMessage, messages, addToolApprovalResponse } =
@@ -22,11 +22,11 @@ export default function TestToolApproval() {
   console.log(structuredClone(messages));
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
-      <h1 className="mb-4 text-xl font-bold">Tool Approval Test</h1>
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h1 className="mb-4 font-bold text-xl">Tool Approval Test</h1>
 
       {messages.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={message.id}>
           {message.role === 'user' ? 'User: ' : 'AI: '}
           {message.parts.map((part, index) => {
             switch (part.type) {
@@ -35,9 +35,9 @@ export default function TestToolApproval() {
               case 'dynamic-tool':
                 return (
                   <DynamicToolWithApprovalView
-                    key={index}
-                    invocation={part}
                     addToolApprovalResponse={addToolApprovalResponse}
+                    invocation={part}
+                    key={index}
                   />
                 );
             }
@@ -45,7 +45,7 @@ export default function TestToolApproval() {
         </div>
       ))}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

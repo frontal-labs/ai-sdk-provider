@@ -29,12 +29,11 @@ run(async () => {
     const customFetch = (
       url: string | URL | Request,
       options?: RequestInit,
-    ): Promise<Response> => {
-      return undiciFetch(url as Parameters<typeof undiciFetch>[0], {
+    ): Promise<Response> =>
+      undiciFetch(url as Parameters<typeof undiciFetch>[0], {
         ...(options as any),
         dispatcher: agent,
       }) as Promise<Response>;
-    };
 
     // Create gateway provider with custom fetch
     const gateway = createGateway({

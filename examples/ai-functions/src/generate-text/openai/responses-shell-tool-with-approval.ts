@@ -1,3 +1,4 @@
+import * as readline from 'node:readline/promises';
 import { openai } from '@ai-sdk/openai';
 import {
   generateText,
@@ -5,9 +6,8 @@ import {
   type ModelMessage,
   type ToolApprovalResponse,
 } from 'ai';
-import * as readline from 'node:readline/promises';
-import { executeShellCommand } from '../../lib/shell-executor';
 import { run } from '../../lib/run';
+import { executeShellCommand } from '../../lib/shell-executor';
 
 const terminal = readline.createInterface({
   input: process.stdin,

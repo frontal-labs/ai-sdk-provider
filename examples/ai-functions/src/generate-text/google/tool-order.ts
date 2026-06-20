@@ -1,6 +1,6 @@
+import assert from 'node:assert/strict';
 import { createGoogle } from '@ai-sdk/google';
 import { parseJSON } from '@ai-sdk/provider-utils';
-import assert from 'node:assert/strict';
 import { generateText, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';

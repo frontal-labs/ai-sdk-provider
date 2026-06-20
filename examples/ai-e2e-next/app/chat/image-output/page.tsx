@@ -1,8 +1,8 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
+import ChatInput from '@/components/chat-input';
 
 export default function Chat() {
   const { status, sendMessage, messages } = useChat({
@@ -10,27 +10,25 @@ export default function Chat() {
   });
 
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
       {messages.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={message.id}>
           {message.role === 'user' ? 'User: ' : 'AI: '}
           {message.parts.map((part, index) => {
             if (part.type === 'text') {
               return <div key={index}>{part.text}</div>;
-            } else if (
-              part.type === 'file' &&
-              part.mediaType.startsWith('image/')
-            ) {
+            }
+            if (part.type === 'file' && part.mediaType.startsWith('image/')) {
               return (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img key={index} src={part.url} alt="Generated image" />
+                <img alt="Generated image" key={index} src={part.url} />
               );
             }
           })}
         </div>
       ))}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

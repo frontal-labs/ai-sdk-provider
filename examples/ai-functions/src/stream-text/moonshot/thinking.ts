@@ -1,6 +1,6 @@
 import {
-  moonshotai,
   type MoonshotAILanguageModelOptions,
+  moonshotai,
 } from '@ai-sdk/moonshotai';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';

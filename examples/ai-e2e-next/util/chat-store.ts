@@ -47,7 +47,9 @@ function getChatFile(id: string): string {
   const chatDir = getStorageDir('.chats');
   const chatFile = getSafeStorageFilePath({ storageDir: chatDir, id });
 
-  if (!existsSync(chatDir)) mkdirSync(chatDir, { recursive: true });
+  if (!existsSync(chatDir)) {
+    mkdirSync(chatDir, { recursive: true });
+  }
 
   if (!existsSync(chatFile)) {
     writeFileSync(chatFile, '[]');
@@ -71,7 +73,9 @@ export async function appendStreamId({
 
 export async function loadStreams(chatId: string): Promise<string[]> {
   const file = getStreamsFile(chatId);
-  if (!existsSync(file)) return [];
+  if (!existsSync(file)) {
+    return [];
+  }
   return JSON.parse(await readFile(file, 'utf8'));
 }
 
@@ -82,7 +86,9 @@ function getStreamsFile(chatId: string): string {
     id: chatId,
   });
 
-  if (!existsSync(streamsDir)) mkdirSync(streamsDir, { recursive: true });
+  if (!existsSync(streamsDir)) {
+    mkdirSync(streamsDir, { recursive: true });
+  }
 
   return streamsFile;
 }

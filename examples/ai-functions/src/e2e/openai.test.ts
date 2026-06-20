@@ -9,6 +9,7 @@ import {
   createLanguageModelWithCapabilities,
   type ModelWithCapabilities,
 } from './feature-test-suite';
+
 const createChatModel = (
   modelId: string,
 ): ModelWithCapabilities<LanguageModelV3 | LanguageModelV4> =>
@@ -36,7 +37,7 @@ createFeatureTestSuite({
       ),
     ],
   },
-  timeout: 30000,
+  timeout: 30_000,
   customAssertions: {
     skipUsage: false,
     errorValidator: (error: APICallError) => {

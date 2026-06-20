@@ -7,7 +7,7 @@ async function testRefreshAuthorization() {
   const clientSecret = process.env.GITHUB_CLIENT_SECRET;
   const refreshToken = process.env.GITHUB_REFRESH_TOKEN;
 
-  if (!clientId || !clientSecret || !refreshToken) {
+  if (!(clientId && clientSecret && refreshToken)) {
     throw new Error(
       'Missing GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, or GITHUB_REFRESH_TOKEN',
     );
@@ -39,7 +39,7 @@ async function testRefreshAuthorization() {
 
   const tokens = await response.json();
 
-  if (!tokens.access_token || !tokens.token_type) {
+  if (!(tokens.access_token && tokens.token_type)) {
     throw new Error('Invalid token response: missing required fields');
   }
 

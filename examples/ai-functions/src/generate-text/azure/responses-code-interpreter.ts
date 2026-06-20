@@ -1,11 +1,11 @@
 import {
-  azure,
   type AzureResponsesSourceDocumentProviderMetadata,
   type AzureResponsesTextProviderMetadata,
+  azure,
 } from '@ai-sdk/azure';
 import { generateText } from 'ai';
-import { run } from '../../lib/run';
 import { downloadAzureContainerFile } from '../../lib/download-azure-container-file';
+import { run } from '../../lib/run';
 
 /**
  * prepare
@@ -28,8 +28,8 @@ run(async () => {
   console.log('\n=== Basic Text Generation ===');
   console.log(basicResult.text);
   console.log('\n=== Other Outputs ===');
-  console.dir(basicResult.toolCalls, { depth: Infinity });
-  console.dir(basicResult.toolResults, { depth: Infinity });
+  console.dir(basicResult.toolCalls, { depth: Number.POSITIVE_INFINITY });
+  console.dir(basicResult.toolResults, { depth: Number.POSITIVE_INFINITY });
   console.log('\n=== Code Interpreter Annotations ===');
 
   const containerfileList: {
@@ -41,25 +41,27 @@ run(async () => {
       const providerMetadata = part.providerMetadata as
         | AzureResponsesTextProviderMetadata
         | undefined;
-      if (!providerMetadata) continue;
+      if (!providerMetadata) {
+        continue;
+      }
       const { azure } = providerMetadata;
       console.log('-- text-part-- ');
-      console.dir({ azure }, { depth: Infinity });
-    } else if (part.type === 'source') {
-      if (part.sourceType === 'document') {
-        const providerMetadata = part.providerMetadata as
-          | AzureResponsesSourceDocumentProviderMetadata
-          | undefined;
-        if (!providerMetadata) continue;
-        const { azure } = providerMetadata;
-        console.log('-- source-document-part-- ');
-        console.dir({ azure }, { depth: Infinity });
-        if (azure.type === 'container_file_citation') {
-          containerfileList.push({
-            containerId: azure.containerId,
-            fileId: azure.fileId,
-          });
-        }
+      console.dir({ azure }, { depth: Number.POSITIVE_INFINITY });
+    } else if (part.type === 'source' && part.sourceType === 'document') {
+      const providerMetadata = part.providerMetadata as
+        | AzureResponsesSourceDocumentProviderMetadata
+        | undefined;
+      if (!providerMetadata) {
+        continue;
+      }
+      const { azure } = providerMetadata;
+      console.log('-- source-document-part-- ');
+      console.dir({ azure }, { depth: Number.POSITIVE_INFINITY });
+      if (azure.type === 'container_file_citation') {
+        containerfileList.push({
+          containerId: azure.containerId,
+          fileId: azure.fileId,
+        });
       }
     }
   }

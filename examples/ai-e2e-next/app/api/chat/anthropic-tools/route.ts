@@ -1,5 +1,5 @@
-import { anthropicToolsAgent } from '@/agent/anthropic/tools-agent';
 import { createAgentUIStreamResponse } from 'ai';
+import { anthropicToolsAgent } from '@/agent/anthropic/tools-agent';
 
 export async function POST(request: Request) {
   const body = await request.json();

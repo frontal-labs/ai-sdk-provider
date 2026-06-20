@@ -1,5 +1,5 @@
-import { streamText } from 'ai';
 import { gateway } from '@ai-sdk/gateway';
+import { streamText } from 'ai';
 import { run } from '../../lib/run';
 
 // An integration test for Vercel AI Gateway provider authentication. There are
@@ -112,15 +112,15 @@ async function testAuthenticationScenario(scenario: (typeof testScenarios)[0]) {
   const abortController = new AbortController();
   const timeout = setTimeout(() => {
     abortController.abort(new Error('timeout'));
-  }, 10000);
+  }, 10_000);
 
   try {
     const result = await testStream(abortController.signal);
 
-    console.log(`  Result: SUCCESS`);
+    console.log('  Result: SUCCESS');
     return { success: true, detectedAuthMethod: result.detectedAuthMethod };
   } catch (error) {
-    console.log(`  Result: FAILURE`);
+    console.log('  Result: FAILURE');
     return { success: false, error };
   } finally {
     clearTimeout(timeout);

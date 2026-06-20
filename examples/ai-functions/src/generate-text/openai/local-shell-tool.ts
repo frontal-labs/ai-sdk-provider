@@ -9,7 +9,7 @@ run(async () => {
       local_shell: openai.tools.localShell({
         execute: async ({ action }) => {
           console.log('ACTION');
-          console.dir(action, { depth: Infinity });
+          console.dir(action, { depth: Number.POSITIVE_INFINITY });
 
           const stdout = `
 ❯ ls
@@ -23,7 +23,7 @@ README.md     build         data          node_modules  package.json  src       
     prompt: 'List the files in my home directory.',
     stopWhen: isStepCount(2),
     onStepFinish: step => {
-      console.dir(step.content, { depth: Infinity });
+      console.dir(step.content, { depth: Number.POSITIVE_INFINITY });
     },
   });
 });

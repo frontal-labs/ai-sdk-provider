@@ -16,7 +16,7 @@ const execute = async (
 
   const resourceName = process.env.ANTHROPIC_MICROSOFT_RESOURCE_NAME;
   const apiKey = process.env.ANTHROPIC_MICROSOFT_API_KEY;
-  if (!resourceName || !apiKey) {
+  if (!(resourceName && apiKey)) {
     throw new Error('undeinfed resource or key.');
   }
 

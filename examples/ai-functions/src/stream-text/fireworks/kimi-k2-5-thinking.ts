@@ -1,6 +1,6 @@
 import {
-  fireworks,
   type FireworksLanguageModelOptions,
+  fireworks,
 } from '@ai-sdk/fireworks';
 import { streamText } from 'ai';
 import { printFullStream } from '../../lib/print-full-stream';

@@ -12,9 +12,9 @@ export default function ToolSpinner() {
   return (
     <span
       aria-label="Running"
-      className="flex absolute top-0 -left-5 items-center h-5"
+      className="absolute top-0 -left-5 flex h-5 items-center"
     >
-      <span className="w-3 h-3 rounded-full border-2 border-gray-300 animate-spin border-t-gray-700" />
+      <span className="h-3 w-3 animate-spin rounded-full border-2 border-gray-300 border-t-gray-700" />
     </span>
   );
 }

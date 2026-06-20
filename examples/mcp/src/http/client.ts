@@ -3,6 +3,7 @@ import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/
 import { generateText, isStepCount } from 'ai';
 import 'dotenv/config';
 import { createMCPClient, type MCPClient } from '@ai-sdk/mcp';
+
 async function main() {
   const transport = new StreamableHTTPClientTransport(
     new URL('http://localhost:3000/mcp'),

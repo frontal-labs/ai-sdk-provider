@@ -1,8 +1,8 @@
 import { openai } from '@ai-sdk/openai';
 import { isStepCount, streamText, tool } from 'ai';
 import { z } from 'zod';
-import { run } from '../../lib/run';
 import { printFullStream } from '../../lib/print-full-stream';
+import { run } from '../../lib/run';
 
 const conditions = [
   { name: 'sunny', minTemperature: -5, maxTemperature: 35 },

@@ -1,7 +1,7 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
   type OpenaiResponsesProviderMetadata,
+  openai,
 } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
@@ -22,7 +22,9 @@ run(async () => {
     | OpenaiResponsesProviderMetadata
     | undefined;
 
-  if (!providerMetadata) return;
+  if (!providerMetadata) {
+    return;
+  }
   const {
     openai: { responseId, serviceTier },
   } = providerMetadata;

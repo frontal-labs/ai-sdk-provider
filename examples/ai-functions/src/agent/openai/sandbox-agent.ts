@@ -18,7 +18,7 @@ export const sandboxAgent = new ToolLoopAgent({
   prepareCall: ({ experimental_sandbox: sandbox, ...rest }) => ({
     ...rest,
     instructions:
-      `You are a helpful assistant that can run shell commands and read/write text files.\n` +
+      'You are a helpful assistant that can run shell commands and read/write text files.\n' +
       `You are operating in the following sandbox: ${sandbox?.description}`,
   }),
 });

@@ -84,15 +84,15 @@ run(async () => {
         newToolCall => newToolCall.toolName === toolCall.toolName,
       );
 
-      return newToolCall != null
-        ? {
+      return newToolCall == null
+        ? null
+        : {
             type: 'tool-call' as const,
             toolCallType: 'function' as const,
             toolCallId: toolCall.toolCallId,
             toolName: toolCall.toolName,
             input: JSON.stringify(newToolCall.input),
-          }
-        : null;
+          };
     },
   });
 

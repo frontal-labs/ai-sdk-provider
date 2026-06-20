@@ -1,5 +1,5 @@
-import { GoogleAIFileManager } from '@google/generative-ai/server';
 import { google } from '@ai-sdk/google';
+import { GoogleAIFileManager } from '@google/generative-ai/server';
 import { generateText, Output } from 'ai';
 import path from 'path';
 import { z } from 'zod';
@@ -10,7 +10,7 @@ run(async () => {
     process.env.GOOGLE_GENERATIVE_AI_API_KEY!,
   );
 
-  const filePath = path.resolve(__dirname, '../../data/ai.pdf');
+  const filePath = path.resolve(import.meta.dirname, '../../data/ai.pdf');
 
   const geminiFile = await fileManager.uploadFile(filePath, {
     name: `ai-${Math.random().toString(36).substring(7)}`,

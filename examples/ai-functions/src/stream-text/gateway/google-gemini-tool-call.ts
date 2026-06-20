@@ -172,13 +172,7 @@ async function main() {
     '=== Scenario C: Google → Vertex failover — thoughtSignature under "google" key ===\n',
   );
 
-  if (!process.env.GOOGLE_VERTEX_API_KEY) {
-    console.log(
-      '⏭ Scenario C skipped — GOOGLE_VERTEX_API_KEY not set\n' +
-        '  Set this env var to test the Google→Vertex failover direction.\n' +
-        '  (This direction was already working before the fix and is covered by unit tests.)\n',
-    );
-  } else {
+  if (process.env.GOOGLE_VERTEX_API_KEY) {
     console.log('Messages kept as-is with providerOptions under "google" key');
     console.log(
       'Vertex provider should find thoughtSignature via google fallback\n',
@@ -208,6 +202,12 @@ async function main() {
       console.error('  Error:', error.message?.substring(0, 200));
       console.log();
     }
+  } else {
+    console.log(
+      '⏭ Scenario C skipped — GOOGLE_VERTEX_API_KEY not set\n' +
+        '  Set this env var to test the Google→Vertex failover direction.\n' +
+        '  (This direction was already working before the fix and is covered by unit tests.)\n',
+    );
   }
 }
 

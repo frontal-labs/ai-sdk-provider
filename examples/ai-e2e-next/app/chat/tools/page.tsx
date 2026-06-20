@@ -1,12 +1,12 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
 import { useChat } from '@ai-sdk/react';
 import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithToolCalls,
 } from 'ai';
 import type { UseChatToolsMessage } from '@/app/api/chat/tools/route';
+import ChatInput from '@/components/chat-input';
 
 export default function Chat() {
   const { messages, sendMessage, addToolOutput, status } =
@@ -37,9 +37,9 @@ export default function Chat() {
     });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
       {messages?.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={message.id}>
           <strong>{`${message.role}: `}</strong>
           {message.parts.map((part, index) => {
             switch (part.type) {
@@ -48,7 +48,7 @@ export default function Chat() {
 
               case 'step-start':
                 return index > 0 ? (
-                  <div key={index} className="text-gray-500">
+                  <div className="text-gray-500" key={index}>
                     <hr className="my-2 border-gray-300" />
                   </div>
                 ) : null;
@@ -57,11 +57,11 @@ export default function Chat() {
                 switch (part.state) {
                   case 'input-available':
                     return (
-                      <div key={index} className="text-gray-500">
+                      <div className="text-gray-500" key={index}>
                         {part.input.message}
                         <div className="flex gap-2">
                           <button
-                            className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+                            className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
                             onClick={async () => {
                               addToolOutput({
                                 tool: 'askForConfirmation',
@@ -73,7 +73,7 @@ export default function Chat() {
                             Yes
                           </button>
                           <button
-                            className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
+                            className="rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
                             onClick={async () => {
                               addToolOutput({
                                 tool: 'askForConfirmation',
@@ -89,7 +89,7 @@ export default function Chat() {
                     );
                   case 'output-available':
                     return (
-                      <div key={index} className="text-gray-500">
+                      <div className="text-gray-500" key={index}>
                         Location access allowed: {part.output}
                       </div>
                     );
@@ -101,13 +101,13 @@ export default function Chat() {
                 switch (part.state) {
                   case 'input-available':
                     return (
-                      <div key={index} className="text-gray-500">
+                      <div className="text-gray-500" key={index}>
                         Getting location...
                       </div>
                     );
                   case 'output-available':
                     return (
-                      <div key={index} className="text-gray-500">
+                      <div className="text-gray-500" key={index}>
                         Location: {part.output}
                       </div>
                     );
@@ -126,13 +126,13 @@ export default function Chat() {
                     );
                   case 'input-available':
                     return (
-                      <div key={index} className="text-gray-500">
+                      <div className="text-gray-500" key={index}>
                         Getting weather information for {part.input.city}...
                       </div>
                     );
                   case 'output-available':
                     return (
-                      <div key={index} className="text-gray-500">
+                      <div className="text-gray-500" key={index}>
                         {part.output.state === 'loading'
                           ? 'Fetching weather information...'
                           : `Weather in ${part.input.city}: ${part.output.weather}`}
@@ -140,7 +140,7 @@ export default function Chat() {
                     );
                   case 'output-error':
                     return (
-                      <div key={index} className="text-red-500">
+                      <div className="text-red-500" key={index}>
                         Error: {part.errorText}
                       </div>
                     );
@@ -152,7 +152,7 @@ export default function Chat() {
         </div>
       ))}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

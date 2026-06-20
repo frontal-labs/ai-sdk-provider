@@ -9,7 +9,7 @@ run(async () => {
       local_shell: openai.tools.localShell({
         execute: async ({ action }) => {
           console.log('ACTION');
-          console.dir(action, { depth: Infinity });
+          console.dir(action, { depth: Number.POSITIVE_INFINITY });
 
           const stdout = `
 ❯ ls

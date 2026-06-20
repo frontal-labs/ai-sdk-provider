@@ -6,7 +6,7 @@ run(async () => {
   const { text, usage } = await generateText({
     model: new MockLanguageModelV3({
       doGenerate: async () => ({
-        content: [{ type: 'text', text: `Hello, world!` }],
+        content: [{ type: 'text', text: 'Hello, world!' }],
         finishReason: { raw: undefined, unified: 'stop' },
         usage: {
           inputTokens: {

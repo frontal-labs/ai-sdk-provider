@@ -31,7 +31,7 @@ run(async () => {
       case 'tool-call': {
         if (chunk.toolName === 'advisor') {
           process.stdout.write(
-            `\n\x1b[33m[advisor call — executor is pausing for sub-inference]\x1b[0m\n`,
+            '\n\x1b[33m[advisor call — executor is pausing for sub-inference]\x1b[0m\n',
           );
         } else {
           console.log(
@@ -60,7 +60,7 @@ run(async () => {
         )?.iterations;
         if (iterations) {
           console.log('\n\x1b[36m--- Usage iterations ---\x1b[0m');
-          console.dir(iterations, { depth: Infinity });
+          console.dir(iterations, { depth: Number.POSITIVE_INFINITY });
         }
         break;
       }

@@ -1,6 +1,6 @@
-import type { GeneratedFile } from 'ai';
 import fs from 'node:fs';
 import path from 'node:path';
+import type { GeneratedFile } from 'ai';
 
 const OUTPUT_DIR = 'output';
 

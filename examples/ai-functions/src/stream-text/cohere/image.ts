@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { cohere } from '@ai-sdk/cohere';
 import { streamText } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 run(async () => {

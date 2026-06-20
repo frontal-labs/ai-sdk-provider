@@ -16,26 +16,22 @@ mcpServer.tool(
   {
     productName: z.string(),
   },
-  async ({ productName }) => {
-    return {
-      content: [
-        {
-          type: 'text',
-          text: `The product ${productName} is available in stock`,
-        },
-      ],
-    };
-  },
+  async ({ productName }) => ({
+    content: [
+      {
+        type: 'text',
+        text: `The product ${productName} is available in stock`,
+      },
+    ],
+  }),
 );
 
 // Tool with zero arguments:
-mcpServer.tool('list-products', 'List all products', async () => {
-  return {
-    content: [
-      { type: 'text', text: 'Products: Product 1, Product 2, Product 3' },
-    ],
-  };
-});
+mcpServer.tool('list-products', 'List all products', async () => ({
+  content: [
+    { type: 'text', text: 'Products: Product 1, Product 2, Product 3' },
+  ],
+}));
 
 let transport: SSEServerTransport;
 

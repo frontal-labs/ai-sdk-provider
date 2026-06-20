@@ -1,5 +1,5 @@
-import { generateText } from 'ai';
 import { anthropic } from '@ai-sdk/anthropic';
+import { generateText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {
@@ -29,8 +29,8 @@ run(async () => {
   console.log('Tool calls made:', result.toolCalls.length);
 
   for (const toolCall of result.toolCalls) {
-    console.log(`\nTool Call:`);
+    console.log('\nTool Call:');
     console.log(`- Tool: ${toolCall.toolName}`);
-    console.log(`- Input:`, JSON.stringify(toolCall.input, null, 2));
+    console.log('- Input:', JSON.stringify(toolCall.input, null, 2));
   }
 });

@@ -1,6 +1,6 @@
+import { readFile } from 'node:fs/promises';
 import { openai } from '@ai-sdk/openai';
 import { generateText, uploadFile } from 'ai';
-import { readFile } from 'node:fs/promises';
 import { run } from '../../lib/run';
 
 run(async () => {

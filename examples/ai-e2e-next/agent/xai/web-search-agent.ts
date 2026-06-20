@@ -1,5 +1,5 @@
 import { xai } from '@ai-sdk/xai';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
 export const xaiWebSearchAgent = new ToolLoopAgent({
   model: xai.responses('grok-4-fast-reasoning'),
   tools: {

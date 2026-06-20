@@ -1,4 +1,4 @@
-import { google, type GoogleVideoModelOptions } from '@ai-sdk/google';
+import { type GoogleVideoModelOptions, google } from '@ai-sdk/google';
 import { experimental_generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
@@ -13,7 +13,7 @@ run(async () => {
       duration: 6,
       providerOptions: {
         google: {
-          pollTimeoutMs: 600000, // 10 minutes
+          pollTimeoutMs: 600_000, // 10 minutes
         } satisfies GoogleVideoModelOptions,
       },
     }),

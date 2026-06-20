@@ -12,13 +12,14 @@ export default function Page() {
     <div className="flex flex-col gap-2">
       <div className="flex flex-col gap-2 p-2">
         {messages.map(message => (
-          <div key={message.id} className="flex flex-row gap-2">
+          <div className="flex flex-row gap-2" key={message.id}>
             <strong>{`${message.role}: `}</strong>
 
             {message.parts.map((part, index) => {
               if (part.type === 'text') {
                 return <div key={index}>{part.text}</div>;
-              } else if (isStaticToolUIPart(part)) {
+              }
+              if (isStaticToolUIPart(part)) {
                 return <div key={index}>{JSON.stringify(part.input)}</div>;
               }
             })}
@@ -27,18 +28,18 @@ export default function Page() {
       </div>
 
       <form
+        className="fixed bottom-0 w-full p-2"
         onSubmit={e => {
           e.preventDefault();
           sendMessage({ text: input });
           setInput('');
         }}
-        className="fixed bottom-0 p-2 w-full"
       >
         <input
-          value={input}
-          placeholder="Send message..."
+          className="w-full bg-zinc-100 p-2"
           onChange={e => setInput(e.target.value)}
-          className="p-2 w-full bg-zinc-100"
+          placeholder="Send message..."
+          value={input}
         />
       </form>
     </div>

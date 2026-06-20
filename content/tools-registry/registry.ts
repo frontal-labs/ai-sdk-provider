@@ -2,23 +2,23 @@
 // https://github.com/vercel/ai/blob/main/contributing/add-new-tool-to-registry.md
 
 export interface Tool {
-  slug: string;
-  name: string;
-  description: string;
-  packageName: string;
-  tags?: string[];
   apiKeyEnvName?: string;
+  apiKeyUrl?: string;
+  codeExample: string;
+  description: string;
+  docsUrl?: string;
   installCommand: {
     pnpm: string;
     npm: string;
     yarn: string;
     bun: string;
   };
-  codeExample: string;
-  docsUrl?: string;
-  apiKeyUrl?: string;
-  websiteUrl?: string;
+  name: string;
   npmUrl?: string;
+  packageName: string;
+  slug: string;
+  tags?: string[];
+  websiteUrl?: string;
 }
 
 export const tools: Tool[] = [

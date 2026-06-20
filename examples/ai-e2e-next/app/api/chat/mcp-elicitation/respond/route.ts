@@ -1,5 +1,5 @@
-import type { ElicitationResponse } from '../types';
 import { resolvePendingElicitation } from '../elicitation-store';
+import type { ElicitationResponse } from '../types';
 
 export async function POST(req: Request) {
   try {

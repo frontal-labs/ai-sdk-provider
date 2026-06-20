@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { bedrockAnthropic } from '@ai-sdk/amazon-bedrock/anthropic';
 import { streamText } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 const errorMessage = fs.readFileSync('data/error-message.txt', 'utf8');

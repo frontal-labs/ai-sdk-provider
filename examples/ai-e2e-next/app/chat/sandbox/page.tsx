@@ -1,13 +1,13 @@
 'use client';
 
-import type { SandboxAgentUIMessage } from '@/agent/openai/sandbox-agent';
-import SandboxShellView from '@/components/tool/sandbox-shell-view';
 import { useChat } from '@ai-sdk/react';
 import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithApprovalResponses,
 } from 'ai';
 import { useState } from 'react';
+import type { SandboxAgentUIMessage } from '@/agent/openai/sandbox-agent';
+import SandboxShellView from '@/components/tool/sandbox-shell-view';
 
 export default function Chat() {
   const [input, setInput] = useState('');
@@ -19,17 +19,19 @@ export default function Chat() {
       sendAutomaticallyWhen:
         lastAssistantMessageIsCompleteWithApprovalResponses,
     });
-  if (error) return <div>{error.message}</div>;
+  if (error) {
+    return <div>{error.message}</div>;
+  }
 
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
       <div className="space-y-4">
         {messages.map(m =>
           m.parts.map((p, i) => {
             switch (p.type) {
               case 'text':
                 return (
-                  <div key={i} className="whitespace-pre-wrap">
+                  <div className="whitespace-pre-wrap" key={i}>
                     <div>
                       <div className="font-bold">{m.role}</div>
                       <p>{p.text}</p>
@@ -39,9 +41,9 @@ export default function Chat() {
               case 'tool-shell':
                 return (
                   <SandboxShellView
-                    key={i}
-                    invocation={p}
                     addToolApprovalResponse={addToolApprovalResponse}
+                    invocation={p}
+                    key={i}
                   />
                 );
               default:
@@ -59,10 +61,10 @@ export default function Chat() {
         }}
       >
         <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-          value={input}
-          placeholder="Say something..."
+          className="fixed bottom-0 mb-8 w-full max-w-md rounded border border-gray-300 p-2 shadow-xl"
           onChange={e => setInput(e.currentTarget.value)}
+          placeholder="Say something..."
+          value={input}
         />
       </form>
     </div>

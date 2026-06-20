@@ -1,12 +1,12 @@
 'use client';
 
+import { useChat } from '@ai-sdk/react';
+import { DefaultChatTransport } from 'ai';
 import type { OpenAIApplyPatchMessage } from '@/agent/openai/apply-patch-agent';
 import { Response } from '@/components/ai-elements/response';
 import ChatInput from '@/components/chat-input';
 import { ReasoningView } from '@/components/reasoning-view';
 import OpenAIApplyPatchView from '@/components/tool/openai-apply-patch-view';
-import { useChat } from '@ai-sdk/react';
-import { DefaultChatTransport } from 'ai';
 
 export default function ChatOpenAIApplyPatch() {
   const { error, status, sendMessage, messages, regenerate } =
@@ -17,15 +17,15 @@ export default function ChatOpenAIApplyPatch() {
     });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-4xl stretch">
-      <h1 className="mb-4 text-2xl font-bold">OpenAI Apply Patch Tool</h1>
+    <div className="stretch mx-auto flex w-full max-w-4xl flex-col py-24">
+      <h1 className="mb-4 font-bold text-2xl">OpenAI Apply Patch Tool</h1>
       <p className="mb-6 text-gray-600">
         Create, update, and delete files in a workspace using structured diffs.
       </p>
 
       <div className="space-y-6">
         {messages.map(message => (
-          <div key={message.id} className="whitespace-pre-wrap">
+          <div className="whitespace-pre-wrap" key={message.id}>
             <div className="mb-2 font-semibold">
               {message.role === 'user' ? '👤 User' : '🤖 Assistant'}
             </div>
@@ -36,7 +36,7 @@ export default function ChatOpenAIApplyPatch() {
                     return <Response key={index}>{part.text}</Response>;
                   }
                   case 'reasoning': {
-                    return <ReasoningView part={part} key={index} />;
+                    return <ReasoningView key={index} part={part} />;
                   }
                   case 'tool-apply_patch': {
                     return (
@@ -54,16 +54,16 @@ export default function ChatOpenAIApplyPatch() {
         <div className="mt-4">
           <div className="text-red-500">An error occurred.</div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 rounded-md border border-blue-500"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={() => regenerate()}
+            type="button"
           >
             Retry
           </button>
         </div>
       )}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

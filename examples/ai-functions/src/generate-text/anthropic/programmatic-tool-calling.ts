@@ -1,7 +1,6 @@
 import {
   anthropic,
   forwardAnthropicContainerIdFromLastStep,
-  type AnthropicLanguageModelOptions,
 } from '@ai-sdk/anthropic';
 import { generateText, isStepCount, tool } from 'ai';
 import { z } from 'zod';
@@ -33,15 +32,24 @@ run(async () => {
           if (player === 'player1') {
             // Simulate a loaded die that slightly skews towards 6
             const r = Math.random();
-            if (r < 0.13) return 1;
-            if (r < 0.26) return 2;
-            if (r < 0.39) return 3;
-            if (r < 0.52) return 4;
-            if (r < 0.65) return 5;
+            if (r < 0.13) {
+              return 1;
+            }
+            if (r < 0.26) {
+              return 2;
+            }
+            if (r < 0.39) {
+              return 3;
+            }
+            if (r < 0.52) {
+              return 4;
+            }
+            if (r < 0.65) {
+              return 5;
+            }
             return 6;
-          } else {
-            return Math.floor(Math.random() * 6) + 1;
           }
+          return Math.floor(Math.random() * 6) + 1;
         },
         providerOptions: {
           anthropic: {

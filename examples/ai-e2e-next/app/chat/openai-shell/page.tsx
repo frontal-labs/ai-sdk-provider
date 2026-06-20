@@ -5,8 +5,8 @@ import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithApprovalResponses,
 } from 'ai';
-import ChatInput from '@/components/chat-input';
 import type { OpenAIShellMessage } from '@/agent/openai/shell-agent';
+import ChatInput from '@/components/chat-input';
 import ShellView from '@/components/tool/openai-shell-view';
 
 export default function ChatOpenAIShell() {
@@ -20,17 +20,17 @@ export default function ChatOpenAIShell() {
     });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-4xl stretch">
-      <h1 className="mb-2 text-xl font-bold text-black">OpenAI Shell Tool</h1>
-      <h2 className="pb-2 mb-4 border-b text-black">
+    <div className="stretch mx-auto flex w-full max-w-4xl flex-col py-24">
+      <h1 className="mb-2 font-bold text-black text-xl">OpenAI Shell Tool</h1>
+      <h2 className="mb-4 border-b pb-2 text-black">
         Note: This example requires a Vercel OIDC Token to run commands with
         Vercel Sandbox
       </h2>
 
       {messages.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap mb-4">
+        <div className="mb-4 whitespace-pre-wrap" key={message.id}>
           <div className="mb-2">
-            <div className="text-sm font-semibold text-black mb-1">
+            <div className="mb-1 font-semibold text-black text-sm">
               {message.role === 'user' ? 'User:' : 'Assistant:'}
             </div>
             <div className="space-y-4">
@@ -38,16 +38,16 @@ export default function ChatOpenAIShell() {
                 switch (part.type) {
                   case 'text':
                     return (
-                      <div key={index} className="text-black">
+                      <div className="text-black" key={index}>
                         {part.text}
                       </div>
                     );
                   case 'tool-shell':
                     return (
                       <ShellView
-                        key={index}
-                        invocation={part}
                         addToolApprovalResponse={addToolApprovalResponse}
+                        invocation={part}
+                        key={index}
                       />
                     );
                   default:
@@ -59,7 +59,7 @@ export default function ChatOpenAIShell() {
         </div>
       ))}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

@@ -1,31 +1,30 @@
 <script lang="ts">
-  import { Textarea } from '$lib/components/ui/textarea/index.js';
-  import { Completion } from '@ai-sdk/svelte';
+import { Completion } from '@ai-sdk/svelte';
 
-  const completion = new Completion();
+const completion = new Completion();
 
-  const submit = debounced(completion.handleSubmit, 300);
+const submit = debounced(completion.handleSubmit, 300);
 
-  function handleKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Tab' && completion.completion) {
-      event.preventDefault();
-      completion.input += ' ' + completion.completion;
-      completion.completion = '';
-    }
-    submit(event);
+function handleKeydown(event: KeyboardEvent): void {
+  if (event.key === 'Tab' && completion.completion) {
+    event.preventDefault();
+    completion.input += ' ' + completion.completion;
+    completion.completion = '';
   }
+  submit(event);
+}
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function debounced<T extends (...args: any[]) => void>(
-    fn: T,
-    delay: number,
-  ): (...args: Parameters<T>) => void {
-    let timeoutId: NodeJS.Timeout;
-    return function (...args: Parameters<T>): void {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => fn(...args), delay);
-    };
-  }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function debounced<T extends (...args: any[]) => void>(
+  fn: T,
+  delay: number,
+): (...args: Parameters<T>) => void {
+  let timeoutId: NodeJS.Timeout;
+  return (...args: Parameters<T>): void => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), delay);
+  };
+}
 </script>
 
 <main class="flex flex-col items-center h-dvh w-dvw">

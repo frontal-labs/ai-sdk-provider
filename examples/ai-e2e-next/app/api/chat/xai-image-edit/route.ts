@@ -6,6 +6,7 @@ import {
   generateImage,
   type ModelMessage,
 } from 'ai';
+
 type DataContent = string | Uint8Array | ArrayBuffer | Buffer;
 
 export const maxDuration = 60;
@@ -68,10 +69,14 @@ function findLastAssistantImage(
 ): DataContent | undefined {
   for (let i = messages.length - 1; i >= 0; i--) {
     const message = messages[i];
-    if (message.role !== 'assistant') continue;
+    if (message.role !== 'assistant') {
+      continue;
+    }
 
     const content = message.content;
-    if (typeof content === 'string') continue;
+    if (typeof content === 'string') {
+      continue;
+    }
 
     for (let j = content.length - 1; j >= 0; j--) {
       const part = content[j];
@@ -84,5 +89,5 @@ function findLastAssistantImage(
       }
     }
   }
-  return undefined;
+  return;
 }

@@ -1,33 +1,33 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
+import type { McpProviderMetadata } from '@ai-sdk/mcp';
 import { useChat } from '@ai-sdk/react';
 import {
   DefaultChatTransport,
+  type DynamicToolUIPart,
   getToolName,
   isToolUIPart,
-  type DynamicToolUIPart,
   type ToolUIPart,
 } from 'ai';
-import type { McpProviderMetadata } from '@ai-sdk/mcp';
+import ChatInput from '@/components/chat-input';
 export default function Chat() {
   const { error, status, sendMessage, messages, regenerate, stop } = useChat({
     transport: new DefaultChatTransport({ api: '/chat/mcp/chat' }),
   });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-2xl stretch">
+    <div className="stretch mx-auto flex w-full max-w-2xl flex-col py-24">
       {messages.map(m => (
-        <div key={m.id} className="mb-4">
+        <div className="mb-4" key={m.id}>
           <div className="mb-2 font-semibold">
             {m.role === 'user' ? '👤 User' : '🤖 Assistant'}
           </div>
-          <div className="pl-4 space-y-2">
+          <div className="space-y-2 pl-4">
             {m.parts.map((part, index) => {
               // Handle text parts
               if (part.type === 'text') {
                 return (
-                  <div key={index} className="whitespace-pre-wrap">
+                  <div className="whitespace-pre-wrap" key={index}>
                     {part.text}
                   </div>
                 );
@@ -35,7 +35,7 @@ export default function Chat() {
 
               if (part.type === 'step-start') {
                 return index > 0 ? (
-                  <div key={index} className="my-4">
+                  <div className="my-4" key={index}>
                     <hr className="border-gray-300" />
                   </div>
                 ) : null;
@@ -55,22 +55,22 @@ export default function Chat() {
 
                 return (
                   <div
+                    className="rounded-lg border border-gray-300 bg-gray-50 p-4"
                     key={index}
-                    className="p-4 bg-gray-50 rounded-lg border border-gray-300"
                   >
-                    <div className="flex gap-2 items-center mb-2">
+                    <div className="mb-2 flex items-center gap-2">
                       <span className="text-xl">🔧</span>
                       <div>
-                        <div className="text-sm font-semibold">
+                        <div className="font-semibold text-sm">
                           {displayName}
                         </div>
                         {displayName !== toolName && (
-                          <div className="text-xs text-gray-500">
+                          <div className="text-gray-500 text-xs">
                             Tool ID: {toolName}
                           </div>
                         )}
                         {mcpClientName && (
-                          <div className="text-xs text-gray-500">
+                          <div className="text-gray-500 text-xs">
                             MCP server: {mcpClientName}
                           </div>
                         )}
@@ -78,10 +78,10 @@ export default function Chat() {
                     </div>
 
                     {toolPart.state === 'input-streaming' && (
-                      <div className="text-sm text-gray-600">
+                      <div className="text-gray-600 text-sm">
                         <div className="mb-1">Streaming input...</div>
                         {toolPart.input && (
-                          <pre className="overflow-x-auto p-2 text-xs bg-white rounded">
+                          <pre className="overflow-x-auto rounded bg-white p-2 text-xs">
                             {JSON.stringify(toolPart.input, null, 2)}
                           </pre>
                         )}
@@ -89,9 +89,9 @@ export default function Chat() {
                     )}
 
                     {toolPart.state === 'input-available' && (
-                      <div className="text-sm text-gray-600">
+                      <div className="text-gray-600 text-sm">
                         <div className="mb-1">Input:</div>
-                        <pre className="overflow-x-auto p-2 text-xs bg-white rounded">
+                        <pre className="overflow-x-auto rounded bg-white p-2 text-xs">
                           {JSON.stringify(toolPart.input, null, 2)}
                         </pre>
                       </div>
@@ -100,7 +100,7 @@ export default function Chat() {
                     {toolPart.state === 'output-available' && (
                       <div className="text-sm">
                         <div className="mb-1 text-gray-600">Output:</div>
-                        <div className="p-2 text-xs bg-white rounded">
+                        <div className="rounded bg-white p-2 text-xs">
                           {typeof toolPart.output === 'string'
                             ? toolPart.output
                             : JSON.stringify(toolPart.output, null, 2)}
@@ -109,7 +109,7 @@ export default function Chat() {
                     )}
 
                     {toolPart.state === 'output-error' && (
-                      <div className="text-sm text-red-600">
+                      <div className="text-red-600 text-sm">
                         Error: {toolPart.errorText}
                       </div>
                     )}
@@ -124,12 +124,12 @@ export default function Chat() {
       ))}
 
       {(status === 'submitted' || status === 'streaming') && (
-        <div className="mt-4 text-sm text-gray-500">
+        <div className="mt-4 text-gray-500 text-sm">
           {status === 'submitted' && <div>Loading...</div>}
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-sm text-blue-500 rounded-md border border-blue-500 hover:bg-blue-50"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500 text-sm hover:bg-blue-50"
             onClick={stop}
+            type="button"
           >
             Stop
           </button>
@@ -138,18 +138,18 @@ export default function Chat() {
 
       {error && (
         <div className="mt-4">
-          <div className="text-sm text-red-500">An error occurred.</div>
+          <div className="text-red-500 text-sm">An error occurred.</div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-sm text-blue-500 rounded-md border border-blue-500 hover:bg-blue-50"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500 text-sm hover:bg-blue-50"
             onClick={() => regenerate()}
+            type="button"
           >
             Retry
           </button>
         </div>
       )}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

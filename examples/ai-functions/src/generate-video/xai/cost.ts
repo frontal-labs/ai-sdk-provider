@@ -1,8 +1,8 @@
-import { xai, type XaiVideoModelOptions } from '@ai-sdk/xai';
+import { type XaiVideoModelOptions, xai } from '@ai-sdk/xai';
 import { experimental_generateVideo as generateVideo } from 'ai';
+import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
 import { withSpinner } from '../../lib/spinner';
-import { presentVideos } from '../../lib/present-video';
 
 run(async () => {
   const result = await withSpinner('Generating xAI video...', () =>
@@ -12,7 +12,7 @@ run(async () => {
       duration: 5,
       providerOptions: {
         xai: {
-          pollTimeoutMs: 600000,
+          pollTimeoutMs: 600_000,
         } satisfies XaiVideoModelOptions,
       },
     }),

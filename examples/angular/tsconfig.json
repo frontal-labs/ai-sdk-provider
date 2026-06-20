@@ -10,5 +10,8 @@
     {
       "path": "../../packages/openai"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "strictNullChecks": true
+  }
 }

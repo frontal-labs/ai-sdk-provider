@@ -1,8 +1,8 @@
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
+import { print } from '../../lib/print';
 import { printFullStream } from '../../lib/print-full-stream';
 import { run } from '../../lib/run';
-import { print } from '../../lib/print';
 
 run(async () => {
   const result = streamText({

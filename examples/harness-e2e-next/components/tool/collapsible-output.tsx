@@ -25,9 +25,9 @@ export default function CollapsibleOutput({
       <pre className={className}>{visibleContent}</pre>
       {isCollapsible && (
         <button
-          type="button"
+          className="mt-2 font-medium text-blue-600 text-xs hover:text-blue-800"
           onClick={() => setExpanded(value => !value)}
-          className="mt-2 text-xs font-medium text-blue-600 hover:text-blue-800"
+          type="button"
         >
           {expanded
             ? 'Show less'

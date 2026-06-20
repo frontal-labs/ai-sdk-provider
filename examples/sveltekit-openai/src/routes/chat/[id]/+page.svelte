@@ -1,47 +1,44 @@
 <script lang="ts">
-  import { page } from '$app/state';
-  import ArrowUp from '$lib/components/icons/arrow-up.svelte';
-  import Button from '$lib/components/ui/button/button.svelte';
-  import { Textarea } from '$lib/components/ui/textarea/index.js';
-  import { Chat } from '@ai-sdk/svelte';
+import { Chat } from '@ai-sdk/svelte';
+import { page } from '$app/state';
 
-  const chat = new Chat({
-    id: page.params.id,
-    // run client-side tools that are automatically executed:
-    async onToolCall({ toolCall }) {
-      // artificial 2 second delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+const chat = new Chat({
+  id: page.params.id,
+  // run client-side tools that are automatically executed:
+  async onToolCall({ toolCall }) {
+    // artificial 2 second delay
+    await new Promise(resolve => setTimeout(resolve, 2000));
 
-      if (toolCall.toolName === 'getLocation') {
-        const cities = ['New York', 'Los Angeles', 'Chicago', 'San Francisco'];
-        const location = cities[Math.floor(Math.random() * cities.length)];
+    if (toolCall.toolName === 'getLocation') {
+      const cities = ['New York', 'Los Angeles', 'Chicago', 'San Francisco'];
+      const location = cities[Math.floor(Math.random() * cities.length)];
 
-        await chat.addToolOutput({
-          toolCallId: toolCall.toolCallId,
-          tool: 'getLocation',
-          output: location,
-        });
-      }
-    },
-  });
+      await chat.addToolOutput({
+        toolCallId: toolCall.toolCallId,
+        tool: 'getLocation',
+        output: location,
+      });
+    }
+  },
+});
 
-  const disabled = $derived(chat.status !== 'ready');
+const disabled = $derived(chat.status !== 'ready');
 
-  function mapRoleToClass(role: string) {
-    return role === 'assistant'
-      ? 'bg-primary text-secondary rounded-md'
-      : 'bg-secondary text-primary rounded-md justify-self-end';
-  }
+function mapRoleToClass(role: string) {
+  return role === 'assistant'
+    ? 'bg-primary text-secondary rounded-md'
+    : 'bg-secondary text-primary rounded-md justify-self-end';
+}
 
-  let input = $state('');
+let input = $state('');
 
-  function handleSubmit(e: Event) {
-    console.log('handleSubmit', e);
-    console.log('input', input);
-    e.preventDefault();
-    chat.sendMessage({ text: input });
-    input = '';
-  }
+function handleSubmit(e: Event) {
+  console.log('handleSubmit', e);
+  console.log('input', input);
+  e.preventDefault();
+  chat.sendMessage({ text: input });
+  input = '';
+}
 </script>
 
 <main class="flex flex-col items-center h-dvh w-dvw">

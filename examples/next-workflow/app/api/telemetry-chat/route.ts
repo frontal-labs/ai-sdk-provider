@@ -10,9 +10,9 @@ import { telemetryChat, toUIMessageStream } from '@/workflow/telemetry-agent';
 
 interface TelemetryChatRequest {
   messages: UIMessage[];
+  resetTelemetry?: boolean;
   scenario?: TelemetryScenario;
   telemetryRunId?: string;
-  resetTelemetry?: boolean;
 }
 
 export async function POST(req: Request) {

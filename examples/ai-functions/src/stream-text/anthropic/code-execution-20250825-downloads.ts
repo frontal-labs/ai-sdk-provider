@@ -1,7 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { streamText } from 'ai';
-import { run } from '../../lib/run';
 import * as fs from 'fs';
+import { run } from '../../lib/run';
 
 run(async () => {
   const result = streamText({

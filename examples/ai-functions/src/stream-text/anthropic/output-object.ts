@@ -1,5 +1,5 @@
 import { anthropic } from '@ai-sdk/anthropic';
-import { Output, isStepCount, streamText } from 'ai';
+import { isStepCount, Output, streamText } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 import { weatherTool } from '../../tools/weather-tool';
@@ -28,5 +28,5 @@ run(async () => {
     console.log(partialOutput);
   }
 
-  console.dir((await result.request).body, { depth: Infinity });
+  console.dir((await result.request).body, { depth: Number.POSITIVE_INFINITY });
 });

@@ -1,4 +1,4 @@
-import { xai, type XaiTranscriptionModelOptions } from '@ai-sdk/xai';
+import { type XaiTranscriptionModelOptions, xai } from '@ai-sdk/xai';
 import { transcribe } from 'ai';
 import { readFile } from 'fs/promises';
 import { run } from '../../lib/run';

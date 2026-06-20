@@ -1,4 +1,4 @@
-import { groq, type GroqTranscriptionModelOptions } from '@ai-sdk/groq';
+import { type GroqTranscriptionModelOptions, groq } from '@ai-sdk/groq';
 import { transcribe } from 'ai';
 import 'dotenv/config';
 import { readFile } from 'fs/promises';
@@ -7,7 +7,9 @@ import path from 'path';
 async function main() {
   const result = await transcribe({
     model: groq.transcription('whisper-large-v3-turbo'),
-    audio: await readFile(path.join(__dirname, '../../data/galileo.mp3')),
+    audio: await readFile(
+      path.join(import.meta.dirname, '../../data/galileo.mp3'),
+    ),
     providerOptions: {
       groq: {
         language: 'en',

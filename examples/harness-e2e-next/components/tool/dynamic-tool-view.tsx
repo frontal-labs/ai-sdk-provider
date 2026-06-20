@@ -10,8 +10,8 @@ export default function WeatherWithApprovalView({
     case 'input-available':
       return (
         <div className="text-gray-500">
-          <div className="mb-2 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-            <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+          <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 shadow-lg">
+            <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
               <div className="pb-2 font-semibold">
                 Tool call &quot;{invocation.toolName}&quot;
                 {invocation.providerExecuted ? ' (provider-executed)' : ''}
@@ -21,12 +21,12 @@ export default function WeatherWithApprovalView({
           </div>
         </div>
       );
-    case 'output-available':
+    case 'output-available': {
       const isPreliminary = invocation.preliminary ?? false;
       return (
         <div className="text-gray-500">
-          <div className="mb-2 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-            <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+          <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 shadow-lg">
+            <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
               <div className="pb-2 font-semibold">
                 {isPreliminary ? 'Executing' : 'Executed'} tool &quot;
                 {invocation.toolName}&quot;
@@ -39,6 +39,7 @@ export default function WeatherWithApprovalView({
           </div>
         </div>
       );
+    }
     case 'output-denied':
       return (
         <div className="text-red-500">

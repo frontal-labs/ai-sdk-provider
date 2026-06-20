@@ -1,3 +1,4 @@
+import { google } from '@ai-sdk/google';
 import {
   extractJsonMiddleware,
   gateway,
@@ -5,7 +6,6 @@ import {
   Output,
   wrapLanguageModel,
 } from 'ai';
-import { google } from '@ai-sdk/google';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 

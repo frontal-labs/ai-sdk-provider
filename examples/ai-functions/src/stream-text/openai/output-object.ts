@@ -1,8 +1,8 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
-import { Output, isStepCount, streamText } from 'ai';
+import { isStepCount, Output, streamText } from 'ai';
 import { z } from 'zod';
 import { print } from '../../lib/print';
 import { run } from '../../lib/run';

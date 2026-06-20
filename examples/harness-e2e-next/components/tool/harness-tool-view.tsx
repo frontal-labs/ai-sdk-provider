@@ -35,19 +35,19 @@ export default function HarnessToolView({
         : JSON.stringify(output, null, 2);
 
   return (
-    <div className="relative mb-2 text-sm text-gray-500">
+    <div className="relative mb-2 text-gray-500 text-sm">
       {running && <ToolSpinner />}
       <div>
         <strong>{toolName}</strong>(<code>{toolArg}</code>)
       </div>
       {state !== 'output-error' && outputText && (
         <div className="mt-1 ml-4">
-          <CollapsibleOutput content={outputText} className={PRE_CLASS} />
+          <CollapsibleOutput className={PRE_CLASS} content={outputText} />
         </div>
       )}
       {state === 'output-error' && errorText && (
         <div className="mt-1 ml-4">
-          <div className="text-sm text-red-500">Error: {errorText}</div>
+          <div className="text-red-500 text-sm">Error: {errorText}</div>
         </div>
       )}
     </div>

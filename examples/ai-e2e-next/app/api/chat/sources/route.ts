@@ -2,9 +2,9 @@ import { anthropic } from '@ai-sdk/anthropic';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
+  type InferUITool,
   streamText,
   toUIMessageStream,
-  type InferUITool,
   type UIDataTypes,
   type UIMessage,
 } from 'ai';

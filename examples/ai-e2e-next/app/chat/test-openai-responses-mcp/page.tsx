@@ -1,11 +1,11 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
-import DynamicToolView from '@/components/tool/dynamic-tool-view';
-import OpenAIMCPView from '@/components/tool/openai-mcp-view';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import type { OpenAIResponsesMCPMessage } from '@/app/api/chat/openai-responses-mcp/route';
+import ChatInput from '@/components/chat-input';
+import DynamicToolView from '@/components/tool/dynamic-tool-view';
+import OpenAIMCPView from '@/components/tool/openai-mcp-view';
 
 export default function TestOpenAIResponsesMCP() {
   const { status, sendMessage, messages } = useChat<OpenAIResponsesMCPMessage>({
@@ -15,11 +15,11 @@ export default function TestOpenAIResponsesMCP() {
   });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
-      <h1 className="mb-4 text-xl font-bold">OpenAI Responses MCP Tool Test</h1>
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h1 className="mb-4 font-bold text-xl">OpenAI Responses MCP Tool Test</h1>
 
       {messages.map(message => (
-        <div key={message.id} className="mb-4 whitespace-pre-wrap">
+        <div className="mb-4 whitespace-pre-wrap" key={message.id}>
           <div className="mb-2 font-semibold">
             {message.role === 'user' ? 'User' : 'AI'}:
           </div>
@@ -27,35 +27,35 @@ export default function TestOpenAIResponsesMCP() {
             switch (part.type) {
               case 'text':
                 return (
-                  <div key={index} className="mb-2">
+                  <div className="mb-2" key={index}>
                     {part.text}
                   </div>
                 );
 
               case 'dynamic-tool':
                 return (
-                  <div key={index} className="mb-4">
+                  <div className="mb-4" key={index}>
                     <DynamicToolView invocation={part} />
                   </div>
                 );
 
               case 'tool-mcp':
                 return (
-                  <div key={index} className="mb-4">
+                  <div className="mb-4" key={index}>
                     <OpenAIMCPView invocation={part} />
                   </div>
                 );
 
               case 'step-start':
                 return index > 0 ? (
-                  <div key={index} className="my-2 border-t border-gray-300" />
+                  <div className="my-2 border-gray-300 border-t" key={index} />
                 ) : null;
             }
           })}
         </div>
       ))}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

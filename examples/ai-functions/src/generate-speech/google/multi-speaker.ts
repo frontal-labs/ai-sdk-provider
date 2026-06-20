@@ -1,7 +1,7 @@
-import { google, type GoogleSpeechModelOptions } from '@ai-sdk/google';
+import { type GoogleSpeechModelOptions, google } from '@ai-sdk/google';
 import { generateSpeech } from 'ai';
-import { saveAudioFile } from '../../lib/save-audio';
 import { run } from '../../lib/run';
+import { saveAudioFile } from '../../lib/save-audio';
 
 run(async () => {
   // Multi-speaker dialogue is configured through provider options and overrides

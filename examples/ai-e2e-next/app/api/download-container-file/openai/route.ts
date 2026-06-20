@@ -4,7 +4,7 @@ export async function GET(req: Request) {
   const fileId = searchParams.get('file_id');
   const filename = searchParams.get('filename') || 'file';
 
-  if (!containerId || !fileId) {
+  if (!(containerId && fileId)) {
     return new Response('Missing container_id or file_id', { status: 400 });
   }
 

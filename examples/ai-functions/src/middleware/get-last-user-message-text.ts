@@ -8,7 +8,7 @@ export function getLastUserMessageText({
   const lastMessage = prompt.at(-1);
 
   if (lastMessage?.role !== 'user') {
-    return undefined;
+    return;
   }
 
   return lastMessage.content.length === 0

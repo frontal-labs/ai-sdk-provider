@@ -1,4 +1,4 @@
-import { azure, type AzureResponsesTextProviderMetadata } from '@ai-sdk/azure';
+import { type AzureResponsesTextProviderMetadata, azure } from '@ai-sdk/azure';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
 
@@ -19,10 +19,14 @@ run(async () => {
       const providerMetadata = part.providerMetadata as
         | AzureResponsesTextProviderMetadata
         | undefined;
-      if (!providerMetadata) continue;
+      if (!providerMetadata) {
+        continue;
+      }
       const { itemId: _itemId, annotations } = providerMetadata.azure;
 
-      if (!annotations) continue;
+      if (!annotations) {
+        continue;
+      }
       for (const annotation of annotations) {
         switch (annotation.type) {
           case 'url_citation':

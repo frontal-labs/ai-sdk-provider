@@ -1,6 +1,6 @@
 import {
-  provideZonelessChangeDetection,
   type ApplicationConfig,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 

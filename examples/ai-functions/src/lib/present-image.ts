@@ -1,7 +1,7 @@
-import type { Experimental_GeneratedImage as GeneratedImage } from 'ai';
 import fs from 'node:fs';
-import imageType from 'image-type';
 import path from 'node:path';
+import type { Experimental_GeneratedImage as GeneratedImage } from 'ai';
+import imageType from 'image-type';
 import sharp from 'sharp';
 import terminalImage from 'terminal-image';
 

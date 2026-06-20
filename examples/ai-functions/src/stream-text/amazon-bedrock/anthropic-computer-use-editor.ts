@@ -42,7 +42,7 @@ This is a sample README file for testing the text editor tool.
         `\nTool call: ${part.toolName}(${JSON.stringify(part.input).substring(0, 100)}...)`,
       );
     } else if (part.type === 'tool-result') {
-      console.log(`Tool result received`);
+      console.log('Tool result received');
     }
   }
 

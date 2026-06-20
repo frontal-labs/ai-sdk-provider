@@ -8,7 +8,8 @@ async function main() {
 
   const result = streamText({
     model: gateway('openai/gpt-5-nano'),
-    prompt: `Search for the latest research on quantum computing breakthroughs.`,
+    prompt:
+      'Search for the latest research on quantum computing breakthroughs.',
     tools: {
       parallel_search: gateway.tools.parallelSearch({
         mode: 'agentic',

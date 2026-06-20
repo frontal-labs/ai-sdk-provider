@@ -2,14 +2,14 @@ import { openai } from '@ai-sdk/openai';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
+  type InferUITools,
   isStepCount,
   streamText,
   tool,
   toUIMessageStream,
-  validateUIMessages,
-  type InferUITools,
   type UIDataTypes,
   type UIMessage,
+  validateUIMessages,
 } from 'ai';
 import { z } from 'zod';
 
@@ -20,7 +20,7 @@ const getWeatherTool = tool({
   inputSchema: z.object({ city: z.string() }),
   execute: async (_input, { abortSignal }) => {
     await new Promise((resolve, reject) => {
-      const timer = setTimeout(resolve, 10000);
+      const timer = setTimeout(resolve, 10_000);
       abortSignal?.addEventListener('abort', () => {
         clearTimeout(timer);
         reject(abortSignal.reason);

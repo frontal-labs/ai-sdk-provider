@@ -1,9 +1,9 @@
-import {
-  sandboxAgent,
-  type SandboxAgentUIMessage,
-} from '@/agent/openai/sandbox-agent';
-import { createAgentUIStreamResponse } from 'ai';
 import { Sandbox } from '@vercel/sandbox';
+import { createAgentUIStreamResponse } from 'ai';
+import {
+  type SandboxAgentUIMessage,
+  sandboxAgent,
+} from '@/agent/openai/sandbox-agent';
 import { VercelSandboxSession } from '@/sandbox/vercel-sandbox';
 
 async function getSandbox(sandboxName?: string) {

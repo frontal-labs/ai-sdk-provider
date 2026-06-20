@@ -1,9 +1,9 @@
 import { openai } from '@ai-sdk/openai';
+import { LegacyOpenTelemetry } from '@ai-sdk/otel';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-node';
-import { streamText, registerTelemetry } from 'ai';
-import { LegacyOpenTelemetry } from '@ai-sdk/otel';
+import { registerTelemetry, streamText } from 'ai';
 import { run } from '../../lib/run';
 
 const sdk = new NodeSDK({

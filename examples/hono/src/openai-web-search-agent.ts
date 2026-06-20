@@ -1,6 +1,6 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
 import { ToolLoopAgent } from 'ai';
 

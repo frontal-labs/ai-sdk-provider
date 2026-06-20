@@ -1,6 +1,6 @@
-import { google, type GoogleLanguageModelOptions } from '@ai-sdk/google';
-import { generateText, type ModelMessage } from 'ai';
 import * as readline from 'node:readline/promises';
+import { type GoogleLanguageModelOptions, google } from '@ai-sdk/google';
+import { generateText, type ModelMessage } from 'ai';
 import { presentImages } from '../../lib/present-image';
 import { run } from '../../lib/run';
 

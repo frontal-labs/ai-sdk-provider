@@ -17,9 +17,9 @@ app.post('/mcp', async (req, res) => {
     },
   );
 
-  server.tool('ping', 'A simple ping tool', async () => {
-    return { content: [{ type: 'text', text: 'pong' }] };
-  });
+  server.tool('ping', 'A simple ping tool', async () => ({
+    content: [{ type: 'text', text: 'pong' }],
+  }));
 
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined,

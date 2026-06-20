@@ -1,5 +1,5 @@
-import type { MyUIMessage } from '@/util/chat-schema';
 import type { ChatStatus } from 'ai';
+import type { MyUIMessage } from '@/util/chat-schema';
 
 export default function Message({
   message,
@@ -25,10 +25,9 @@ export default function Message({
 
   return (
     <div
-      className={`whitespace-pre-wrap my-2 p-3 rounded-lg shadow
-        ${isUser ? 'bg-blue-100 text-right ml-10' : 'bg-gray-100 text-left mr-10'}`}
+      className={`my-2 whitespace-pre-wrap rounded-lg p-3 shadow ${isUser ? 'ml-10 bg-blue-100 text-right' : 'mr-10 bg-gray-100 text-left'}`}
     >
-      <div className="mb-1 text-xs text-gray-500">{date}</div>
+      <div className="mb-1 text-gray-500 text-xs">{date}</div>
       <div className="font-semibold">{isUser ? 'User:' : 'AI:'}</div>
       <div>
         {message.parts
@@ -38,18 +37,18 @@ export default function Message({
       {message.role === 'user' && (
         <>
           <button
-            onClick={() => regenerate({ messageId: message.id })}
-            className="px-3 py-1 mt-2 text-sm transition-colors bg-gray-200 rounded-md hover:bg-gray-300"
+            className="mt-2 rounded-md bg-gray-200 px-3 py-1 text-sm transition-colors hover:bg-gray-300"
             disabled={status !== 'ready'}
+            onClick={() => regenerate({ messageId: message.id })}
           >
             Regenerate
           </button>
           <button
+            className="mt-2 rounded-md bg-gray-200 px-3 py-1 text-sm transition-colors hover:bg-gray-300"
+            disabled={status !== 'ready'}
             onClick={() =>
               sendMessage({ text: 'Hello', messageId: message.id })
             }
-            className="px-3 py-1 mt-2 text-sm transition-colors bg-gray-200 rounded-md hover:bg-gray-300"
-            disabled={status !== 'ready'}
           >
             Replace with Hello
           </button>

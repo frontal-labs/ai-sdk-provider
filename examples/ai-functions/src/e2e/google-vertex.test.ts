@@ -2,10 +2,10 @@ import { googleVertex as vertexNode } from '@ai-sdk/google-vertex';
 import { googleVertex as vertexEdge } from '@ai-sdk/google-vertex/edge';
 import type { ImageModelV3, ImageModelV4 } from '@ai-sdk/provider';
 import {
+  type APICallError,
   defaultSettingsMiddleware,
   generateImage,
   wrapLanguageModel,
-  type APICallError,
 } from 'ai';
 import 'dotenv/config';
 import { describe, expect, it, vi } from 'vitest';
@@ -18,6 +18,7 @@ import {
   type ModelCapabilities,
   type ModelWithCapabilities,
 } from './feature-test-suite';
+
 const RUNTIME_VARIANTS = {
   edge: {
     name: 'Edge Runtime',
@@ -78,12 +79,11 @@ const createImageModel = (
   const model = vertex.image(modelId);
 
   if (additionalTests.length > 0) {
-    describe.each([createModelObject(model)])(
-      'Provider-specific tests: $modelId',
-      ({ model }) => {
-        additionalTests.forEach(test => test(model));
-      },
-    );
+    describe.each([
+      createModelObject(model),
+    ])('Provider-specific tests: $modelId', ({ model }) => {
+      additionalTests.forEach(test => test(model));
+    });
   }
   return createImageModelWithCapabilities(model);
 };
@@ -118,22 +118,21 @@ const createModelsForRuntime = (
   ],
 });
 
-describe.each(Object.values(RUNTIME_VARIANTS))(
-  'Google Vertex AI - $name',
-  ({ vertex }) => {
-    createFeatureTestSuite({
-      name: `Google Vertex AI (${vertex.name})`,
-      models: createModelsForRuntime(vertex),
-      timeout: 20000,
-      customAssertions: {
-        skipUsage: false,
-        errorValidator: (error: APICallError) => {
-          expect(error.message).toMatch(/Model .* not found/);
-        },
+describe.each(Object.values(RUNTIME_VARIANTS))('Google Vertex AI - $name', ({
+  vertex,
+}) => {
+  createFeatureTestSuite({
+    name: `Google Vertex AI (${vertex.name})`,
+    models: createModelsForRuntime(vertex),
+    timeout: 20_000,
+    customAssertions: {
+      skipUsage: false,
+      errorValidator: (error: APICallError) => {
+        expect(error.message).toMatch(/Model .* not found/);
       },
-    })();
-  },
-);
+    },
+  })();
+});
 
 const mediaTypeSignatures = [
   { mediaType: 'image/gif' as const, bytes: [0x47, 0x49, 0x46] },
@@ -154,11 +153,11 @@ function detectImageMediaType(
     }
   }
 
-  return undefined;
+  return;
 }
 
 const imageTest = (model: ImageModelV4) => {
-  vi.setConfig({ testTimeout: 10000 });
+  vi.setConfig({ testTimeout: 10_000 });
 
   it('should generate an image with correct dimensions and format', async () => {
     const { image } = await generateImage({

@@ -14,12 +14,12 @@ export default function Page() {
   } = useCompletion();
 
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      <h4 className="pb-4 text-xl font-bold text-gray-900 md:text-xl">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h4 className="pb-4 font-bold text-gray-900 text-xl md:text-xl">
         useCompletion Example
       </h4>
       {error && (
-        <div className="fixed top-0 left-0 w-full p-4 text-center text-white bg-red-500">
+        <div className="fixed top-0 left-0 w-full bg-red-500 p-4 text-center text-white">
           {error.message}
         </div>
       )}
@@ -27,9 +27,9 @@ export default function Page() {
         <div className="mt-4 text-gray-500">
           <div>Loading...</div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={stop}
+            type="button"
           >
             Stop
           </button>
@@ -38,11 +38,11 @@ export default function Page() {
       {completion}
       <form onSubmit={handleSubmit}>
         <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-          value={input}
-          placeholder="Say something..."
-          onChange={handleInputChange}
+          className="fixed bottom-0 mb-8 w-full max-w-md rounded border border-gray-300 p-2 shadow-xl"
           disabled={isLoading}
+          onChange={handleInputChange}
+          placeholder="Say something..."
+          value={input}
         />
       </form>
     </div>

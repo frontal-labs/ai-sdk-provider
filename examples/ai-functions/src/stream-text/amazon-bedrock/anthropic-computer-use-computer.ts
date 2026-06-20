@@ -54,7 +54,7 @@ run(async () => {
         `\nTool call: ${part.toolName}(${JSON.stringify(part.input).substring(0, 50)}...)`,
       );
     } else if (part.type === 'tool-result') {
-      console.log(`Tool result received`);
+      console.log('Tool result received');
     }
   }
 

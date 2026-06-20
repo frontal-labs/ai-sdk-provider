@@ -1,4 +1,4 @@
-import { google, type GoogleEmbeddingModelOptions } from '@ai-sdk/google';
+import { type GoogleEmbeddingModelOptions, google } from '@ai-sdk/google';
 import { embed } from 'ai';
 import { readFileSync } from 'fs';
 import { run } from '../../lib/run';

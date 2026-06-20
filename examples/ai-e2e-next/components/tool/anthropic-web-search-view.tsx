@@ -11,16 +11,16 @@ export default function AnthropicWebSearchView({
   switch (invocation.state) {
     case 'input-available': {
       return (
-        <div className="flex flex-col gap-2 p-3 bg-indigo-50 rounded border-l-4 border-indigo-400 shadow">
+        <div className="flex flex-col gap-2 rounded border-indigo-400 border-l-4 bg-indigo-50 p-3 shadow">
           <div className="flex items-center font-semibold text-indigo-700">
-            <span className="inline-block mr-2 bg-indigo-200 text-indigo-900 rounded px-2 py-0.5 text-xs font-mono tracking-wider">
+            <span className="mr-2 inline-block rounded bg-indigo-200 px-2 py-0.5 font-mono text-indigo-900 text-xs tracking-wider">
               SEARCH
             </span>
             Searching the web...
           </div>
-          <div className="pl-5 text-sm text-indigo-800">
+          <div className="pl-5 text-indigo-800 text-sm">
             <span className="font-semibold">Query:</span>{' '}
-            <span className="inline-block bg-white border border-indigo-100 rounded px-2 py-0.5 font-mono">
+            <span className="inline-block rounded border border-indigo-100 bg-white px-2 py-0.5 font-mono">
               {invocation.input.query}
             </span>
           </div>
@@ -30,29 +30,29 @@ export default function AnthropicWebSearchView({
     case 'output-available': {
       const output = invocation.output;
       return (
-        <div className="flex flex-col gap-2 p-3 bg-indigo-50 rounded border-l-4 border-indigo-400 shadow">
+        <div className="flex flex-col gap-2 rounded border-indigo-400 border-l-4 bg-indigo-50 p-3 shadow">
           <div className="flex items-center font-semibold text-indigo-700">
-            <span className="inline-block mr-2 bg-indigo-200 text-indigo-900 rounded px-2 py-0.5 text-xs font-mono tracking-wider">
+            <span className="mr-2 inline-block rounded bg-indigo-200 px-2 py-0.5 font-mono text-indigo-900 text-xs tracking-wider">
               SEARCH
             </span>
             Searched the web
           </div>
-          <div className="pl-5 text-sm text-indigo-800">
+          <div className="pl-5 text-indigo-800 text-sm">
             <span className="font-semibold">Query:</span>{' '}
-            <span className="inline-block bg-white border border-indigo-100 rounded px-2 py-0.5 font-mono">
+            <span className="inline-block rounded border border-indigo-100 bg-white px-2 py-0.5 font-mono">
               {invocation.input.query}
             </span>
           </div>
-          <div className="pl-5 text-xs text-indigo-900 whitespace-pre-wrap">
+          <div className="whitespace-pre-wrap pl-5 text-indigo-900 text-xs">
             <span className="font-semibold">Result:</span>{' '}
-            <span className="font-mono break-all">
+            <span className="break-all font-mono">
               {output.map(result => (
                 <div key={result.url}>
                   <a
-                    href={result.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="underline hover:text-indigo-700"
+                    href={result.url}
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     {result.title}
                   </a>

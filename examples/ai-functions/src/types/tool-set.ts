@@ -1,9 +1,9 @@
 import { openai } from '@ai-sdk/openai';
 import {
   generateText,
-  tool,
   type StaticToolCall,
   type StaticToolResult,
+  tool,
 } from 'ai';
 import { z } from 'zod';
 

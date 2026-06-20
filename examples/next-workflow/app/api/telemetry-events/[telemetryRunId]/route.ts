@@ -79,11 +79,12 @@ export async function GET(
       excludesRuntimeSecret: !serializedTelemetryEvents.includes(
         'runtime-secret-not-for-telemetry',
       ),
-      excludesToolSecret:
-        !serializedTelemetryEvents.includes(
+      excludesToolSecret: !(
+        serializedTelemetryEvents.includes(
           'weather-secret-not-for-telemetry',
-        ) &&
-        !serializedTelemetryEvents.includes('delete-secret-not-for-telemetry'),
+        ) ||
+        serializedTelemetryEvents.includes('delete-secret-not-for-telemetry')
+      ),
     },
   });
 }

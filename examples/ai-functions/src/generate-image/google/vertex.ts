@@ -1,6 +1,6 @@
 import {
-  googleVertex,
   type GoogleVertexImageModelOptions,
+  googleVertex,
 } from '@ai-sdk/google-vertex';
 import { generateImage } from 'ai';
 import { presentImages } from '../../lib/present-image';

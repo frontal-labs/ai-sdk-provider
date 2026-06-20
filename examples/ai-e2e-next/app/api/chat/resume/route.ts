@@ -1,21 +1,19 @@
-import {
-  appendMessageToChat,
-  appendStreamId,
-  saveChat,
-} from '@/util/chat-store';
 import { openai } from '@ai-sdk/openai';
 import {
   convertToModelMessages,
-  createUIMessageStream,
   createUIMessageStreamResponse,
   generateId,
-  JsonToSseTransformStream,
   streamText,
   toUIMessageStream,
   type UIMessage,
 } from 'ai';
 import { after } from 'next/server';
 import { createResumableStreamContext } from 'resumable-stream';
+import {
+  appendMessageToChat,
+  appendStreamId,
+  saveChat,
+} from '@/util/chat-store';
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;

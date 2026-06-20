@@ -1,16 +1,16 @@
 import {
-  openai,
-  type OpenaiResponsesProviderMetadata,
   type OpenAILanguageModelResponsesOptions,
+  type OpenaiResponsesProviderMetadata,
+  openai,
 } from '@ai-sdk/openai';
 import {
   convertToModelMessages,
   createUIMessageStream,
   createUIMessageStreamResponse,
+  type InferUITools,
   isStepCount,
   streamText,
   toUIMessageStream,
-  type InferUITools,
   type UIMessage,
 } from 'ai';
 import { rollDieToolWithProgrammaticCalling } from '@/tool/roll-die-tool-with-programmatic-calling';
@@ -38,10 +38,9 @@ export async function POST(req: Request) {
     reqJson as PreviousResponseIdRequestBody;
 
   // Extract the prior OpenAI responseId so the Responses API can replay history.
-  const previousResponseId: string | null | undefined =
-    !!previousProviderMetadata
-      ? previousProviderMetadata.openai.responseId
-      : undefined;
+  const previousResponseId: string | null | undefined = previousProviderMetadata
+    ? previousProviderMetadata.openai.responseId
+    : undefined;
 
   const stream = createUIMessageStream<PreviousResponseIdUIMessage>({
     execute: async ({ writer }) => {
@@ -63,7 +62,7 @@ export async function POST(req: Request) {
         onFinish: ({ finalStep }) => {
           const providerMetadata = finalStep.providerMetadata;
 
-          if (!!providerMetadata) {
+          if (providerMetadata) {
             // Return provider metadata so the client can persist the latest responseId.
             writer.write({
               type: 'data-providerMetadata',

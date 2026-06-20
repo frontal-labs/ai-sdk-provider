@@ -1,8 +1,8 @@
 import { openai } from '@ai-sdk/openai';
 import {
-  experimental_streamLanguageModelCall as streamLanguageModelCall,
-  type Experimental_LanguageModelStreamPart as LanguageModelStreamPart,
   type AsyncIterableStream,
+  type Experimental_LanguageModelStreamPart as LanguageModelStreamPart,
+  experimental_streamLanguageModelCall as streamLanguageModelCall,
 } from 'ai';
 import { run } from '../lib/run';
 

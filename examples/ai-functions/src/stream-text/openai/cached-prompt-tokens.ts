@@ -1,7 +1,6 @@
-import { openai, type OpenAILanguageModelChatOptions } from '@ai-sdk/openai';
-import { streamText } from 'ai';
-import { setTimeout } from 'node:timers/promises';
 import { performance } from 'node:perf_hooks';
+import { type OpenAILanguageModelChatOptions, openai } from '@ai-sdk/openai';
+import { streamText } from 'ai';
 import { run } from '../../lib/run';
 
 const longPrompt = `
@@ -150,15 +149,15 @@ function createCompletion() {
       } satisfies OpenAILanguageModelChatOptions,
     },
     onFinish: ({ finalStep }) => {
-      console.log(`metadata:`, finalStep.providerMetadata);
+      console.log('metadata:', finalStep.providerMetadata);
     },
   });
 }
 
 run(async () => {
-  let start = performance.now();
-  let result = await createCompletion();
-  let end = performance.now();
+  const start = performance.now();
+  const result = await createCompletion();
+  const end = performance.now();
   console.log(`duration: ${Math.floor(end - start)} ms`);
 
   let fullResponse = '';

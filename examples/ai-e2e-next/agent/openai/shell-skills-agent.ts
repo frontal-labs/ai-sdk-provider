@@ -1,6 +1,6 @@
 import { openai } from '@ai-sdk/openai';
 import { Sandbox } from '@vercel/sandbox';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -61,7 +61,7 @@ async function executeShellCommand({
       outcome: { type: 'exit', exitCode },
     };
   } catch (error: any) {
-    const timedOut = error?.message?.includes('timeout') || false;
+    const timedOut = error?.message?.includes('timeout');
     const exitCode = timedOut ? null : (error?.code ?? 1);
 
     return {

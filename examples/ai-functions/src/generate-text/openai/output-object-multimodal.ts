@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { openai } from '@ai-sdk/openai';
 import { generateText, Output } from 'ai';
-import fs from 'node:fs';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 

@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { google } from '@ai-sdk/google';
 import { generateText, Output } from 'ai';
-import fs from 'node:fs';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 

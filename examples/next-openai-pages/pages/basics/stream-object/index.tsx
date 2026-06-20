@@ -8,9 +8,9 @@ export default function Page() {
   });
 
   return (
-    <div className="p-2 flex flex-col gap-2">
+    <div className="flex flex-col gap-2 p-2">
       <div
-        className="p-2 bg-zinc-100 cursor-pointer"
+        className="cursor-pointer bg-zinc-100 p-2"
         onClick={async () => {
           submit('Final exams');
         }}
@@ -19,7 +19,7 @@ export default function Page() {
       </div>
 
       <pre
-        className="text-sm w-full whitespace-pre-wrap"
+        className="w-full whitespace-pre-wrap text-sm"
         data-testid="generation"
       >
         {JSON.stringify(object, null, 2)}

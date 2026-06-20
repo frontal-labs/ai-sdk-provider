@@ -23,7 +23,7 @@ export default function HarnessBashToolView({
     invocation.state === 'input-available';
 
   return (
-    <div className="relative mb-2 text-sm text-gray-500">
+    <div className="relative mb-2 text-gray-500 text-sm">
       {running && <ToolSpinner />}
       <div>
         <strong>Bash</strong>(<code>{command}</code>)
@@ -48,22 +48,22 @@ function BashOutput({ invocation }: { invocation: BashInvocation }) {
         typeof (output as Record<string, unknown>)?.stderr === 'string'
           ? ((output as Record<string, unknown>).stderr as string)
           : undefined;
-      const exitCodeRaw = !isString
-        ? (output as Record<string, unknown>)?.exitCode
-        : undefined;
+      const exitCodeRaw = isString
+        ? undefined
+        : (output as Record<string, unknown>)?.exitCode;
       const exitCode =
         typeof exitCodeRaw === 'number' ? exitCodeRaw : undefined;
 
       const hasBoth = !!stdout && !!stderr;
 
-      if (!stdout && !stderr && exitCode === undefined) {
+      if (!(stdout || stderr) && exitCode === undefined) {
         return null;
       }
 
       return (
         <div className="mt-1 ml-4 space-y-2">
           {exitCode !== undefined && exitCode !== 0 && (
-            <div className="text-sm font-medium text-red-600">
+            <div className="font-medium text-red-600 text-sm">
               Exit code: {exitCode}
             </div>
           )}
@@ -71,22 +71,22 @@ function BashOutput({ invocation }: { invocation: BashInvocation }) {
           {stdout && (
             <div>
               {hasBoth && (
-                <div className="mb-1 text-xs font-medium text-black">
+                <div className="mb-1 font-medium text-black text-xs">
                   Output
                 </div>
               )}
-              <CollapsibleOutput content={stdout} className={PRE_CLASS} />
+              <CollapsibleOutput className={PRE_CLASS} content={stdout} />
             </div>
           )}
 
           {stderr && (
             <div>
               {hasBoth && (
-                <div className="mb-1 text-xs font-medium text-red-600">
+                <div className="mb-1 font-medium text-red-600 text-xs">
                   Error
                 </div>
               )}
-              <CollapsibleOutput content={stderr} className={PRE_CLASS_ERROR} />
+              <CollapsibleOutput className={PRE_CLASS_ERROR} content={stderr} />
             </div>
           )}
         </div>
@@ -95,7 +95,7 @@ function BashOutput({ invocation }: { invocation: BashInvocation }) {
 
     case 'output-denied':
       return (
-        <div className="mt-1 ml-4 text-sm font-medium text-red-600">
+        <div className="mt-1 ml-4 font-medium text-red-600 text-sm">
           Execution was denied by user.
         </div>
       );
@@ -104,8 +104,8 @@ function BashOutput({ invocation }: { invocation: BashInvocation }) {
       return (
         <div className="mt-1 ml-4">
           <CollapsibleOutput
-            content={invocation.errorText ?? 'Unknown error'}
             className={PRE_CLASS_ERROR}
+            content={invocation.errorText ?? 'Unknown error'}
           />
         </div>
       );

@@ -35,9 +35,9 @@ export async function printFullStreamAndCaptureToolApproval({
             toolCallId: chunk.toolCall.toolCallId,
             toolName: chunk.toolCall.toolName,
             input: chunk.toolCall.input,
-            ...(chunk.toolCall.providerExecuted !== undefined
-              ? { providerExecuted: chunk.toolCall.providerExecuted }
-              : {}),
+            ...(chunk.toolCall.providerExecuted === undefined
+              ? {}
+              : { providerExecuted: chunk.toolCall.providerExecuted }),
           },
         };
         console.log(
@@ -102,7 +102,7 @@ export function createToolApprovalResponseMessages({
     type: 'tool-approval-response',
     approvalId: approval.approvalId,
     approved,
-    ...(reason !== undefined ? { reason } : {}),
+    ...(reason === undefined ? {} : { reason }),
   };
 
   return [
@@ -114,9 +114,9 @@ export function createToolApprovalResponseMessages({
           toolCallId: approval.toolCall.toolCallId,
           toolName: approval.toolCall.toolName,
           input: approval.toolCall.input,
-          ...(approval.toolCall.providerExecuted !== undefined
-            ? { providerExecuted: approval.toolCall.providerExecuted }
-            : {}),
+          ...(approval.toolCall.providerExecuted === undefined
+            ? {}
+            : { providerExecuted: approval.toolCall.providerExecuted }),
         },
         {
           type: 'tool-approval-request',

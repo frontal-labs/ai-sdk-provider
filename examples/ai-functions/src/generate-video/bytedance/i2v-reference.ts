@@ -1,6 +1,6 @@
 import {
-  byteDance,
   type ByteDanceVideoProviderOptions,
+  byteDance,
 } from '@ai-sdk/bytedance';
 import { experimental_generateVideo as generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
@@ -25,7 +25,7 @@ run(async () => {
               'https://ark-doc.tos-ap-southeast-1.bytepluses.com/doc_image/seelite_ref_3.png',
             ],
             watermark: false,
-            pollTimeoutMs: 600000,
+            pollTimeoutMs: 600_000,
           } satisfies ByteDanceVideoProviderOptions,
         },
       }),

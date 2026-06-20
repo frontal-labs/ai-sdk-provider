@@ -5,7 +5,7 @@ import { run } from '../../lib/run';
 
 run(async () => {
   const readPDFDocument = tool({
-    description: `Read and return a PDF document by URL`,
+    description: 'Read and return a PDF document by URL',
     inputSchema: z.object({}),
     execute: async () => ({
       success: true,

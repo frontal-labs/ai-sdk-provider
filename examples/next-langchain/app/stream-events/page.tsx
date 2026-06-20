@@ -18,7 +18,6 @@ export default function StreamEventsChat() {
 
   return (
     <ChatContainer
-      title="streamEvents Example"
       description={
         <>
           Uses LangChain&apos;s <code>streamEvents()</code> method for granular
@@ -27,16 +26,17 @@ export default function StreamEventsChat() {
           state-based workflows.
         </>
       }
+      error={error}
       messages={messages}
       onSend={text => sendMessage({ text })}
-      status={status}
-      error={error}
       placeholder="Ask anything..."
+      status={status}
       suggestions={[
         'Tell me a short story',
         'Explain streaming in LangChain',
         'What is the weather like today?',
       ]}
+      title="streamEvents Example"
     />
   );
 }

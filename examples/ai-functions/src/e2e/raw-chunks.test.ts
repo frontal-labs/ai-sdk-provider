@@ -1,12 +1,12 @@
-import { openai } from '@ai-sdk/openai';
 import { anthropic } from '@ai-sdk/anthropic';
 import { google } from '@ai-sdk/google';
+import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import 'dotenv/config';
 import { describe, expect, it, vi } from 'vitest';
 
 describe('Raw Chunks E2E Tests', () => {
-  vi.setConfig({ testTimeout: 30000 });
+  vi.setConfig({ testTimeout: 30_000 });
 
   const providers = [
     { name: 'OpenAI', model: openai('gpt-4o-mini') },

@@ -1,11 +1,11 @@
 import {
-  createAnthropic,
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
+  createAnthropic,
 } from '@ai-sdk/anthropic';
 import { generateText } from 'ai';
-import { run } from '../../lib/run';
 import { print } from '../../lib/print';
+import { run } from '../../lib/run';
 
 run(async () => {
   const customProvider = createAnthropic({

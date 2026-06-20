@@ -12,15 +12,15 @@ export function ThinkingIndicator({ isStreaming }: { isStreaming: boolean }) {
     <div className="flex items-center gap-2 text-[var(--foreground-muted)]">
       <div className="flex gap-1">
         <span
-          className="w-2 h-2 bg-[var(--accent)] rounded-full"
+          className="h-2 w-2 rounded-full bg-[var(--accent)]"
           style={{ animation: 'typing 1s infinite 0s' }}
         />
         <span
-          className="w-2 h-2 bg-[var(--accent)] rounded-full"
+          className="h-2 w-2 rounded-full bg-[var(--accent)]"
           style={{ animation: 'typing 1s infinite 0.2s' }}
         />
         <span
-          className="w-2 h-2 bg-[var(--accent)] rounded-full"
+          className="h-2 w-2 rounded-full bg-[var(--accent)]"
           style={{ animation: 'typing 1s infinite 0.4s' }}
         />
       </div>

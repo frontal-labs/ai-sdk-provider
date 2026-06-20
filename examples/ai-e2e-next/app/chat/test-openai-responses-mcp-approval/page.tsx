@@ -1,14 +1,14 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
-import DynamicToolView from '@/components/tool/dynamic-tool-view';
-import OpenAIMCPApprovalView from '@/components/tool/openai-mcp-approval-view';
 import { useChat } from '@ai-sdk/react';
 import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithApprovalResponses,
 } from 'ai';
 import type { OpenAIResponsesMCPApprovalMessage } from '@/app/api/chat/openai-responses-mcp-approval/route';
+import ChatInput from '@/components/chat-input';
+import DynamicToolView from '@/components/tool/dynamic-tool-view';
+import OpenAIMCPApprovalView from '@/components/tool/openai-mcp-approval-view';
 
 export default function TestOpenAIResponsesMCPApproval() {
   const { status, sendMessage, messages, addToolApprovalResponse } =
@@ -21,16 +21,16 @@ export default function TestOpenAIResponsesMCPApproval() {
     });
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
-      <h1 className="mb-4 text-xl font-bold">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h1 className="mb-4 font-bold text-xl">
         OpenAI Responses MCP Tool Approval Test
       </h1>
-      <p className="mb-4 text-sm text-gray-600">
+      <p className="mb-4 text-gray-600 text-sm">
         Try asking: &quot;Shorten the link https://ai-sdk.dev/&quot;
       </p>
 
       {messages.map(message => (
-        <div key={message.id} className="mb-4 whitespace-pre-wrap">
+        <div className="mb-4 whitespace-pre-wrap" key={message.id}>
           <div className="mb-2 font-semibold">
             {message.role === 'user' ? 'User' : 'AI'}:
           </div>
@@ -38,7 +38,7 @@ export default function TestOpenAIResponsesMCPApproval() {
             switch (part.type) {
               case 'text':
                 return (
-                  <div key={index} className="mb-2">
+                  <div className="mb-2" key={index}>
                     {part.text}
                   </div>
                 );
@@ -50,29 +50,29 @@ export default function TestOpenAIResponsesMCPApproval() {
                   part.toolName === 'mcp'
                 ) {
                   return (
-                    <div key={index} className="mb-4">
+                    <div className="mb-4" key={index}>
                       <OpenAIMCPApprovalView
-                        invocation={part}
                         addToolApprovalResponse={addToolApprovalResponse}
+                        invocation={part}
                       />
                     </div>
                   );
                 }
                 return (
-                  <div key={index} className="mb-4">
+                  <div className="mb-4" key={index}>
                     <DynamicToolView invocation={part} />
                   </div>
                 );
               case 'step-start':
                 return index > 0 ? (
-                  <div key={index} className="my-2 border-t border-gray-300" />
+                  <div className="my-2 border-gray-300 border-t" key={index} />
                 ) : null;
             }
           })}
         </div>
       ))}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

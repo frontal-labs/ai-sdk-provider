@@ -1,10 +1,10 @@
 'use client';
 
-import { experimental_useRealtime } from '@ai-sdk/react';
-import { openai } from '@ai-sdk/openai';
 import { google } from '@ai-sdk/google';
+import { openai } from '@ai-sdk/openai';
+import { experimental_useRealtime } from '@ai-sdk/react';
 import { xai } from '@ai-sdk/xai';
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 type Provider = 'openai' | 'google' | 'xai';
 
@@ -49,8 +49,8 @@ const PROVIDER_CONFIG: Record<
     staticVoices: toVoiceOptions(['Puck', 'Charon', 'Kore', 'Fenrir', 'Aoede']),
     createModel: modelId => google.experimental_realtime(modelId),
     sessionConfigOverrides: {
-      inputAudioFormat: { type: 'audio/pcm', rate: 16000 },
-      outputAudioFormat: { type: 'audio/pcm', rate: 24000 },
+      inputAudioFormat: { type: 'audio/pcm', rate: 16_000 },
+      outputAudioFormat: { type: 'audio/pcm', rate: 24_000 },
     },
   },
   xai: {
@@ -112,9 +112,9 @@ export default function RealtimePage() {
         <label style={{ fontSize: 13, fontWeight: 500, color: '#475569' }}>
           Provider
           <select
-            value={provider}
             onChange={e => handleProviderChange(e.target.value as Provider)}
             style={selectStyle}
+            value={provider}
           >
             {Object.entries(PROVIDER_CONFIG).map(([key, cfg]) => (
               <option key={key} value={key}>
@@ -127,9 +127,9 @@ export default function RealtimePage() {
         <label style={{ fontSize: 13, fontWeight: 500, color: '#475569' }}>
           Voice
           <select
-            value={voice}
             onChange={e => setVoice(e.target.value)}
             style={selectStyle}
+            value={voice}
           >
             {currentVoices.length === 0 ? (
               <option>No voices available</option>
@@ -272,7 +272,9 @@ function RealtimeChat({
   const handleSendText = (e: React.FormEvent) => {
     e.preventDefault();
     const text = textInput.trim();
-    if (!text) return;
+    if (!text) {
+      return;
+    }
     sendTextMessage(text);
     setTextInput('');
   };
@@ -313,8 +315,8 @@ function RealtimeChat({
         </span>
         <div style={{ flex: 1 }} />
         <button
-          onClick={status === 'connected' ? disconnect : connect}
           disabled={status === 'connecting'}
+          onClick={status === 'connected' ? disconnect : connect}
           style={{
             padding: '6px 16px',
             borderRadius: 8,
@@ -396,7 +398,6 @@ function RealtimeChat({
           style={{ display: 'flex', gap: 8, marginBottom: 20 }}
         >
           <input
-            value={textInput}
             onChange={e => setTextInput(e.target.value)}
             placeholder="Type a message…"
             style={{
@@ -407,9 +408,9 @@ function RealtimeChat({
               fontSize: 14,
               outline: 'none',
             }}
+            value={textInput}
           />
           <button
-            type="submit"
             style={{
               padding: '10px 20px',
               borderRadius: 8,
@@ -420,6 +421,7 @@ function RealtimeChat({
               background: '#2563eb',
               color: 'white',
             }}
+            type="submit"
           >
             Send
           </button>

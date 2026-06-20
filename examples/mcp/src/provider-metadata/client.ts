@@ -1,9 +1,9 @@
-import { openai } from '@ai-sdk/openai';
 import {
   createMCPClient,
   type MCPClient,
   type McpProviderMetadata,
 } from '@ai-sdk/mcp';
+import { openai } from '@ai-sdk/openai';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 import { generateText } from 'ai';
 import 'dotenv/config';

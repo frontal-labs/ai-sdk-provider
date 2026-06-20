@@ -1,11 +1,11 @@
+import * as readline from 'node:readline/promises';
 import { createOpenAI } from '@ai-sdk/openai';
 import {
   isStepCount,
-  streamText,
   type ModelMessage,
+  streamText,
   type ToolApprovalResponse,
 } from 'ai';
-import * as readline from 'node:readline/promises';
 import { run } from '../../lib/run';
 
 const terminal = readline.createInterface({
@@ -72,7 +72,7 @@ run(async () => {
     for (const part of content) {
       if (part.type === 'tool-approval-request') {
         const answer = await terminal.question(
-          `\nApprove MCP tool call? (y/n): `,
+          '\nApprove MCP tool call? (y/n): ',
         );
         approvals.push({
           type: 'tool-approval-response',

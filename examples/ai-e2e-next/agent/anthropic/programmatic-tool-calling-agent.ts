@@ -1,11 +1,11 @@
-import { rollDieToolWithProgrammaticCalling } from '@/tool/roll-die-tool-with-programmatic-calling';
 import {
+  type AnthropicLanguageModelOptions,
   anthropic,
   forwardAnthropicContainerIdFromLastStep,
-  type AnthropicLanguageModelOptions,
 } from '@ai-sdk/anthropic';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
 import { z } from 'zod';
+import { rollDieToolWithProgrammaticCalling } from '@/tool/roll-die-tool-with-programmatic-calling';
 
 export const anthropicProgrammaticToolCallingAgent = new ToolLoopAgent({
   model: anthropic('claude-opus-4-6'),

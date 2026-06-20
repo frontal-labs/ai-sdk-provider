@@ -17,8 +17,8 @@ export default function WeatherWithApprovalView({
     case 'approval-requested':
       return (
         <div className="text-gray-500">
-          <div className="mb-2 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-            <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+          <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 shadow-lg">
+            <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
               <div className="pb-2 font-semibold">
                 Execute tool &quot;{invocation.toolName}&quot;
               </div>
@@ -27,7 +27,7 @@ export default function WeatherWithApprovalView({
           </div>
           <div>
             <button
-              className="px-4 py-2 mr-2 text-white bg-blue-500 rounded transition-colors hover:bg-blue-600"
+              className="mr-2 rounded bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
               onClick={() =>
                 addToolApprovalResponse({
                   id: invocation.approval.id,
@@ -39,7 +39,7 @@ export default function WeatherWithApprovalView({
               Approve
             </button>
             <button
-              className="px-4 py-2 text-white bg-red-500 rounded transition-colors hover:bg-red-600"
+              className="rounded bg-red-500 px-4 py-2 text-white transition-colors hover:bg-red-600"
               onClick={() =>
                 addToolApprovalResponse({
                   id: invocation.approval.id,
@@ -56,8 +56,8 @@ export default function WeatherWithApprovalView({
     case 'approval-responded':
       return (
         <div className="text-gray-500">
-          <div className="mb-2 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-            <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+          <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 shadow-lg">
+            <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
               <div className="pb-2 font-semibold">
                 Execute tool &quot;{invocation.toolName}&quot;
               </div>
@@ -70,12 +70,12 @@ export default function WeatherWithApprovalView({
         </div>
       );
 
-    case 'output-available':
+    case 'output-available': {
       const isPreliminary = invocation.preliminary ?? false;
       return (
         <div className="text-gray-500">
-          <div className="mb-2 bg-gray-600 rounded-xl border border-gray-900 shadow-lg">
-            <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap">
+          <div className="mb-2 rounded-xl border border-gray-900 bg-gray-600 shadow-lg">
+            <pre className="overflow-x-auto whitespace-pre-wrap p-4 text-gray-100 text-sm">
               <div className="pb-2 font-semibold">
                 {isPreliminary ? 'Executing' : 'Executed'} tool &quot;
                 {invocation.toolName}&quot;
@@ -87,6 +87,7 @@ export default function WeatherWithApprovalView({
           </div>
         </div>
       );
+    }
     case 'output-denied':
       return (
         <div className="text-red-500">

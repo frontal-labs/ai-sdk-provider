@@ -1,11 +1,11 @@
 import 'dotenv/config';
-import { expect } from 'vitest';
 import { perplexity as provider } from '@ai-sdk/perplexity';
+import type { APICallError } from '@ai-sdk/provider';
+import { expect } from 'vitest';
 import {
   createFeatureTestSuite,
   createLanguageModelWithCapabilities,
 } from './feature-test-suite';
-import type { APICallError } from '@ai-sdk/provider';
 
 const createChatModel = (modelId: string) =>
   createLanguageModelWithCapabilities(provider(modelId));
@@ -16,7 +16,7 @@ createFeatureTestSuite({
     invalidModel: provider('no-such-model'),
     languageModels: [createChatModel('sonar-pro'), createChatModel('sonar')],
   },
-  timeout: 30000,
+  timeout: 30_000,
   customAssertions: {
     errorValidator: (error: APICallError) => {
       expect((error.data as any).code).toBe(

@@ -1,11 +1,11 @@
-import { generateText, isStepCount, tool } from 'ai';
-import { run } from '../../lib/run';
-import { z } from 'zod';
 import { anthropic } from '@ai-sdk/anthropic';
+import { generateText, isStepCount, tool } from 'ai';
+import { z } from 'zod';
+import { run } from '../../lib/run';
 
 run(async () => {
   const readImage = tool({
-    description: `Read and return an image`,
+    description: 'Read and return an image',
     inputSchema: z.object({}),
     execute: async () => {
       try {

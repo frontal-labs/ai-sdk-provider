@@ -1,6 +1,6 @@
-import { generateText } from 'ai';
 import type { OpenAILanguageModelChatOptions } from '@ai-sdk/openai';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { generateText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {
@@ -15,7 +15,7 @@ run(async () => {
   const model = openai.chatModel('gpt-5-mini');
 
   const result = await generateText({
-    model: model,
+    model,
     prompt: 'Explain the theory of relativity in simple terms.',
     reasoning: 'low',
     providerOptions: {

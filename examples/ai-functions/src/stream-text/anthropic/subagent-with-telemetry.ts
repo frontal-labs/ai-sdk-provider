@@ -1,13 +1,13 @@
 import { anthropic } from '@ai-sdk/anthropic';
-import { streamText, ToolLoopAgent, registerTelemetry } from 'ai';
-import { LegacyOpenTelemetry } from '@ai-sdk/otel';
 import { DevToolsTelemetry } from '@ai-sdk/devtools';
+import { LegacyOpenTelemetry } from '@ai-sdk/otel';
 import { LangfuseSpanProcessor } from '@langfuse/otel';
 import { NodeSDK } from '@opentelemetry/sdk-node';
-import { printFullStream } from '../../lib/print-full-stream';
-import { print } from '../../lib/print';
-import { run } from '../../lib/run';
+import { registerTelemetry, streamText, ToolLoopAgent } from 'ai';
 import { z } from 'zod';
+import { print } from '../../lib/print';
+import { printFullStream } from '../../lib/print-full-stream';
+import { run } from '../../lib/run';
 
 const sdk = new NodeSDK({
   spanProcessors: [new LangfuseSpanProcessor()],

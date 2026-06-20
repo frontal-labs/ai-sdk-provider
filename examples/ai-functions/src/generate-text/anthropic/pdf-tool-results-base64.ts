@@ -1,22 +1,22 @@
-import { generateText, isStepCount, tool } from 'ai';
-import { run } from '../../lib/run';
-import { z } from 'zod';
-import path from 'path';
-import fs from 'fs/promises';
 import { anthropic } from '@ai-sdk/anthropic';
+import { generateText, isStepCount, tool } from 'ai';
+import fs from 'fs/promises';
+import path from 'path';
+import { z } from 'zod';
+import { run } from '../../lib/run';
 
 run(async () => {
   const readPDFDocument = tool({
-    description: `Read and return a PDF document`,
+    description: 'Read and return a PDF document',
     inputSchema: z.object({}),
     execute: async () => {
       try {
-        const pdfpath = path.join(__dirname, '../../data/ai.pdf');
+        const pdfpath = path.join(import.meta.dirname, '../../data/ai.pdf');
         const pdfData = await fs.readFile(pdfpath);
 
         const base64Data = pdfData.toString('base64');
 
-        console.log(`PDF document read successfully`);
+        console.log('PDF document read successfully');
 
         return {
           success: true,

@@ -59,19 +59,14 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family:
-    "Geist",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+    "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--foreground);
+  background: var(--background);
 }
 
 /* Custom scrollbar */
@@ -95,13 +90,13 @@ body {
 
 /* Code styling */
 code {
+  padding: 0.2em 0.5em;
   font-family: "Geist Mono", "SF Mono", Consolas, "Liberation Mono", monospace;
   font-size: 0.875em;
-  background: var(--background-tertiary);
   color: var(--foreground);
-  padding: 0.2em 0.5em;
-  border-radius: 4px;
+  background: var(--background-tertiary);
   border: 1px solid var(--border-hover);
+  border-radius: 4px;
 }
 
 /* Animation keyframes */
@@ -159,17 +154,17 @@ code {
 
 /* Gradient text */
 .gradient-text {
+  -webkit-text-fill-color: transparent;
   background: var(--gradient-2);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 /* Glass effect */
 .glass {
   background: rgba(17, 17, 17, 0.8);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 /* Dot pattern background */
@@ -184,18 +179,18 @@ code {
 }
 
 .gradient-border::before {
-  content: "";
   position: absolute;
   inset: 0;
-  border-radius: inherit;
   padding: 1px;
+  pointer-events: none;
+  content: "";
   background: var(--gradient-border);
+  border-radius: inherit;
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  pointer-events: none;
 }
 
 /* Subtle glow effect for main content */

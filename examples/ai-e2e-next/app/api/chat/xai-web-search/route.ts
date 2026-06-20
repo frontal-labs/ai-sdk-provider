@@ -1,5 +1,5 @@
-import { xaiWebSearchAgent } from '@/agent/xai/web-search-agent';
 import { createAgentUIStreamResponse } from 'ai';
+import { xaiWebSearchAgent } from '@/agent/xai/web-search-agent';
 
 export async function POST(req: Request) {
   const { messages } = await req.json();

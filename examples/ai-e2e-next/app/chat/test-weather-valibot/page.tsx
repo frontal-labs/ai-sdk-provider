@@ -5,8 +5,8 @@ import {
   DefaultChatTransport,
   lastAssistantMessageIsCompleteWithApprovalResponses,
 } from 'ai';
-import ChatInput from '@/components/chat-input';
 import type { WeatherValibotAgentUIMessage } from '@/agent/anthropic/weather-valibot-agent';
+import ChatInput from '@/components/chat-input';
 import WeatherValibotView from '@/components/tool/weather-valibot-view';
 
 export default function TestWeatherValibot() {
@@ -20,24 +20,24 @@ export default function TestWeatherValibot() {
   console.log(structuredClone(messages));
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
-      <h1 className="mb-4 text-xl font-bold">Weather Valibot Test</h1>
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h1 className="mb-4 font-bold text-xl">Weather Valibot Test</h1>
 
       {messages.map(message => (
-        <div key={message.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={message.id}>
           {message.role === 'user' ? 'User: ' : 'AI: '}
           {message.parts.map((part, index) => {
             switch (part.type) {
               case 'text':
                 return <div key={index}>{part.text}</div>;
               case 'tool-weather':
-                return <WeatherValibotView key={index} invocation={part} />;
+                return <WeatherValibotView invocation={part} key={index} />;
             }
           })}
         </div>
       ))}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

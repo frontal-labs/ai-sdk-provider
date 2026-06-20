@@ -13,5 +13,5 @@ createFeatureTestSuite({
   models: {
     languageModels: [createChatModel('xai/grok-3-beta')],
   },
-  timeout: 30000,
+  timeout: 30_000,
 })();

@@ -1,5 +1,5 @@
-import { deepseekToolsAgent } from '@/agent/deepseek/tools-agent';
 import { createAgentUIStreamResponse } from 'ai';
+import { deepseekToolsAgent } from '@/agent/deepseek/tools-agent';
 
 export async function POST(request: Request) {
   const body = await request.json();

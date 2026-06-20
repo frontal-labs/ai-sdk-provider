@@ -18,8 +18,8 @@ export default function Page() {
     <div className="flex flex-col gap-2">
       <div className="flex flex-col gap-2 p-2">
         {messages.map(message => (
-          <div key={message.id} className="flex flex-row gap-2">
-            <div className="flex-shrink-0 w-24 text-zinc-500">{`${message.role}: `}</div>
+          <div className="flex flex-row gap-2" key={message.id}>
+            <div className="w-24 flex-shrink-0 text-zinc-500">{`${message.role}: `}</div>
 
             <div className="flex flex-col gap-2">
               {message.parts.map((part, index) => {
@@ -33,9 +33,9 @@ export default function Page() {
                   return (
                     <div key={index}>
                       <img
-                        className="rounded-md w-60"
-                        src={part.url}
                         alt={part.filename}
+                        className="w-60 rounded-md"
+                        src={part.url}
                       />
                     </div>
                   );
@@ -47,6 +47,7 @@ export default function Page() {
       </div>
 
       <form
+        className="fixed bottom-0 flex w-full flex-col gap-2 p-2"
         onSubmit={event => {
           if (isUploading) {
             alert('Please wait for the files to finish uploading.');
@@ -61,24 +62,23 @@ export default function Page() {
             fileInputRef.current.value = '';
           }
         }}
-        className="fixed bottom-0 flex flex-col w-full gap-2 p-2"
       >
-        <div className="fixed flex flex-row items-end gap-2 right-2 bottom-14">
+        <div className="fixed right-2 bottom-14 flex flex-row items-end gap-2">
           {Array.from(files)
             .filter(file => file.mediaType?.startsWith('image/'))
             .map(file => (
               <div key={file.url}>
                 <img
+                  alt={file.filename}
                   className="w-24 rounded-md"
                   src={file.url}
-                  alt={file.filename}
                 />
                 <span className="text-sm text-zinc-500">{file.filename}</span>
               </div>
             ))}
         </div>
         <input
-          type="file"
+          multiple
           onChange={async event => {
             if (event.target.files) {
               setIsUploading(true);
@@ -103,15 +103,15 @@ export default function Page() {
               setIsUploading(false);
             }
           }}
-          multiple
           ref={fileInputRef}
+          type="file"
         />
         <input
-          value={input}
-          placeholder="Send message..."
-          onChange={e => setInput(e.target.value)}
-          className="w-full p-2 bg-zinc-100"
+          className="w-full bg-zinc-100 p-2"
           disabled={status !== 'ready'}
+          onChange={e => setInput(e.target.value)}
+          placeholder="Send message..."
+          value={input}
         />
       </form>
     </div>

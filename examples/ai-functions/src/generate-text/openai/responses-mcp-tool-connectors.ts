@@ -25,9 +25,9 @@ run(async () => {
   });
 
   console.log('\nTOOL CALLS:\n');
-  console.dir(result.toolCalls, { depth: Infinity });
+  console.dir(result.toolCalls, { depth: Number.POSITIVE_INFINITY });
   console.log('\nTOOL RESULTS:\n');
-  console.dir(result.toolResults, { depth: Infinity });
+  console.dir(result.toolResults, { depth: Number.POSITIVE_INFINITY });
   console.log('\nTEXT RESULT:\n');
   console.log(result.text);
 });

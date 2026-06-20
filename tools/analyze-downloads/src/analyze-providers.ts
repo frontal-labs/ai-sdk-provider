@@ -144,19 +144,17 @@ function fetchWithRetry(
     const attemptFetch = (n: number) => {
       fetch(url, options)
         .then(response => {
-          if (!response.ok) {
-            if (n > 0) {
-              console.warn(
-                `Fetch failed for ${url}. Retrying in ${backoff}ms... (${n} retries left)`,
-              );
-              setTimeout(() => attemptFetch(n - 1), backoff);
-            } else {
-              reject(
-                new Error(`Failed to fetch ${url} after multiple attempts.`),
-              );
-            }
-          } else {
+          if (response.ok) {
             setTimeout(() => resolve(response), 1000);
+          } else if (n > 0) {
+            console.warn(
+              `Fetch failed for ${url}. Retrying in ${backoff}ms... (${n} retries left)`,
+            );
+            setTimeout(() => attemptFetch(n - 1), backoff);
+          } else {
+            reject(
+              new Error(`Failed to fetch ${url} after multiple attempts.`),
+            );
           }
         })
         .catch(err => {

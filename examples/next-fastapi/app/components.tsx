@@ -2,24 +2,22 @@ import { GeistMono } from 'geist/font/mono';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-const Code = ({ children }: { children: ReactNode }) => {
-  return (
-    <code
-      className={`${GeistMono.className} text-xs bg-zinc-100 p-1 rounded-md border`}
-    >
-      {children}
-    </code>
-  );
-};
+const Code = ({ children }: { children: ReactNode }) => (
+  <code
+    className={`${GeistMono.className} rounded-md border bg-zinc-100 p-1 text-xs`}
+  >
+    {children}
+  </code>
+);
 
-export const Card = ({ type }: { type: string }) => {
-  return type === 'chat-text' ? (
-    <div className="self-center w-full fixed bottom-20 px-8 py-6">
-      <div className="p-4 border rounded-lg flex flex-col gap-2 w-full">
+export const Card = ({ type }: { type: string }) =>
+  type === 'chat-text' ? (
+    <div className="fixed bottom-20 w-full self-center px-8 py-6">
+      <div className="flex w-full flex-col gap-2 rounded-lg border p-4">
         <div className="text font-semibold text-zinc-800">
           Stream Chat Completions
         </div>
-        <div className="text-zinc-500 text-sm leading-6 flex flex-col gap-4">
+        <div className="flex flex-col gap-4 text-sm text-zinc-500 leading-6">
           <p>
             The <Code>useChat</Code> hook can be integrated with a Python
             FastAPI backend to stream chat completions in real-time. The most
@@ -35,12 +33,12 @@ export const Card = ({ type }: { type: string }) => {
       </div>
     </div>
   ) : type === 'chat-data' ? (
-    <div className="self-center w-full fixed bottom-20 px-8 py-6">
-      <div className="p-4 border rounded-lg flex flex-col gap-2 w-full">
+    <div className="fixed bottom-20 w-full self-center px-8 py-6">
+      <div className="flex w-full flex-col gap-2 rounded-lg border p-4">
         <div className="text font-semibold text-zinc-800">
           Stream Chat Completions with Tools
         </div>
-        <div className="text-zinc-500 text-sm leading-6 flex flex-col gap-4">
+        <div className="flex flex-col gap-4 text-sm text-zinc-500 leading-6">
           <p>
             The <Code>useChat</Code> hook can be integrated with a Python
             FastAPI backend to stream chat completions in real-time. However,
@@ -60,9 +58,9 @@ export const Card = ({ type }: { type: string }) => {
             <Code>StreamingResponse</Code> class provided by FastAPI. You will
             also have to ensure that your chunks follow the{' '}
             <Link
-              target="_blank"
               className="text-blue-500 hover:underline"
               href="https://ai-sdk.dev/docs/ai-sdk-ui/stream-protocol#data-stream-protocol"
+              target="_blank"
             >
               data stream protocol
             </Link>{' '}
@@ -73,12 +71,12 @@ export const Card = ({ type }: { type: string }) => {
       </div>
     </div>
   ) : type === 'chat-attachments' ? (
-    <div className="self-center w-full fixed top-14 px-8 py-6">
-      <div className="p-4 border rounded-lg flex flex-col gap-2 w-full">
+    <div className="fixed top-14 w-full self-center px-8 py-6">
+      <div className="flex w-full flex-col gap-2 rounded-lg border p-4">
         <div className="text font-semibold text-zinc-800">
           Stream Chat Completions with Attachments
         </div>
-        <div className="text-zinc-500 text-sm leading-6 flex flex-col gap-4">
+        <div className="flex flex-col gap-4 text-sm text-zinc-500 leading-6">
           <p>
             The <Code>useChat</Code> hook can be integrated with a Python
             FastAPI backend to stream chat completions in real-time. To make
@@ -96,4 +94,3 @@ export const Card = ({ type }: { type: string }) => {
       </div>
     </div>
   ) : null;
-};

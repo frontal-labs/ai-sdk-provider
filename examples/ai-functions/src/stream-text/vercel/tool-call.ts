@@ -1,17 +1,17 @@
 import { vercel } from '@ai-sdk/vercel';
 import {
+  type ModelMessage,
   streamText,
   type ToolCallPart,
   type ToolResultPart,
-  type ModelMessage,
 } from 'ai';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 const messages: ModelMessage[] = [];
 
 run(async () => {
-  let toolResponseAvailable = false;
+  const toolResponseAvailable = false;
 
   const result = streamText({
     model: vercel('v0-1.0-md'),
@@ -23,7 +23,7 @@ run(async () => {
       'What is the weather in San Francisco and what attractions should I visit?',
   });
 
-  let fullResponse = '';
+  const fullResponse = '';
   const toolCalls: ToolCallPart[] = [];
   const toolResponses: ToolResultPart[] = [];
 

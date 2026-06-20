@@ -1,7 +1,7 @@
 import { voyage } from '@ai-sdk/voyage';
 import { rerank } from 'ai';
-import { run } from '../lib/run';
 import { print } from '../lib/print';
+import { run } from '../lib/run';
 
 run(async () => {
   const result = await rerank({

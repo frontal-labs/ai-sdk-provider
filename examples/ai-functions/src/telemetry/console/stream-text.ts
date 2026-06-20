@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { streamText, registerTelemetry } from 'ai';
+import { registerTelemetry, streamText } from 'ai';
 import { run } from '../../lib/run';
 import { consoleTelemetry } from './console-telemetry';
 

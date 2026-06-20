@@ -1,7 +1,7 @@
 import { google } from '@ai-sdk/google';
 import { streamText, tool } from 'ai';
-import { z } from 'zod';
 import { readFile } from 'fs/promises';
+import { z } from 'zod';
 import { run } from '../../lib/run';
 
 run(async () => {
@@ -140,9 +140,11 @@ run(async () => {
           inputSchema: z.object({
             userId: z.string(),
           }),
-          execute: async ({ userId }) => {
-            return { userId, name: 'test user', data: 'mock data' };
-          },
+          execute: async ({ userId }) => ({
+            userId,
+            name: 'test user',
+            data: 'mock data',
+          }),
         }),
       },
     });
@@ -196,14 +198,12 @@ run(async () => {
           inputSchema: z.object({
             userId: z.string(),
           }),
-          execute: async ({ userId }) => {
-            return {
-              userId,
-              name: 'john doe',
-              email: 'john@example.com',
-              plan: 'premium',
-            };
-          },
+          execute: async ({ userId }) => ({
+            userId,
+            name: 'john doe',
+            email: 'john@example.com',
+            plan: 'premium',
+          }),
         }),
       },
       onStepFinish: ({ toolCalls, toolResults }) => {

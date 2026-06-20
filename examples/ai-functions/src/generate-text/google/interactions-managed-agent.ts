@@ -1,9 +1,9 @@
+import { randomUUID } from 'node:crypto';
 import {
-  google,
   type GoogleLanguageModelInteractionsOptions,
+  google,
 } from '@ai-sdk/google';
 import { generateText } from 'ai';
-import { randomUUID } from 'node:crypto';
 import { cancelOnSigint } from '../../lib/cancel-on-sigint';
 import {
   createGoogleManagedAgent,

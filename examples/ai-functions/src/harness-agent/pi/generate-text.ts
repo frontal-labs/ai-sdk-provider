@@ -1,7 +1,7 @@
 import { HarnessAgent } from '@ai-sdk/harness/agent';
 import { pi } from '@ai-sdk/harness-pi';
-import { run } from '../../lib/run';
 import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';
+import { run } from '../../lib/run';
 
 run(async () => {
   const sandbox = createVercelSandbox({

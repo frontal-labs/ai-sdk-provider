@@ -1,11 +1,11 @@
 import 'dotenv/config';
+import { createAzure, azure as provider } from '@ai-sdk/azure';
+import { type APICallError, generateText } from 'ai';
 import { describe, expect, it } from 'vitest';
-import { azure as provider, createAzure } from '@ai-sdk/azure';
-import { generateText, type APICallError } from 'ai';
 import {
+  createEmbeddingModelWithCapabilities,
   createFeatureTestSuite,
   createLanguageModelWithCapabilities,
-  createEmbeddingModelWithCapabilities,
 } from './feature-test-suite';
 
 const createChatModel = (deploymentId: string) =>
@@ -28,7 +28,7 @@ createFeatureTestSuite({
         ]
       : [],
   },
-  timeout: 30000,
+  timeout: 30_000,
   customAssertions: {
     errorValidator: (error: APICallError) => {
       expect(error.message).toMatch(
@@ -39,7 +39,7 @@ createFeatureTestSuite({
 })();
 
 describe.skipIf(
-  !process.env.AZURE_RESOURCE_NAME || !process.env.AZURE_OPENAI_AD_TOKEN,
+  !(process.env.AZURE_RESOURCE_NAME && process.env.AZURE_OPENAI_AD_TOKEN),
 )('Azure OpenAI Microsoft Entra ID E2E Tests', () => {
   it('should generate text with tokenProvider', async () => {
     const azure = createAzure({

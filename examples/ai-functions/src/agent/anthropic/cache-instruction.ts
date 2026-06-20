@@ -1,9 +1,9 @@
+import fs from 'node:fs';
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
 import { ToolLoopAgent } from 'ai';
-import fs from 'node:fs';
 import { print } from '../../lib/print';
 import { run } from '../../lib/run';
 

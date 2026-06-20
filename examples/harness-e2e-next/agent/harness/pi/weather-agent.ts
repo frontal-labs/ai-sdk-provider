@@ -1,3 +1,11 @@
+import {
+  createFileReporter,
+  createTraceTreeReporter,
+  HarnessAgent,
+} from '@ai-sdk/harness/agent';
+import { pi } from '@ai-sdk/harness-pi';
+import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';
+import type { InferUITools, UIMessage } from 'ai';
 import { weatherTool } from '@/lib/tools/weather-tool';
 import {
   WEATHER_CODES_REFERENCE,
@@ -5,14 +13,6 @@ import {
   weatherForecastSkill,
   weatherInstructions,
 } from '@/lib/weather-utils';
-import {
-  HarnessAgent,
-  createFileReporter,
-  createTraceTreeReporter,
-} from '@ai-sdk/harness/agent';
-import { pi } from '@ai-sdk/harness-pi';
-import { createVercelSandbox } from '@ai-sdk/sandbox-vercel';
-import type { InferUITools, UIMessage } from 'ai';
 
 export const weatherPiHarnessAgent = new HarnessAgent({
   harness: pi,

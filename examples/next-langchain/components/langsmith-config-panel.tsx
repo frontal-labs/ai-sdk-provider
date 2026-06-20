@@ -1,15 +1,15 @@
 'use client';
 
-import { useState } from 'react';
 import { Server } from 'lucide-react';
+import { useState } from 'react';
 
 interface LangsmithConfigPanelProps {
-  deploymentUrl: string;
-  customUrl: string;
-  setCustomUrl: (url: string) => void;
   apiKey: string;
-  setApiKey: (key: string) => void;
+  customUrl: string;
+  deploymentUrl: string;
   localDevUrl: string;
+  setApiKey: (key: string) => void;
+  setCustomUrl: (url: string) => void;
 }
 
 export function LangsmithConfigPanel({
@@ -23,56 +23,56 @@ export function LangsmithConfigPanel({
   const [showConfig, setShowConfig] = useState(false);
 
   return (
-    <div className="p-4 bg-[var(--background-tertiary)] border border-[var(--border)] rounded-xl">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--background-tertiary)] p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[var(--accent-light)] flex items-center justify-center">
-            <Server className="w-4 h-4 text-[var(--accent)]" strokeWidth={2} />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--accent-light)]">
+            <Server className="h-4 w-4 text-[var(--accent)]" strokeWidth={2} />
           </div>
           <div>
-            <div className="text-sm font-medium text-[var(--foreground)]">
+            <div className="font-medium text-[var(--foreground)] text-sm">
               Connected to
             </div>
-            <code className="text-xs text-[var(--accent)]">
+            <code className="text-[var(--accent)] text-xs">
               {deploymentUrl}
             </code>
           </div>
         </div>
         <button
+          className="rounded-lg px-3 py-1.5 font-medium text-[var(--foreground-secondary)] text-xs transition-colors hover:bg-[var(--background-secondary)] hover:text-[var(--foreground)]"
           onClick={() => setShowConfig(!showConfig)}
-          className="px-3 py-1.5 text-xs font-medium text-[var(--foreground-secondary)] hover:text-[var(--foreground)] hover:bg-[var(--background-secondary)] rounded-lg transition-colors"
         >
           {showConfig ? 'Hide' : 'Configure'}
         </button>
       </div>
 
       {showConfig && (
-        <div className="mt-4 pt-4 border-t border-[var(--border)] space-y-3 animate-fade-in">
+        <div className="mt-4 animate-fade-in space-y-3 border-[var(--border)] border-t pt-4">
           <div>
-            <label className="block text-xs font-medium text-[var(--foreground-secondary)] mb-1.5">
+            <label className="mb-1.5 block font-medium text-[var(--foreground-secondary)] text-xs">
               Deployment URL
             </label>
             <input
-              type="url"
-              value={customUrl}
+              className="w-full rounded-lg border border-[var(--border)] bg-[var(--background-secondary)] px-3 py-2 text-[var(--foreground)] text-sm placeholder-[var(--foreground-muted)] focus:border-[var(--accent)] focus:outline-none"
               onChange={e => setCustomUrl(e.target.value)}
               placeholder={`Default: ${localDevUrl}`}
-              className="w-full px-3 py-2 text-sm bg-[var(--background-secondary)] border border-[var(--border)] rounded-lg text-[var(--foreground)] placeholder-[var(--foreground-muted)] focus:outline-none focus:border-[var(--accent)]"
+              type="url"
+              value={customUrl}
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-[var(--foreground-secondary)] mb-1.5">
+            <label className="mb-1.5 block font-medium text-[var(--foreground-secondary)] text-xs">
               API Key
             </label>
             <input
-              type="password"
-              value={apiKey}
+              className="w-full rounded-lg border border-[var(--border)] bg-[var(--background-secondary)] px-3 py-2 text-[var(--foreground)] text-sm placeholder-[var(--foreground-muted)] focus:border-[var(--accent)] focus:outline-none"
               onChange={e => setApiKey(e.target.value)}
               placeholder="Required for LangSmith deployments"
-              className="w-full px-3 py-2 text-sm bg-[var(--background-secondary)] border border-[var(--border)] rounded-lg text-[var(--foreground)] placeholder-[var(--foreground-muted)] focus:outline-none focus:border-[var(--accent)]"
+              type="password"
+              value={apiKey}
             />
           </div>
-          <p className="text-xs text-[var(--foreground-secondary)]">
+          <p className="text-[var(--foreground-secondary)] text-xs">
             💡 The local server starts automatically with{' '}
             <code className="text-[var(--accent)]">pnpm dev</code>
           </p>

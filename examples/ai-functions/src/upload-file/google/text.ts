@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { google } from '@ai-sdk/google';
 import { generateText, uploadFile } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 run(async () => {

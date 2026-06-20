@@ -1,7 +1,7 @@
+import { azure } from '@ai-sdk/azure';
 import { generateText, isStepCount, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
-import { azure } from '@ai-sdk/azure';
 
 // Note: `providerOption` is set to `openai` (not `azure`) intentionally.
 // This verifies that Azure works with OpenAI-compatible provider options.
@@ -57,5 +57,5 @@ run(async () => {
     ],
   });
 
-  console.dir(result.response, { depth: Infinity });
+  console.dir(result.response, { depth: Number.POSITIVE_INFINITY });
 });

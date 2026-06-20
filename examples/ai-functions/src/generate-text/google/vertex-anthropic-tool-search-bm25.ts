@@ -1,5 +1,5 @@
 import { vertexAnthropic } from '@ai-sdk/google-vertex/anthropic';
-import { generateText, tool, isStepCount } from 'ai';
+import { generateText, isStepCount, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
@@ -9,8 +9,8 @@ run(async () => {
     prompt: 'What is the weather in San Francisco?',
     stopWhen: isStepCount(10),
     onStepFinish: step => {
-      console.log(`\n=== Step Response ===`);
-      console.dir(step.response.body, { depth: Infinity });
+      console.log('\n=== Step Response ===');
+      console.dir(step.response.body, { depth: Number.POSITIVE_INFINITY });
     },
     tools: {
       toolSearch: vertexAnthropic.tools.toolSearchBm25_20251119(),

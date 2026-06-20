@@ -2,15 +2,15 @@
 
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
-import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   AlertCircle,
   ImageIcon,
-  X,
-  Send,
   Loader2,
+  Send,
   Sparkles,
+  X,
 } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChatMessage } from '../../components/chat-message';
 import { ThinkingIndicator } from '../../components/thinking-indicator';
 import type { CustomDataMessage } from '../types';
@@ -111,7 +111,9 @@ export default function MultimodalPage() {
   };
 
   const handleSubmit = useCallback(async () => {
-    if (!input.trim() && !selectedImage) return;
+    if (!(input.trim() || selectedImage)) {
+      return;
+    }
 
     const messageContent = input.trim() || 'What is in this image?';
 
@@ -175,13 +177,13 @@ export default function MultimodalPage() {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       {/* Header */}
-      <div className="flex-shrink-0 p-6 border-b border-[var(--border)] rounded-t-xl">
-        <h1 className="text-2xl font-semibold text-[var(--foreground)] mb-2">
+      <div className="flex-shrink-0 rounded-t-xl border-[var(--border)] border-b p-6">
+        <h1 className="mb-2 font-semibold text-2xl text-[var(--foreground)]">
           Multimodal Vision
         </h1>
-        <div className="text-sm text-[var(--foreground-secondary)] leading-relaxed">
+        <div className="text-[var(--foreground-secondary)] text-sm leading-relaxed">
           Send images to <strong>GPT-4o</strong> for analysis. This example
           demonstrates multimodal input using the <code>@ai-sdk/langchain</code>{' '}
           adapter, which properly converts images and files to LangChain&apos;s
@@ -191,72 +193,59 @@ export default function MultimodalPage() {
 
       {/* Error display */}
       {error && (
-        <div className="mx-6 mt-4 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm animate-fade-in">
+        <div className="mx-6 mt-4 animate-fade-in rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-red-400 text-sm">
           <div className="flex items-center gap-2">
-            <AlertCircle className="w-5 h-5" strokeWidth={2} />
+            <AlertCircle className="h-5 w-5" strokeWidth={2} />
             {error.message}
           </div>
         </div>
       )}
 
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
+      <div className="flex-1 space-y-6 overflow-y-auto p-6">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-center px-4">
-            <div className="w-16 h-16 rounded-full bg-[var(--accent)]/10 flex items-center justify-center mb-6">
-              <ImageIcon className="w-8 h-8 text-[var(--accent)]" />
+          <div className="flex h-full flex-col items-center justify-center px-4 text-center">
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[var(--accent)]/10">
+              <ImageIcon className="h-8 w-8 text-[var(--accent)]" />
             </div>
-            <h2 className="text-xl font-medium text-[var(--foreground)] mb-2">
+            <h2 className="mb-2 font-medium text-[var(--foreground)] text-xl">
               Vision-Enabled Chat
             </h2>
-            <p className="text-[var(--foreground-secondary)] max-w-lg mb-8">
+            <p className="mb-8 max-w-lg text-[var(--foreground-secondary)]">
               Click on any example below to see GPT-4o analyze the image, or
               upload your own image using the button below.
             </p>
 
             {/* Image Examples Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl w-full">
+            <div className="grid w-full max-w-3xl grid-cols-2 gap-4 md:grid-cols-4">
               {IMAGE_EXAMPLES.map((example, index) => (
                 <button
+                  className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--background-secondary)] transition-all duration-300 hover:border-[var(--accent)] hover:shadow-[var(--accent)]/10 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+                  disabled={isLoading}
                   key={index}
                   onClick={() => handleImageExample(example)}
-                  disabled={isLoading}
-                  className="group relative rounded-xl overflow-hidden border border-[var(--border)]
-                           bg-[var(--background-secondary)] hover:border-[var(--accent)]
-                           transition-all duration-300 hover:shadow-lg hover:shadow-[var(--accent)]/10
-                           disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {/* Image */}
                   <div className="aspect-square overflow-hidden">
                     <img
-                      src={example.imagePath}
                       alt={example.label}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      src={example.imagePath}
                     />
                   </div>
 
                   {/* Label overlay */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent 
-                                flex flex-col justify-end p-3"
-                  >
-                    <div className="flex items-center gap-1.5 text-white text-sm font-medium">
-                      <Sparkles className="w-3.5 h-3.5" />
+                  <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent p-3">
+                    <div className="flex items-center gap-1.5 font-medium text-sm text-white">
+                      <Sparkles className="h-3.5 w-3.5" />
                       {example.label}
                     </div>
                   </div>
 
                   {/* Hover indicator */}
-                  <div
-                    className="absolute inset-0 bg-[var(--accent)]/0 group-hover:bg-[var(--accent)]/10 
-                                transition-colors duration-300 flex items-center justify-center"
-                  >
-                    <div
-                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                                  bg-[var(--accent)] text-white px-3 py-1.5 rounded-full text-xs font-medium
-                                  flex items-center gap-1.5"
-                    >
-                      <Send className="w-3 h-3" />
+                  <div className="absolute inset-0 flex items-center justify-center bg-[var(--accent)]/0 transition-colors duration-300 group-hover:bg-[var(--accent)]/10">
+                    <div className="flex items-center gap-1.5 rounded-full bg-[var(--accent)] px-3 py-1.5 font-medium text-white text-xs opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <Send className="h-3 w-3" />
                       Analyze
                     </div>
                   </div>
@@ -264,7 +253,7 @@ export default function MultimodalPage() {
               ))}
             </div>
 
-            <p className="text-xs text-[var(--foreground-secondary)] mt-6">
+            <p className="mt-6 text-[var(--foreground-secondary)] text-xs">
               Or upload your own image using the button below
             </p>
           </div>
@@ -281,23 +270,22 @@ export default function MultimodalPage() {
 
       {/* Image Preview */}
       {selectedImage && (
-        <div className="mx-6 mb-2 p-3 bg-[var(--background-secondary)] rounded-lg border border-[var(--border)]">
+        <div className="mx-6 mb-2 rounded-lg border border-[var(--border)] bg-[var(--background-secondary)] p-3">
           <div className="flex items-start gap-3">
             <div className="relative">
               <img
-                src={selectedImage}
                 alt="Selected"
-                className="w-20 h-20 object-cover rounded-md"
+                className="h-20 w-20 rounded-md object-cover"
+                src={selectedImage}
               />
               <button
+                className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white transition-colors hover:bg-red-600"
                 onClick={clearImage}
-                className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full 
-                         flex items-center justify-center text-white hover:bg-red-600 transition-colors"
               >
-                <X className="w-4 h-4" />
+                <X className="h-4 w-4" />
               </button>
             </div>
-            <div className="flex-1 text-sm text-[var(--foreground-secondary)]">
+            <div className="flex-1 text-[var(--foreground-secondary)] text-sm">
               <p className="font-medium text-[var(--foreground)]">
                 {imageFile?.name}
               </p>
@@ -308,33 +296,30 @@ export default function MultimodalPage() {
       )}
 
       {/* Input area */}
-      <div className="flex-shrink-0 p-4 border-t border-[var(--border)]">
+      <div className="flex-shrink-0 border-[var(--border)] border-t p-4">
         <div className="flex gap-3">
           {/* Image upload button */}
           <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleImageSelect}
             accept="image/*"
             className="hidden"
+            onChange={handleImageSelect}
+            ref={fileInputRef}
+            type="file"
           />
           <button
-            onClick={() => fileInputRef.current?.click()}
+            className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--background-secondary)] text-[var(--foreground-secondary)] transition-all duration-200 hover:bg-[var(--background-tertiary)] hover:text-[var(--accent)] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isLoading}
-            className="flex-shrink-0 w-12 h-12 rounded-xl border border-[var(--border)] 
-                     bg-[var(--background-secondary)] hover:bg-[var(--background-tertiary)]
-                     flex items-center justify-center text-[var(--foreground-secondary)]
-                     hover:text-[var(--accent)] transition-all duration-200
-                     disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => fileInputRef.current?.click()}
             title="Attach image"
           >
-            <ImageIcon className="w-5 h-5" />
+            <ImageIcon className="h-5 w-5" />
           </button>
 
           {/* Text input */}
-          <div className="flex-1 relative">
+          <div className="relative flex-1">
             <textarea
-              value={input}
+              className="w-full resize-none rounded-xl border border-[var(--border)] bg-[var(--background-secondary)] px-4 py-3 pr-12 text-[var(--foreground)] placeholder-[var(--foreground-secondary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={isLoading}
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={
@@ -342,34 +327,26 @@ export default function MultimodalPage() {
                   ? 'Ask about this image...'
                   : 'Type a message or attach an image...'
               }
-              disabled={isLoading}
               rows={1}
-              className="w-full px-4 py-3 pr-12 rounded-xl border border-[var(--border)]
-                       bg-[var(--background-secondary)] text-[var(--foreground)]
-                       placeholder-[var(--foreground-secondary)] resize-none
-                       focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50
-                       disabled:opacity-50 disabled:cursor-not-allowed"
+              value={input}
             />
           </div>
 
           {/* Send button */}
           <button
+            className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-white transition-all duration-200 hover:bg-[var(--accent-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={isLoading || !(input.trim() || selectedImage)}
             onClick={handleSubmit}
-            disabled={isLoading || (!input.trim() && !selectedImage)}
-            className="flex-shrink-0 w-12 h-12 rounded-xl bg-[var(--accent)] 
-                     hover:bg-[var(--accent-hover)] text-white
-                     flex items-center justify-center transition-all duration-200
-                     disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
-              <Loader2 className="w-5 h-5 animate-spin" />
+              <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
-              <Send className="w-5 h-5" />
+              <Send className="h-5 w-5" />
             )}
           </button>
         </div>
 
-        <p className="text-xs text-[var(--foreground-secondary)] mt-2 text-center">
+        <p className="mt-2 text-center text-[var(--foreground-secondary)] text-xs">
           Supports JPEG, PNG, GIF, and WebP images up to 20MB
         </p>
       </div>

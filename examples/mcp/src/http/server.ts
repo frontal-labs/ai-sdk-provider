@@ -20,28 +20,26 @@ app.post('/mcp', async (req, res) => {
     {
       userId: z.string(),
     },
-    async ({ userId }) => {
-      return {
-        content: [
-          {
-            type: 'text',
-            text: `Here is information about user ${userId}:`,
-          },
-          {
-            type: 'text',
-            text: `Name: John Doe`,
-          },
-          {
-            type: 'text',
-            text: `Email: john.doe@example.com`,
-          },
-          {
-            type: 'text',
-            text: `Age: 30`,
-          },
-        ],
-      };
-    },
+    async ({ userId }) => ({
+      content: [
+        {
+          type: 'text',
+          text: `Here is information about user ${userId}:`,
+        },
+        {
+          type: 'text',
+          text: 'Name: John Doe',
+        },
+        {
+          type: 'text',
+          text: 'Email: john.doe@example.com',
+        },
+        {
+          type: 'text',
+          text: 'Age: 30',
+        },
+      ],
+    }),
   );
 
   try {
@@ -60,7 +58,7 @@ app.post('/mcp', async (req, res) => {
       res.status(500).json({
         jsonrpc: '2.0',
         error: {
-          code: -32603,
+          code: -32_603,
           message: 'Internal server error',
         },
         id: null,
@@ -75,7 +73,7 @@ app.get('/mcp', async (_req, res) => {
     JSON.stringify({
       jsonrpc: '2.0',
       error: {
-        code: -32000,
+        code: -32_000,
         message: 'Method not allowed.',
       },
       id: null,
@@ -89,7 +87,7 @@ app.delete('/mcp', async (_req, res) => {
     JSON.stringify({
       jsonrpc: '2.0',
       error: {
-        code: -32000,
+        code: -32_000,
         message: 'Method not allowed.',
       },
       id: null,

@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { generateText, Output, jsonSchema } from 'ai';
+import { generateText, jsonSchema, Output } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {

@@ -1,5 +1,5 @@
-import { openaiCompactionAgent } from '@/agent/openai/compaction-agent';
 import { createAgentUIStreamResponse } from 'ai';
+import { openaiCompactionAgent } from '@/agent/openai/compaction-agent';
 
 export const maxDuration = 60;
 

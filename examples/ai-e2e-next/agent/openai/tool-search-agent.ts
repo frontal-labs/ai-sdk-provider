@@ -1,8 +1,8 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
-import { tool, ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent, tool } from 'ai';
 import { z } from 'zod';
 
 const weatherTool = tool({
@@ -71,7 +71,7 @@ export const openaiToolSearchAgent = new ToolLoopAgent({
     send_email: sendEmailTool,
   },
   onStepFinish: ({ request }) => {
-    console.dir(request.body, { depth: Infinity });
+    console.dir(request.body, { depth: Number.POSITIVE_INFINITY });
   },
   providerOptions: {
     openai: {

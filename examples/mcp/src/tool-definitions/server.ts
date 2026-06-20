@@ -16,20 +16,16 @@ mcpServer.tool(
     a: z.number().describe('First number'),
     b: z.number().describe('Second number'),
   },
-  async ({ a, b }) => {
-    return {
-      content: [{ type: 'text', text: `${a} + ${b} = ${a + b}` }],
-    };
-  },
+  async ({ a, b }) => ({
+    content: [{ type: 'text', text: `${a} + ${b} = ${a + b}` }],
+  }),
 );
 
-mcpServer.tool('get-current-time', 'Get the current time', async () => {
-  return {
-    content: [
-      { type: 'text', text: `Current time: ${new Date().toISOString()}` },
-    ],
-  };
-});
+mcpServer.tool('get-current-time', 'Get the current time', async () => ({
+  content: [
+    { type: 'text', text: `Current time: ${new Date().toISOString()}` },
+  ],
+}));
 
 mcpServer.tool(
   'greet',
@@ -37,11 +33,9 @@ mcpServer.tool(
   {
     name: z.string().describe('Name of the person to greet'),
   },
-  async ({ name }) => {
-    return {
-      content: [{ type: 'text', text: `Hello, ${name}! Nice to meet you.` }],
-    };
-  },
+  async ({ name }) => ({
+    content: [{ type: 'text', text: `Hello, ${name}! Nice to meet you.` }],
+  }),
 );
 
 let transport: SSEServerTransport;

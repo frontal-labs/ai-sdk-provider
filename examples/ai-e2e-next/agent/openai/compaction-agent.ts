@@ -1,8 +1,8 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
-import { ToolLoopAgent, type ModelMessage, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, type ModelMessage, ToolLoopAgent } from 'ai';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -231,7 +231,7 @@ export const openaiCompactionAgent = new ToolLoopAgent({
   providerOptions: {
     openai: {
       store: false,
-      contextManagement: [{ type: 'compaction', compactThreshold: 50000 }],
+      contextManagement: [{ type: 'compaction', compactThreshold: 50_000 }],
     } satisfies OpenAILanguageModelResponsesOptions,
   },
   prepareCall: ({ prompt, messages, ...rest }) => {
@@ -247,7 +247,7 @@ export const openaiCompactionAgent = new ToolLoopAgent({
     };
   },
   onStepFinish: ({ request }) => {
-    console.dir(request.body, { depth: Infinity });
+    console.dir(request.body, { depth: Number.POSITIVE_INFINITY });
   },
 });
 

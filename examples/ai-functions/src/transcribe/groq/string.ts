@@ -1,4 +1,4 @@
-import { groq, type GroqTranscriptionModelOptions } from '@ai-sdk/groq';
+import { type GroqTranscriptionModelOptions, groq } from '@ai-sdk/groq';
 import { transcribe } from 'ai';
 import { readFile } from 'fs/promises';
 import { run } from '../../lib/run';

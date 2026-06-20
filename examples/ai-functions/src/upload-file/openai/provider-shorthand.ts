@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { openai } from '@ai-sdk/openai';
 import { uploadFile } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 run(async () => {

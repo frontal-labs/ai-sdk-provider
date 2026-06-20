@@ -1,4 +1,4 @@
-import { replicate, type ReplicateVideoModelOptions } from '@ai-sdk/replicate';
+import { type ReplicateVideoModelOptions, replicate } from '@ai-sdk/replicate';
 import { experimental_generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
@@ -16,7 +16,7 @@ run(async () => {
       aspectRatio: '16:9',
       providerOptions: {
         replicate: {
-          pollTimeoutMs: 600000, // 10 minutes
+          pollTimeoutMs: 600_000, // 10 minutes
         } satisfies ReplicateVideoModelOptions,
       },
     }),

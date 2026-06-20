@@ -1,13 +1,13 @@
 import { openai } from '@ai-sdk/openai';
-import { generateId, type ModelMessage } from 'ai';
 import {
-  createStreamableValue,
   getMutableAIState as $getMutableAIState,
-  streamUI,
   type createAI,
+  createStreamableValue,
+  streamUI,
 } from '@ai-sdk/rsc';
-import { Message, BotMessage } from './message';
+import { generateId, type ModelMessage } from 'ai';
 import { z } from 'zod';
+import { BotMessage, Message } from './message';
 
 type AIProviderNoActions = ReturnType<typeof createAI<AIState, UIState>>;
 // typed wrapper *without* actions defined to avoid circular dependencies
@@ -70,7 +70,7 @@ export async function submitUserMessage(content: string) {
         inputSchema: z.object({
           location: z.string(),
         }),
-        generate: async function* ({ location }) {
+        async *generate({ location }) {
           yield (
             <Message role="assistant">Loading weather for {location}</Message>
           );

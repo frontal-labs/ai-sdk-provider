@@ -1,6 +1,6 @@
 import {
-  azure,
   type AzureResponsesReasoningProviderMetadata,
+  azure,
   type OpenAILanguageModelResponsesOptions,
 } from '@ai-sdk/azure';
 import { generateText } from 'ai';
@@ -26,7 +26,9 @@ run(async () => {
         const providerMetadata = part.providerMetadata as
           | AzureResponsesReasoningProviderMetadata
           | undefined;
-        if (!providerMetadata) break;
+        if (!providerMetadata) {
+          break;
+        }
         const {
           azure: { itemId, reasoningEncryptedContent },
         } = providerMetadata;

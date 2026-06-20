@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { registerTelemetry, tool, ToolLoopAgent } from 'ai';
+import { registerTelemetry, ToolLoopAgent, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 import { consoleTelemetry } from './console-telemetry';

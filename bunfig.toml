@@ -1,0 +1,13 @@
+[install]
+cache = true
+registry = "https://registry.npmjs.org"
+
+[workspaces]
+packages = [
+  "packages/*",
+  "tools/*"
+]
+
+[run]
+# Use bun's test runner by default
+test = "vitest"

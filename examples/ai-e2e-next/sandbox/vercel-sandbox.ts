@@ -1,11 +1,11 @@
 import { isAbsolute, join } from 'node:path';
 import { Readable } from 'node:stream';
 import {
-  extractLines,
   type Experimental_SandboxProcess,
+  extractLines,
 } from '@ai-sdk/provider-utils';
-import { type Experimental_SandboxSession as SandboxSession } from 'ai';
 import type { Command, Sandbox as VercelSandboxSDK } from '@vercel/sandbox';
+import type { Experimental_SandboxSession as SandboxSession } from 'ai';
 import {
   bytesToStream,
   collectStream,
@@ -96,7 +96,9 @@ export class VercelSandboxSession implements SandboxSession {
     const result = await this.sandbox.readFile({
       path: this.resolvePath(path),
     });
-    if (result == null) return null;
+    if (result == null) {
+      return null;
+    }
     return Readable.toWeb(
       Readable.from(result as NodeJS.ReadableStream),
     ) as ReadableStream<Uint8Array>;
@@ -127,7 +129,9 @@ export class VercelSandboxSession implements SandboxSession {
     abortSignal?: AbortSignal;
   }): Promise<Uint8Array | null> {
     const stream = await this.readFile({ path, abortSignal });
-    if (stream == null) return null;
+    if (stream == null) {
+      return null;
+    }
     return collectStream(stream);
   }
 
@@ -161,7 +165,9 @@ export class VercelSandboxSession implements SandboxSession {
     abortSignal?: AbortSignal;
   }): Promise<string | null> {
     const bytes = await this.readBinaryFile({ path, abortSignal });
-    if (bytes == null) return null;
+    if (bytes == null) {
+      return null;
+    }
     const text = Buffer.from(bytes).toString(encoding as BufferEncoding);
     return extractLines({ text, startLine, endLine });
   }

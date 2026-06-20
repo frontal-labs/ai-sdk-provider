@@ -9,9 +9,9 @@ export default function OpenAIWebSearchView({
   switch (invocation.state) {
     case 'input-available': {
       return (
-        <div className="flex flex-col gap-2 p-3 bg-blue-50 rounded border-l-4 border-blue-400 shadow">
+        <div className="flex flex-col gap-2 rounded border-blue-400 border-l-4 bg-blue-50 p-3 shadow">
           <div className="flex items-center font-semibold text-blue-700">
-            <span className="inline-block mr-2 bg-blue-200 text-blue-900 rounded px-2 py-0.5 text-xs font-mono tracking-wider">
+            <span className="mr-2 inline-block rounded bg-blue-200 px-2 py-0.5 font-mono text-blue-900 text-xs tracking-wider">
               SEARCH
             </span>
             Searching the web...
@@ -25,36 +25,36 @@ export default function OpenAIWebSearchView({
       switch (output.action?.type) {
         case 'search':
           return (
-            <div className="flex flex-col gap-2 p-3 bg-blue-50 rounded border-l-4 border-blue-400 shadow">
+            <div className="flex flex-col gap-2 rounded border-blue-400 border-l-4 bg-blue-50 p-3 shadow">
               <div className="flex items-center font-semibold text-blue-700">
-                <span className="inline-block mr-2 bg-blue-200 text-blue-900 rounded px-2 py-0.5 text-xs font-mono tracking-wider">
+                <span className="mr-2 inline-block rounded bg-blue-200 px-2 py-0.5 font-mono text-blue-900 text-xs tracking-wider">
                   SEARCH
                 </span>
                 Searched the web
               </div>
-              <div className="pl-5 text-sm text-blue-800">
+              <div className="pl-5 text-blue-800 text-sm">
                 <span className="font-semibold">Query:</span>{' '}
-                <span className="inline-block bg-white border border-blue-100 rounded px-2 py-0.5 font-mono">
+                <span className="inline-block rounded border border-blue-100 bg-white px-2 py-0.5 font-mono">
                   {output.action.query}
                 </span>
               </div>
               {output.sources && output.sources.length > 0 && (
-                <div className="pl-5 text-sm text-blue-800">
+                <div className="pl-5 text-blue-800 text-sm">
                   <span className="font-semibold">Sources:</span>
-                  <ul className="mt-1 list-disc pl-5 break-all">
+                  <ul className="mt-1 list-disc break-all pl-5">
                     {output.sources.map((s, i) => (
                       <li key={i}>
                         {s.type === 'url' ? (
                           <a
-                            href={s.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="underline hover:text-blue-700"
+                            href={s.url}
+                            rel="noopener noreferrer"
+                            target="_blank"
                           >
                             {s.url}
                           </a>
                         ) : (
-                          <span className="inline-block bg-blue-100 text-blue-900 rounded px-2 py-0.5 text-xs font-mono">
+                          <span className="inline-block rounded bg-blue-100 px-2 py-0.5 font-mono text-blue-900 text-xs">
                             API: {s.name}
                           </span>
                         )}
@@ -67,21 +67,21 @@ export default function OpenAIWebSearchView({
           );
         case 'openPage':
           return (
-            <div className="flex flex-col gap-2 p-3 bg-green-50 rounded border-l-4 border-green-500 shadow">
+            <div className="flex flex-col gap-2 rounded border-green-500 border-l-4 bg-green-50 p-3 shadow">
               <div className="flex items-center font-semibold text-green-800">
-                <span className="inline-block mr-2 bg-green-200 text-green-900 rounded px-2 py-0.5 text-xs font-mono tracking-wider">
+                <span className="mr-2 inline-block rounded bg-green-200 px-2 py-0.5 font-mono text-green-900 text-xs tracking-wider">
                   OPEN PAGE
                 </span>
                 Opened a page
               </div>
               {output.action.url && (
-                <div className="pl-5 text-sm text-green-900 break-all">
+                <div className="break-all pl-5 text-green-900 text-sm">
                   <span className="font-semibold">URL:</span>{' '}
                   <a
-                    href={output.action.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="underline hover:text-green-700"
+                    href={output.action.url}
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     {output.action.url}
                   </a>
@@ -91,21 +91,21 @@ export default function OpenAIWebSearchView({
           );
         case 'findInPage':
           return (
-            <div className="flex flex-col gap-2 p-3 bg-yellow-50 rounded border-l-4 border-yellow-500 shadow">
+            <div className="flex flex-col gap-2 rounded border-yellow-500 border-l-4 bg-yellow-50 p-3 shadow">
               <div className="flex items-center font-semibold text-yellow-800">
-                <span className="inline-block mr-2 bg-yellow-200 text-yellow-900 rounded px-2 py-0.5 text-xs font-mono tracking-wider">
+                <span className="mr-2 inline-block rounded bg-yellow-200 px-2 py-0.5 font-mono text-xs text-yellow-900 tracking-wider">
                   FIND IN PAGE
                 </span>
                 Searched for pattern in page
               </div>
               {output.action.url && (
-                <div className="pl-5 text-sm text-yellow-900 break-all">
+                <div className="break-all pl-5 text-sm text-yellow-900">
                   <span className="font-semibold">URL:</span>{' '}
                   <a
-                    href={output.action.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="underline hover:text-yellow-700"
+                    href={output.action.url}
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     {output.action.url}
                   </a>
@@ -113,7 +113,7 @@ export default function OpenAIWebSearchView({
               )}
               <div className="pl-5 text-sm text-yellow-900">
                 <span className="font-semibold">Pattern:</span>{' '}
-                <span className="inline-block bg-white border border-yellow-100 rounded px-2 py-0.5 font-mono">
+                <span className="inline-block rounded border border-yellow-100 bg-white px-2 py-0.5 font-mono">
                   {output.action.pattern}
                 </span>
               </div>

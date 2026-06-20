@@ -4,7 +4,8 @@ import 'dotenv/config';
 async function main() {
   const result = streamText({
     model: 'openai/gpt-5-nano',
-    prompt: `Search for current information about renewable energy developments in 2025.`,
+    prompt:
+      'Search for current information about renewable energy developments in 2025.',
     tools: {
       parallel_search: gateway.tools.parallelSearch(),
     },

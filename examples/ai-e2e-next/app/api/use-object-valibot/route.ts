@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { Output, createTextStreamResponse, streamText, toTextStream } from 'ai';
+import { createTextStreamResponse, Output, streamText, toTextStream } from 'ai';
 import { notificationSchema } from './schema';
 
 // Allow streaming responses up to 30 seconds

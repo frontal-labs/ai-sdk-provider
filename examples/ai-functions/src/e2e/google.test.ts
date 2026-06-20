@@ -1,20 +1,20 @@
-import { google as provider, type GoogleErrorData } from '@ai-sdk/google';
+import { type GoogleErrorData, google as provider } from '@ai-sdk/google';
 import type {
   APICallError,
   LanguageModelV3,
   LanguageModelV4,
 } from '@ai-sdk/provider';
 import 'dotenv/config';
+import { defaultSettingsMiddleware, wrapLanguageModel } from 'ai';
 import { expect } from 'vitest';
 import {
   createEmbeddingModelWithCapabilities,
   createFeatureTestSuite,
-  createLanguageModelWithCapabilities,
   createImageModelWithCapabilities,
+  createLanguageModelWithCapabilities,
   defaultChatModelCapabilities,
   type ModelWithCapabilities,
 } from './feature-test-suite';
-import { defaultSettingsMiddleware, wrapLanguageModel } from 'ai';
 
 const createChatModel = (modelId: string) =>
   createLanguageModelWithCapabilities(provider.chat(modelId));
@@ -69,13 +69,13 @@ createFeatureTestSuite({
     ],
     imageModels: [createImageModel('imagen-3.0-generate-002')],
   },
-  timeout: 20000,
+  timeout: 20_000,
   customAssertions: {
     skipUsage: true,
     errorValidator: (error: APICallError) => {
       console.log(error);
       expect((error.data as GoogleErrorData).error.message).match(
-        /models\/no\-such\-model is not found/,
+        /models\/no-such-model is not found/,
       );
     },
   },

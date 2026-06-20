@@ -50,8 +50,12 @@ function normalizeDiffLines(diff: string): string[] {
 }
 
 function isDone(state: ParserState, prefixes: string[]): boolean {
-  if (state.index >= state.lines.length) return true;
-  if (prefixes.some(p => state.lines[state.index]?.startsWith(p))) return true;
+  if (state.index >= state.lines.length) {
+    return true;
+  }
+  if (prefixes.some(p => state.lines[state.index]?.startsWith(p))) {
+    return true;
+  }
   return false;
 }
 
@@ -100,7 +104,9 @@ function parseUpdateDiff(
   while (!isDone(parser, END_SECTION_MARKERS)) {
     const anchor = readStr(parser, '@@ ');
     const hasBareAnchor = !anchor && parser.lines[parser.index] === '@@';
-    if (hasBareAnchor) parser.index += 1;
+    if (hasBareAnchor) {
+      parser.index += 1;
+    }
 
     if (!(anchor || hasBareAnchor || cursor === 0)) {
       throw new Error(`Invalid Line:\n${parser.lines[parser.index]}`);
@@ -160,8 +166,9 @@ function advanceCursorToAnchor(
   }
 
   if (
-    !found &&
-    !inputLines.slice(0, cursor).some(s => s.trim() === anchor.trim())
+    !(
+      found || inputLines.slice(0, cursor).some(s => s.trim() === anchor.trim())
+    )
   ) {
     for (let i = cursor; i < inputLines.length; i += 1) {
       if (inputLines[i].trim() === anchor.trim()) {
@@ -205,7 +212,9 @@ function readSection(
     ) {
       break;
     }
-    if (raw === '***') break;
+    if (raw === '***') {
+      break;
+    }
     if (raw.startsWith('***')) {
       throw new Error(`Invalid Line: ${raw}`);
     }
@@ -213,7 +222,9 @@ function readSection(
     index += 1;
     const lastMode: 'keep' | 'add' | 'delete' = mode;
     let line = raw;
-    if (line === '') line = ' ';
+    if (line === '') {
+      line = ' ';
+    }
 
     if (line[0] === '+') {
       mode = 'add';
@@ -279,9 +290,11 @@ function findContext(
   if (eof) {
     const endStart = Math.max(0, lines.length - context.length);
     const endMatch = findContextCore(lines, context, endStart);
-    if (endMatch.newIndex !== -1) return endMatch;
+    if (endMatch.newIndex !== -1) {
+      return endMatch;
+    }
     const fallback = findContextCore(lines, context, start);
-    return { newIndex: fallback.newIndex, fuzz: fallback.fuzz + 10000 };
+    return { newIndex: fallback.newIndex, fuzz: fallback.fuzz + 10_000 };
   }
   return findContextCore(lines, context, start);
 }
@@ -296,15 +309,19 @@ function findContextCore(
   }
 
   for (let i = start; i < lines.length; i += 1) {
-    if (equalsSlice(lines, context, i, s => s)) return { newIndex: i, fuzz: 0 };
+    if (equalsSlice(lines, context, i, s => s)) {
+      return { newIndex: i, fuzz: 0 };
+    }
   }
   for (let i = start; i < lines.length; i += 1) {
-    if (equalsSlice(lines, context, i, s => s.trimEnd()))
+    if (equalsSlice(lines, context, i, s => s.trimEnd())) {
       return { newIndex: i, fuzz: 1 };
+    }
   }
   for (let i = start; i < lines.length; i += 1) {
-    if (equalsSlice(lines, context, i, s => s.trim()))
+    if (equalsSlice(lines, context, i, s => s.trim())) {
       return { newIndex: i, fuzz: 100 };
+    }
   }
 
   return { newIndex: -1, fuzz: 0 };
@@ -316,9 +333,13 @@ function equalsSlice(
   start: number,
   mapFn: (value: string) => string,
 ): boolean {
-  if (start + target.length > source.length) return false;
+  if (start + target.length > source.length) {
+    return false;
+  }
   for (let i = 0; i < target.length; i += 1) {
-    if (mapFn(source[start + i]) !== mapFn(target[i])) return false;
+    if (mapFn(source[start + i]) !== mapFn(target[i])) {
+      return false;
+    }
   }
   return true;
 }

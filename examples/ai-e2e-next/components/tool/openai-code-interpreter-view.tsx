@@ -7,31 +7,31 @@ export default function CodeInterpreterView({
   invocation: UIToolInvocation<ReturnType<typeof openai.tools.codeInterpreter>>;
 }) {
   return (
-    <div className="mb-2 bg-gray-900 rounded-xl border border-gray-600 shadow-lg">
-      <div className="px-6 py-3 bg-gray-800 rounded-t-xl border-b border-gray-700">
-        <div className="overflow-hidden tracking-wide text-gray-500 whitespace-nowrap text-xxs font-small text-ellipsis">
+    <div className="mb-2 rounded-xl border border-gray-600 bg-gray-900 shadow-lg">
+      <div className="rounded-t-xl border-gray-700 border-b bg-gray-800 px-6 py-3">
+        <div className="overflow-hidden text-ellipsis whitespace-nowrap font-small text-gray-500 text-xxs tracking-wide">
           {invocation.input?.containerId}
         </div>
       </div>
 
       <div className="p-6">
         <div className="mb-3">
-          <div className="mb-2 text-sm font-medium text-blue-400">Code:</div>
-          <pre className="overflow-x-auto p-4 text-sm text-gray-100 whitespace-pre-wrap bg-black rounded-lg">
+          <div className="mb-2 font-medium text-blue-400 text-sm">Code:</div>
+          <pre className="overflow-x-auto whitespace-pre-wrap rounded-lg bg-black p-4 text-gray-100 text-sm">
             {invocation.input?.code}
           </pre>
         </div>
 
         {invocation.state === 'output-available' && (
           <div className="mb-3">
-            <div className="mb-2 text-sm font-medium text-yellow-400">
+            <div className="mb-2 font-medium text-sm text-yellow-400">
               Output:
             </div>
             <div className="space-y-2">
               {invocation.output.outputs?.map((output, index) => (
-                <div key={index} className="p-3 bg-black rounded-lg">
+                <div className="rounded-lg bg-black p-3" key={index}>
                   {output.type === 'logs' && (
-                    <div className="font-mono text-sm text-green-300">
+                    <div className="font-mono text-green-300 text-sm">
                       <span className="whitespace-pre-wrap">{output.logs}</span>
                     </div>
                   )}

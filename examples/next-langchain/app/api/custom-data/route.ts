@@ -1,19 +1,17 @@
-import { createUIMessageStreamResponse, type UIMessage } from 'ai';
-import { NextResponse } from 'next/server';
-
-import { z } from 'zod';
-import { tool, type ToolRuntime } from 'langchain';
-import { ChatOpenAI } from '@langchain/openai';
 import { toBaseMessages, toUIMessageStream } from '@ai-sdk/langchain';
 import {
-  StateGraph,
+  END,
   MessagesAnnotation,
   START,
-  END,
+  StateGraph,
 } from '@langchain/langgraph';
-
 import { ToolNode } from '@langchain/langgraph/prebuilt';
-import type { ProgressData, StatusData, FileStatusData } from '../../types';
+import { ChatOpenAI } from '@langchain/openai';
+import { createUIMessageStreamResponse, type UIMessage } from 'ai';
+import { type ToolRuntime, tool } from 'langchain';
+import { NextResponse } from 'next/server';
+import { z } from 'zod';
+import type { FileStatusData, ProgressData, StatusData } from '../../types';
 
 /**
  * Allow streaming responses up to 60 seconds
@@ -79,7 +77,7 @@ const analyzeDataTool = tool(
     const results = {
       dataSource,
       analysisType,
-      recordsProcessed: Math.floor(Math.random() * 10000) + 1000,
+      recordsProcessed: Math.floor(Math.random() * 10_000) + 1000,
       insights: [
         'Key trend: 23% increase in Q4',
         'Anomaly detected in region B',

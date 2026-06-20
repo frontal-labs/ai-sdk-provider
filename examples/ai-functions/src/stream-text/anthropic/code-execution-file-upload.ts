@@ -1,7 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { streamText, uploadFile } from 'ai';
-import { run } from '../../lib/run';
 import * as fs from 'fs';
+import { run } from '../../lib/run';
 import { saveRawChunks } from '../../lib/save-raw-chunks';
 
 run(async () => {

@@ -1,7 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { generateText } from 'ai';
-import { run } from '../../lib/run';
 import * as fs from 'fs';
+import { run } from '../../lib/run';
 
 run(async () => {
   const result = await generateText({
@@ -15,7 +15,7 @@ run(async () => {
     },
   });
 
-  console.dir(result.content, { depth: Infinity });
+  console.dir(result.content, { depth: Number.POSITIVE_INFINITY });
 
   const fileIdList = result.staticToolResults.flatMap(t => {
     if (

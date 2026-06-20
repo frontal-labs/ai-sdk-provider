@@ -10,11 +10,9 @@ const retrieveInformation = tool({
       query: z.string(),
     })
     .describe('The query to retrieve information from the database'),
-  execute: async ({ query }) => {
-    return {
-      content: [`Retrieved information for query: ${query}`],
-    };
-  },
+  execute: async ({ query }) => ({
+    content: [`Retrieved information for query: ${query}`],
+  }),
 });
 
 run(async () => {

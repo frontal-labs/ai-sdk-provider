@@ -1,5 +1,5 @@
-import { tmpdir } from 'node:os';
 import { mkdtemp } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { run } from '../../lib/run';
 import { LocalSandboxSession } from '../../sandbox/local-sandbox';

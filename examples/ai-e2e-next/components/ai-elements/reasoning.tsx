@@ -1,21 +1,21 @@
 'use client';
 
 import { useControllableState } from '@radix-ui/react-use-controllable-state';
+import { BrainIcon, ChevronDownIcon } from 'lucide-react';
+import {
+  type ComponentProps,
+  createContext,
+  memo,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
-import { BrainIcon, ChevronDownIcon } from 'lucide-react';
-import {
-  createContext,
-  memo,
-  useContext,
-  useEffect,
-  useState,
-  type ComponentProps,
-} from 'react';
 import { Response } from './response';
 
 type ReasoningContextValue = {
@@ -104,7 +104,7 @@ export const Reasoning = memo(
         value={{ isStreaming, isOpen, setIsOpen, duration }}
       >
         <Collapsible
-          className={cn('mb-4 not-prose', className)}
+          className={cn('not-prose mb-4', className)}
           onOpenChange={handleOpenChange}
           open={isOpen}
           {...props}
@@ -135,7 +135,7 @@ export const ReasoningTrigger = memo(
     return (
       <CollapsibleTrigger
         className={cn(
-          'flex gap-2 items-center w-full text-sm transition-colors text-muted-foreground hover:text-foreground',
+          'flex w-full items-center gap-2 text-muted-foreground text-sm transition-colors hover:text-foreground',
           className,
         )}
         {...props}
@@ -146,7 +146,7 @@ export const ReasoningTrigger = memo(
             {getThinkingMessage(isStreaming, duration)}
             <ChevronDownIcon
               className={cn(
-                'transition-transform size-4',
+                'size-4 transition-transform',
                 isOpen ? 'rotate-180' : 'rotate-0',
               )}
             />

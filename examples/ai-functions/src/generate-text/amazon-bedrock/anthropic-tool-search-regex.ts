@@ -1,5 +1,5 @@
 import { bedrockAnthropic } from '@ai-sdk/amazon-bedrock/anthropic';
-import { generateText, tool, isStepCount } from 'ai';
+import { generateText, isStepCount, tool } from 'ai';
 import 'dotenv/config';
 import { z } from 'zod';
 import { run } from '../../lib/run';
@@ -10,8 +10,8 @@ run(async () => {
     prompt: 'Find out weather data in SF',
     stopWhen: isStepCount(10),
     onStepFinish: step => {
-      console.log(`\n=== Step Response ===`);
-      console.dir(step.response.body, { depth: Infinity });
+      console.log('\n=== Step Response ===');
+      console.dir(step.response.body, { depth: Number.POSITIVE_INFINITY });
     },
     tools: {
       toolSearch: bedrockAnthropic.tools.toolSearchRegex_20251119(),

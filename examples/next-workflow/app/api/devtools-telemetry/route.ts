@@ -16,8 +16,8 @@ function getIntegration(): Telemetry {
 }
 
 interface BridgePayload {
-  name: keyof Telemetry;
   event: unknown;
+  name: keyof Telemetry;
 }
 
 export async function POST(req: Request) {

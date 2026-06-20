@@ -1,4 +1,4 @@
-import { UIDataTypes, type UIMessage } from 'ai';
+import type { UIMessage } from 'ai';
 export type ElicitationAction = 'accept' | 'decline' | 'cancel';
 
 export interface ElicitationRequest {
@@ -8,9 +8,9 @@ export interface ElicitationRequest {
 }
 
 export interface ElicitationResponse {
-  id: string;
   action: ElicitationAction;
   content?: Record<string, unknown>;
+  id: string;
 }
 
 // Define custom data types for elicitation

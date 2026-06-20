@@ -26,7 +26,7 @@ run(async () => {
         inputSchema: z.object({ query: z.string() }),
         execute: async (_input, { abortSignal }) => {
           await new Promise((resolve, reject) => {
-            const timer = setTimeout(resolve, 10000);
+            const timer = setTimeout(resolve, 10_000);
             abortSignal?.addEventListener('abort', () => {
               clearTimeout(timer);
               reject(abortSignal.reason);

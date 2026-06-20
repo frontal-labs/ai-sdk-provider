@@ -1,6 +1,6 @@
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';

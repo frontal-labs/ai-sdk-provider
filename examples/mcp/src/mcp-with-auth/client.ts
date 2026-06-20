@@ -14,16 +14,16 @@ import type {
 */
 
 import {
-  createMCPClient,
   auth,
-  type OAuthClientProvider,
+  createMCPClient,
   type OAuthClientInformation,
   type OAuthClientMetadata,
+  type OAuthClientProvider,
   type OAuthTokens,
 } from '@ai-sdk/mcp';
 import 'dotenv/config';
-import { createServer } from 'node:http';
 import { execFile } from 'node:child_process';
+import { createServer } from 'node:http';
 
 class InMemoryOAuthClientProvider implements OAuthClientProvider {
   private _tokens?: OAuthTokens;
@@ -61,7 +61,9 @@ class InMemoryOAuthClientProvider implements OAuthClientProvider {
     this._codeVerifier = codeVerifier;
   }
   async codeVerifier(): Promise<string> {
-    if (!this._codeVerifier) throw new Error('No code verifier saved');
+    if (!this._codeVerifier) {
+      throw new Error('No code verifier saved');
+    }
     return this._codeVerifier;
   }
   get redirectUrl(): string | URL {
@@ -119,7 +121,9 @@ class InMemoryOAuthClientProvider implements OAuthClientProvider {
 
     if (chosen === 'client_secret_post') {
       params.set('client_id', clientId);
-      if (clientSecret) params.set('client_secret', clientSecret);
+      if (clientSecret) {
+        params.set('client_secret', clientSecret);
+      }
       return;
     }
 
@@ -127,10 +131,15 @@ class InMemoryOAuthClientProvider implements OAuthClientProvider {
     params.set('client_id', clientId);
   };
   async invalidateCredentials(scope: 'all' | 'client' | 'tokens' | 'verifier') {
-    if (scope === 'all' || scope === 'tokens') this._tokens = undefined;
-    if (scope === 'all' || scope === 'client')
+    if (scope === 'all' || scope === 'tokens') {
+      this._tokens = undefined;
+    }
+    if (scope === 'all' || scope === 'client') {
       this._clientInformation = undefined;
-    if (scope === 'all' || scope === 'verifier') this._codeVerifier = undefined;
+    }
+    if (scope === 'all' || scope === 'verifier') {
+      this._codeVerifier = undefined;
+    }
   }
 }
 

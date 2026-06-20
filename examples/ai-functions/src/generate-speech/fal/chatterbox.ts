@@ -1,7 +1,7 @@
-import { fal, type FalSpeechModelOptions } from '@ai-sdk/fal';
+import { type FalSpeechModelOptions, fal } from '@ai-sdk/fal';
 import { generateSpeech } from 'ai';
-import { saveAudioFile } from '../../lib/save-audio';
 import { run } from '../../lib/run';
+import { saveAudioFile } from '../../lib/save-audio';
 
 run(async () => {
   const result = await generateSpeech({

@@ -1,7 +1,7 @@
 import {
-  google,
   type GoogleLanguageModelOptions,
   type GoogleProviderMetadata,
+  google,
 } from '@ai-sdk/google';
 import { generateText } from 'ai';
 import { presentImages } from '../../lib/present-image';

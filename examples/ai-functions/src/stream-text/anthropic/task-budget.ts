@@ -1,6 +1,6 @@
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
@@ -14,7 +14,7 @@ run(async () => {
       anthropic: {
         taskBudget: {
           type: 'tokens',
-          total: 400000,
+          total: 400_000,
         },
       } satisfies AnthropicLanguageModelOptions,
     },

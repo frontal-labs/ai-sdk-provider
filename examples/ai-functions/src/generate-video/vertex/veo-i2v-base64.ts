@@ -1,9 +1,9 @@
+import fs from 'node:fs';
 import {
-  googleVertex,
   type GoogleVertexVideoProviderOptions,
+  googleVertex,
 } from '@ai-sdk/google-vertex';
 import { experimental_generateVideo } from 'ai';
-import fs from 'node:fs';
 import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
 import { withSpinner } from '../../lib/spinner';
@@ -22,7 +22,7 @@ run(async () => {
         duration: 4,
         providerOptions: {
           vertex: {
-            pollTimeoutMs: 600000, // 10 minutes
+            pollTimeoutMs: 600_000, // 10 minutes
           } satisfies GoogleVertexVideoProviderOptions,
         },
       }),

@@ -1,15 +1,15 @@
 import { openai } from '@ai-sdk/openai';
 import {
-  createUIMessageStreamResponse,
-  streamText,
-  createUIMessageStream,
   convertToModelMessages,
+  createUIMessageStream,
+  createUIMessageStreamResponse,
   isStepCount,
+  streamText,
   toUIMessageStream,
 } from 'ai';
-import { processToolCalls } from './utils';
 import { tools } from './tools';
 import type { HumanInTheLoopUIMessage } from './types';
+import { processToolCalls } from './utils';
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;

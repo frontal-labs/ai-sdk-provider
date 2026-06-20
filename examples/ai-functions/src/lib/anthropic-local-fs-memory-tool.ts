@@ -73,7 +73,8 @@ export const anthropicLocalFsMemoryTool = ({
               `Directory: ${action.path}\n` +
               items.map(item => `- ${item}`).join('\n')
             );
-          } else if (stat.isFile()) {
+          }
+          if (stat.isFile()) {
             const content = await fs.readFile(fullPath, 'utf-8');
             const lines = content.split('\n');
 
@@ -95,9 +96,8 @@ export const anthropicLocalFsMemoryTool = ({
             );
 
             return numberedLines.join('\n');
-          } else {
-            throw new Error(`Path not found: ${action.path}`);
           }
+          throw new Error(`Path not found: ${action.path}`);
         }
 
         case 'create': {
@@ -129,7 +129,8 @@ export const anthropicLocalFsMemoryTool = ({
 
           if (count === 0) {
             throw new Error(`Text not found in ${action.path}`);
-          } else if (count > 1) {
+          }
+          if (count > 1) {
             throw new Error(
               `Text appears ${count} times in ${action.path}. Must be unique.`,
             );
@@ -186,12 +187,12 @@ export const anthropicLocalFsMemoryTool = ({
           if (stat.isFile()) {
             await fs.unlink(fullPath);
             return `File deleted: ${action.path}`;
-          } else if (stat.isDirectory()) {
+          }
+          if (stat.isDirectory()) {
             await fs.rmdir(fullPath, { recursive: true });
             return `Directory deleted: ${action.path}`;
-          } else {
-            throw new Error(`Path not found: ${action.path}`);
           }
+          throw new Error(`Path not found: ${action.path}`);
         }
 
         case 'rename': {

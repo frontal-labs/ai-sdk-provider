@@ -1,4 +1,4 @@
-import { alibaba, type AlibabaEmbeddingModelOptions } from '@ai-sdk/alibaba';
+import { type AlibabaEmbeddingModelOptions, alibaba } from '@ai-sdk/alibaba';
 import { embed } from 'ai';
 import { run } from '../../lib/run';
 

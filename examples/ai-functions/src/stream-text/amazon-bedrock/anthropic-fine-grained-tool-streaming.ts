@@ -1,7 +1,7 @@
 import { createBedrockAnthropic } from '@ai-sdk/amazon-bedrock/anthropic';
 import { streamText } from 'ai';
-import { run } from '../../lib/run';
 import { z } from 'zod';
+import { run } from '../../lib/run';
 
 const bedrockAnthropic = createBedrockAnthropic({
   headers: {
@@ -91,7 +91,7 @@ run(async () => {
         break;
       case 'tool-input-end':
         sawToolInputEnd = true;
-        ts(`[tool-input-end]`);
+        ts('[tool-input-end]');
         process.stdout.write(`\n[tool-input-end] id=${part.id}\n`);
         break;
       case 'tool-call': {
@@ -133,8 +133,9 @@ run(async () => {
   // instead of a long hang followed by a dump of all chunks at once.
   let liveIntervals = 0;
   for (let i = 1; i < toolInputDeltaTimestamps.length; i++) {
-    if (toolInputDeltaTimestamps[i] - toolInputDeltaTimestamps[i - 1] >= 5)
+    if (toolInputDeltaTimestamps[i] - toolInputDeltaTimestamps[i - 1] >= 5) {
       liveIntervals++;
+    }
   }
   const liveRatio =
     toolInputDeltaTimestamps.length > 1

@@ -1,4 +1,4 @@
-import { xai, type XaiVideoModelOptions } from '@ai-sdk/xai';
+import { type XaiVideoModelOptions, xai } from '@ai-sdk/xai';
 import { experimental_generateVideo as generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
@@ -15,7 +15,7 @@ run(async () => {
           mode: 'edit-video',
           videoUrl:
             'https://raw.githubusercontent.com/vercel/ai/refs/heads/main/examples/ai-functions/data/prudence.mp4',
-          pollTimeoutMs: 600000,
+          pollTimeoutMs: 600_000,
         } satisfies XaiVideoModelOptions,
       },
     }),
@@ -50,7 +50,7 @@ run(async () => {
               xai: {
                 mode: 'edit-video',
                 videoUrl: step1VideoUrl,
-                pollTimeoutMs: 600000,
+                pollTimeoutMs: 600_000,
               } satisfies XaiVideoModelOptions,
             },
           }),

@@ -15,14 +15,23 @@ export const rollDieToolWithProgrammaticCalling = tool({
     if (player === 'player1') {
       // Simulate a loaded die that slightly skews towards 6
       const r = Math.random();
-      if (r < 0.13) return { roll: 1 };
-      if (r < 0.26) return { roll: 2 };
-      if (r < 0.39) return { roll: 3 };
-      if (r < 0.52) return { roll: 4 };
-      if (r < 0.65) return { roll: 5 };
+      if (r < 0.13) {
+        return { roll: 1 };
+      }
+      if (r < 0.26) {
+        return { roll: 2 };
+      }
+      if (r < 0.39) {
+        return { roll: 3 };
+      }
+      if (r < 0.52) {
+        return { roll: 4 };
+      }
+      if (r < 0.65) {
+        return { roll: 5 };
+      }
       return { roll: 6 };
-    } else {
-      return { roll: Math.floor(Math.random() * 6) + 1 };
     }
+    return { roll: Math.floor(Math.random() * 6) + 1 };
   },
 });

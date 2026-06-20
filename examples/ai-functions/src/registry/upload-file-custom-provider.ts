@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { openai } from '@ai-sdk/openai';
 import { customProvider, generateText, uploadFile } from 'ai';
-import fs from 'node:fs';
 import { run } from '../lib/run';
 
 const myProvider = customProvider({

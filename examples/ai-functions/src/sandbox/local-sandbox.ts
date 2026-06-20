@@ -1,14 +1,14 @@
 import { spawn } from 'node:child_process';
 import { createReadStream, createWriteStream } from 'node:fs';
 import { mkdir, stat } from 'node:fs/promises';
-import { isAbsolute, join, dirname } from 'node:path';
+import { dirname, isAbsolute, join } from 'node:path';
 import { Readable, type Writable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import {
-  extractLines,
   type Experimental_SandboxProcess,
+  extractLines,
 } from '@ai-sdk/provider-utils';
-import { type Experimental_SandboxSession as SandboxSession } from 'ai';
+import type { Experimental_SandboxSession as SandboxSession } from 'ai';
 import {
   bytesToStream,
   collectStream,
@@ -97,12 +97,12 @@ export class LocalSandboxSession implements SandboxSession {
       child.once('exit', (code, signal) => {
         if (code != null) {
           resolve({ exitCode: code });
-        } else if (signal != null) {
+        } else if (signal == null) {
+          resolve({ exitCode: 1 });
+        } else {
           resolve({
             exitCode: 128 + (typeof signal === 'number' ? signal : 1),
           });
-        } else {
-          resolve({ exitCode: 1 });
         }
       });
     });
@@ -150,7 +150,9 @@ export class LocalSandboxSession implements SandboxSession {
     try {
       await stat(resolved);
     } catch (error: any) {
-      if (error?.code === 'ENOENT') return null;
+      if (error?.code === 'ENOENT') {
+        return null;
+      }
       throw error;
     }
     const nodeStream = createReadStream(resolved, { signal: abortSignal });
@@ -183,7 +185,9 @@ export class LocalSandboxSession implements SandboxSession {
     abortSignal?: AbortSignal;
   }): Promise<Uint8Array | null> {
     const stream = await this.readFile({ path, abortSignal });
-    if (stream == null) return null;
+    if (stream == null) {
+      return null;
+    }
     return collectStream(stream);
   }
 
@@ -217,7 +221,9 @@ export class LocalSandboxSession implements SandboxSession {
     abortSignal?: AbortSignal;
   }): Promise<string | null> {
     const bytes = await this.readBinaryFile({ path, abortSignal });
-    if (bytes == null) return null;
+    if (bytes == null) {
+      return null;
+    }
     const text = Buffer.from(bytes).toString(encoding as BufferEncoding);
     return extractLines({ text, startLine, endLine });
   }

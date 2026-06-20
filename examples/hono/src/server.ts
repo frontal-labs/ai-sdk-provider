@@ -23,7 +23,7 @@ app.use(
     origin: 'http://localhost:3000',
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization'],
-    maxAge: 86400,
+    maxAge: 86_400,
   }),
 );
 

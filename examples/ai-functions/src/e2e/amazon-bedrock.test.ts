@@ -1,11 +1,11 @@
 import 'dotenv/config';
-import { expect } from 'vitest';
 import { amazonBedrock as provider } from '@ai-sdk/amazon-bedrock';
 import type { APICallError } from 'ai';
+import { expect } from 'vitest';
 import {
+  createEmbeddingModelWithCapabilities,
   createFeatureTestSuite,
   createLanguageModelWithCapabilities,
-  createEmbeddingModelWithCapabilities,
   defaultChatModelCapabilities,
 } from './feature-test-suite';
 
@@ -31,7 +31,7 @@ createFeatureTestSuite({
       ),
     ],
   },
-  timeout: 60000,
+  timeout: 60_000,
   customAssertions: {
     errorValidator: (error: APICallError) => {
       expect(error.message).toMatch(/model|resource|not found|invalid/i);

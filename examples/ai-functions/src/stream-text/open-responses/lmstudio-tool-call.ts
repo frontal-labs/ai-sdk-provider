@@ -1,7 +1,7 @@
 import { createOpenResponses } from '@ai-sdk/open-responses';
 import { streamText } from 'ai';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 const lmstudio = createOpenResponses({
   name: 'lmstudio',

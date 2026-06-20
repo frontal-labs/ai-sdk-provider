@@ -1,8 +1,7 @@
+import { toUIMessageStream } from '@ai-sdk/langchain';
+import { ChatOpenAI } from '@langchain/openai';
 import { createUIMessageStreamResponse } from 'ai';
 import { NextResponse } from 'next/server';
-
-import { ChatOpenAI } from '@langchain/openai';
-import { toUIMessageStream } from '@ai-sdk/langchain';
 
 /**
  * Allow streaming responses up to 30 seconds

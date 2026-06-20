@@ -1,8 +1,8 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { isStepCount, streamText } from 'ai';
-import { weatherTool } from '../../tools/weather-tool';
 import { printFullStream } from '../../lib/print-full-stream';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 run(async () => {
   const result = streamText({

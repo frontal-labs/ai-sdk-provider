@@ -1,6 +1,6 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 import { run } from '../../lib/run';
@@ -22,8 +22,8 @@ run(async () => {
   });
 
   console.log(JSON.stringify(result.response.body, null, 2));
-  console.dir(result.toolCalls, { depth: Infinity });
-  console.dir(result.toolResults, { depth: Infinity });
-  console.dir(result.sources, { depth: Infinity });
+  console.dir(result.toolCalls, { depth: Number.POSITIVE_INFINITY });
+  console.dir(result.toolResults, { depth: Number.POSITIVE_INFINITY });
+  console.dir(result.sources, { depth: Number.POSITIVE_INFINITY });
   console.log(result.text);
 });

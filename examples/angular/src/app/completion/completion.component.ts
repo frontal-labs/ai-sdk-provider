@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { Completion } from '@ai-sdk/angular';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({

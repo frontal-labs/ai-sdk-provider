@@ -50,5 +50,5 @@ createFeatureTestSuite({
       ),
     ],
   },
-  timeout: 60000,
+  timeout: 60_000,
 })();

@@ -1,8 +1,8 @@
+import * as readline from 'node:readline/promises';
 import { amazonBedrock } from '@ai-sdk/amazon-bedrock';
 import { generateText, isStepCount, type ModelMessage } from 'ai';
-import * as readline from 'node:readline/promises';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 const terminal = readline.createInterface({
   input: process.stdin,
@@ -19,7 +19,7 @@ run(async () => {
     const { steps, responseMessages } = await generateText({
       model: amazonBedrock('us.anthropic.claude-sonnet-4-5-20250929-v1:0'),
       tools: { weatherTool },
-      instructions: `You are a helpful, respectful and honest assistant.`,
+      instructions: 'You are a helpful, respectful and honest assistant.',
       messages,
       stopWhen: isStepCount(5),
       reasoning: 'medium',

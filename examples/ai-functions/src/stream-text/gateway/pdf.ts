@@ -1,5 +1,5 @@
-import { streamText } from 'ai';
 import fs from 'node:fs';
+import { streamText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {

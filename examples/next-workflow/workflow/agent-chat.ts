@@ -1,9 +1,9 @@
 import { anthropic } from '@ai-sdk/anthropic';
-import { WorkflowAgent, type ModelCallStreamPart } from '@ai-sdk/workflow';
+import { type ModelCallStreamPart, WorkflowAgent } from '@ai-sdk/workflow';
 import {
   convertToModelMessages,
-  type UIMessage,
   type ToolCallRepairFunction,
+  type UIMessage,
 } from 'ai';
 import { getWritable } from 'workflow';
 import { z } from 'zod';
@@ -50,8 +50,9 @@ async function calculate(input: {
 }): Promise<{ expression: string; result: number }> {
   'use step';
   const translated = input.expression.replace(/\s/g, '').replace(/\^/g, '**');
-  if (!/^[0-9+\-*/().]+$/.test(translated))
+  if (!/^[0-9+\-*/().]+$/.test(translated)) {
     throw new Error(`Invalid expression: ${input.expression}`);
+  }
   return {
     expression: input.expression,
     result: new Function(`return (${translated})`)() as number,
@@ -137,11 +138,11 @@ const repairToolCall: ToolCallRepairFunction<typeof tools> = async ({
  *   `execute` only sees its own validated entry as `context`.
  */
 export interface ChatRequestContext {
-  tenantId: string;
-  requestId: string;
-  userPlan: 'free' | 'enterprise';
-  preferredUnit: 'celsius' | 'fahrenheit';
   fileRootDir: string;
+  preferredUnit: 'celsius' | 'fahrenheit';
+  requestId: string;
+  tenantId: string;
+  userPlan: 'free' | 'enterprise';
 }
 
 export async function chat(messages: UIMessage[], request: ChatRequestContext) {

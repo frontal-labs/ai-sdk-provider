@@ -3,7 +3,7 @@ import {
   createBedrockAnthropic,
 } from '@ai-sdk/amazon-bedrock/anthropic';
 import type { LanguageModelV3, LanguageModelV4 } from '@ai-sdk/provider';
-import { generateText, isStepCount, type APICallError } from 'ai';
+import { type APICallError, generateText, isStepCount } from 'ai';
 import 'dotenv/config';
 import fs from 'fs';
 import { describe, expect, it } from 'vitest';
@@ -12,10 +12,11 @@ import {
   createLanguageModelWithCapabilities,
   type ModelWithCapabilities,
 } from './feature-test-suite';
+
 const createModelObject = (
   model: LanguageModelV4,
 ): { model: LanguageModelV4; modelId: string } => ({
-  model: model,
+  model,
   modelId: model.modelId,
 });
 
@@ -28,12 +29,11 @@ const createLanguageModel = (
   })(modelId);
 
   if (additionalTests.length > 0) {
-    describe.each([createModelObject(model)])(
-      'Provider-specific tests: $modelId',
-      ({ model }) => {
-        additionalTests.forEach(test => test(model));
-      },
-    );
+    describe.each([
+      createModelObject(model),
+    ])('Provider-specific tests: $modelId', ({ model }) => {
+      additionalTests.forEach(test => test(model));
+    });
   }
 
   return createLanguageModelWithCapabilities(model);
@@ -63,8 +63,8 @@ const createModelsForRuntime = () => ({
   ],
 });
 
-const LONG_TEST_MILLIS = 30000;
-const COMPUTER_USE_TEST_MILLIS = 45000;
+const LONG_TEST_MILLIS = 30_000;
+const COMPUTER_USE_TEST_MILLIS = 45_000;
 
 describe('Bedrock Anthropic E2E Tests', () => {
   createFeatureTestSuite({

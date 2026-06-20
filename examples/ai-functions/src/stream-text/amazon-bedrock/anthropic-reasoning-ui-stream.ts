@@ -1,6 +1,6 @@
 import {
-  amazonBedrock,
   type AmazonBedrockLanguageModelChatOptions,
+  amazonBedrock,
 } from '@ai-sdk/amazon-bedrock';
 import { streamText, toUIMessageStream } from 'ai';
 import { run } from '../../lib/run';
@@ -10,7 +10,7 @@ run(async () => {
     model: amazonBedrock('us.anthropic.claude-opus-4-7'),
     prompt:
       'Solve this step by step: if f(x) = x^3 - 6x^2 + 11x - 6, find all roots and prove they are correct.',
-    maxOutputTokens: 55000,
+    maxOutputTokens: 55_000,
     providerOptions: {
       bedrock: {
         // Without `reasoningConfig.display: 'summarized'` here, this won't include reasoning in the stream,
@@ -31,7 +31,9 @@ run(async () => {
   const reader = uiMessageStream.getReader();
   while (true) {
     const { done, value } = await reader.read();
-    if (done) break;
+    if (done) {
+      break;
+    }
     console.log(JSON.stringify(value));
   }
 });

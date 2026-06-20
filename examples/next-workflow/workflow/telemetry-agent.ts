@@ -1,8 +1,8 @@
 import {
   createModelCallToUIChunkTransform,
-  WorkflowAgent,
   type ModelCallStreamPart,
   type TelemetryOptions,
+  WorkflowAgent,
   type WorkflowAgentOnErrorCallback,
   type WorkflowAgentOnFinishCallback,
   type WorkflowAgentOnStartCallback,
@@ -12,8 +12,8 @@ import {
 } from '@ai-sdk/workflow';
 import {
   convertToModelMessages,
-  tool,
   type Telemetry,
+  tool,
   type UIMessage,
 } from 'ai';
 import { getWritable } from 'workflow';
@@ -24,21 +24,21 @@ import {
   type TelemetryEventSource,
   type TelemetryScenario,
 } from '../lib/telemetry-store';
-import { mockSequenceModel, type MockResponseDescriptor } from './mock-model';
+import { type MockResponseDescriptor, mockSequenceModel } from './mock-model';
 
 interface TelemetryRequestContext {
-  telemetryRunId: string;
   requestId: string;
-  tenantId: string;
   scenario: TelemetryScenario;
+  telemetryRunId: string;
+  tenantId: string;
 }
 
 interface RuntimeContext {
-  [key: string]: unknown;
-  telemetryRunId: string;
   requestId: string;
-  tenantId: string;
   secretToken: string;
+  telemetryRunId: string;
+  tenantId: string;
+  [key: string]: unknown;
 }
 
 function summarizeEvent(event: unknown) {

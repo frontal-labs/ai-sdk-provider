@@ -1,6 +1,6 @@
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
 import { openai } from '@ai-sdk/openai';
 import { generateText, uploadSkill } from 'ai';
@@ -54,7 +54,7 @@ run(async () => {
   try {
     // OpenAI's API will not find versions of a newly uploaded skill immediately, so we need to wait a bit.
     console.log('Waiting 15 seconds for skill to propagate...');
-    await new Promise(resolve => setTimeout(resolve, 15000));
+    await new Promise(resolve => setTimeout(resolve, 15_000));
 
     console.log('\n--- OpenAI Response ---');
     const openaiResult = await generateText({

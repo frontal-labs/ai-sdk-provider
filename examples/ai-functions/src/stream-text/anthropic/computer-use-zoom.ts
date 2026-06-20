@@ -1,6 +1,6 @@
-import { anthropic } from '@ai-sdk/anthropic';
-import { streamText, isStepCount } from 'ai';
 import fs from 'node:fs';
+import { anthropic } from '@ai-sdk/anthropic';
+import { isStepCount, streamText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {

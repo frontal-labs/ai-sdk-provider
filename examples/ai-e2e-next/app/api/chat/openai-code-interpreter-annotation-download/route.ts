@@ -1,19 +1,20 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
   type OpenaiResponsesSourceDocumentProviderMetadata,
+  openai,
 } from '@ai-sdk/openai';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
-  streamText,
-  toUIMessageStream,
-  validateUIMessages,
   type InferUITools,
+  streamText,
   type ToolSet,
+  toUIMessageStream,
   type UIDataTypes,
   type UIMessage,
+  validateUIMessages,
 } from 'ai';
+
 const tools = {
   code_interpreter: openai.tools.codeInterpreter(),
 } satisfies ToolSet;
@@ -55,7 +56,9 @@ export async function POST(req: Request) {
           const providerMetadata = source.providerMetadata as
             | OpenaiResponsesSourceDocumentProviderMetadata
             | undefined;
-          if (!providerMetadata) continue;
+          if (!providerMetadata) {
+            continue;
+          }
           const { openai } = providerMetadata;
           if (openai.type === 'container_file_citation') {
             const { containerId, fileId } = openai;

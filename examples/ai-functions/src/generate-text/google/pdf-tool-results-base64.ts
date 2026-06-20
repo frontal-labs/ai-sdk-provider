@@ -1,17 +1,17 @@
-import { google } from '@ai-sdk/google';
-import { generateText, isStepCount, tool } from 'ai';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { run } from '../../lib/run';
+import { google } from '@ai-sdk/google';
+import { generateText, isStepCount, tool } from 'ai';
 import { z } from 'zod';
+import { run } from '../../lib/run';
 
 run(async () => {
   const readPDFDocument = tool({
-    description: `Read and return a PDF document`,
+    description: 'Read and return a PDF document',
     inputSchema: z.object({}),
     execute: async () => {
       try {
-        const pdfPath = path.join(__dirname, '../../../data/ai.pdf');
+        const pdfPath = path.join(import.meta.dirname, '../../../data/ai.pdf');
         const pdfData = await fs.readFile(pdfPath);
 
         return {

@@ -3,9 +3,9 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { HarnessAgent, HarnessAgentSession } from '@ai-sdk/harness/agent';
 import {
-  runAgentTUI,
   type AgentTUIAgent,
   type RunAgentTUIOptions,
+  runAgentTUI,
 } from '@ai-sdk/tui';
 import { config } from 'dotenv';
 

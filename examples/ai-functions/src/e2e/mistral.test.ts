@@ -1,11 +1,11 @@
 import 'dotenv/config';
-import { expect } from 'vitest';
 import { mistral as provider } from '@ai-sdk/mistral';
 import type { APICallError } from 'ai';
+import { expect } from 'vitest';
 import {
+  createEmbeddingModelWithCapabilities,
   createFeatureTestSuite,
   createLanguageModelWithCapabilities,
-  createEmbeddingModelWithCapabilities,
 } from './feature-test-suite';
 
 const createChatModel = (modelId: string) =>
@@ -25,7 +25,7 @@ createFeatureTestSuite({
       ),
     ],
   },
-  timeout: 30000,
+  timeout: 30_000,
   customAssertions: {
     errorValidator: (error: APICallError) => {
       expect(error.message).toMatch(/model.*not found|invalid.*model/i);

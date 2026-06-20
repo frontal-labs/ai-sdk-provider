@@ -1,8 +1,8 @@
 import { anthropicAws } from '@ai-sdk/anthropic-aws';
-import { generateText, tool, stepCountIs } from 'ai';
+import { generateText, stepCountIs, tool } from 'ai';
 import { z } from 'zod';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 run(async () => {
   const result = await generateText({

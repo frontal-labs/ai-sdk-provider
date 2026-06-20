@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { streamText, isStepCount } from 'ai';
+import { isStepCount, streamText } from 'ai';
 import { run } from '../../lib/run';
 
 run(async () => {
@@ -15,7 +15,7 @@ run(async () => {
         },
         execute: async input => {
           console.log(`Executing SQL: ${input}`);
-          return `3 rows returned: Alice (30), Bob (28), Charlie (35)`;
+          return '3 rows returned: Alice (30), Bob (28), Charlie (35)';
         },
       }),
     },

@@ -1,3 +1,4 @@
+import { createServer } from 'node:http';
 import {
   auth,
   type OAuthClientInformation,
@@ -5,7 +6,6 @@ import {
   type OAuthClientProvider,
   type OAuthTokens,
 } from '@ai-sdk/mcp';
-import { createServer } from 'node:http';
 
 /**
  * Minimal OAuth client provider for MCP Server
@@ -16,7 +16,7 @@ class MinimalOAuthProvider implements OAuthClientProvider {
   private _clientInformation?: OAuthClientInformation;
   private _redirectUrl: string | URL;
 
-  constructor(port: number = 8090) {
+  constructor(port = 8090) {
     this._redirectUrl = `http://localhost:${port}/callback`;
   }
 
@@ -39,7 +39,9 @@ class MinimalOAuthProvider implements OAuthClientProvider {
   }
 
   async codeVerifier(): Promise<string> {
-    if (!this._codeVerifier) throw new Error('No code verifier saved');
+    if (!this._codeVerifier) {
+      throw new Error('No code verifier saved');
+    }
     return this._codeVerifier;
   }
 
@@ -126,7 +128,7 @@ function waitForAuthorizationCode(port: number): Promise<string> {
  */
 export async function getMCPToken(
   serverUrl: string,
-  port: number = 8090,
+  port = 8090,
 ): Promise<string> {
   const authProvider = new MinimalOAuthProvider(port);
 

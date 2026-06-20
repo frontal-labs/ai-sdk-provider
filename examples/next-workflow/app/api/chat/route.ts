@@ -1,7 +1,7 @@
 import { createModelCallToUIChunkTransform } from '@ai-sdk/workflow';
 import { createUIMessageStreamResponse, type UIMessage } from 'ai';
 import { start } from 'workflow/api';
-import { chat, type ChatRequestContext } from '@/workflow/agent-chat';
+import { type ChatRequestContext, chat } from '@/workflow/agent-chat';
 
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();

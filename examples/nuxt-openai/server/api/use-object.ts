@@ -4,7 +4,9 @@ import { notificationSchema } from '~/shared/notification-schema';
 
 export default defineLazyEventHandler(async () => {
   const apiKey = useRuntimeConfig().openaiApiKey;
-  if (!apiKey) throw new Error('Missing OpenAI API key');
+  if (!apiKey) {
+    throw new Error('Missing OpenAI API key');
+  }
   const openai = createOpenAI({ apiKey });
 
   return defineEventHandler(async (event: any) => {

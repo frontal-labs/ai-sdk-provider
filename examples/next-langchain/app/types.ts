@@ -5,13 +5,13 @@ import type { UIMessage } from 'ai';
  * Emitted by the analyze_data tool.
  */
 export interface ProgressData {
-  type: 'progress';
+  currentStep: number;
   id: string;
-  step: string;
   message: string;
   progress: number;
+  step: string;
   totalSteps: number;
-  currentStep: number;
+  type: 'progress';
 }
 
 /**
@@ -19,10 +19,10 @@ export interface ProgressData {
  * Emitted when an operation finishes.
  */
 export interface StatusData {
-  type: 'status';
   id: string;
-  status: 'complete' | 'pending' | 'error';
   message: string;
+  status: 'complete' | 'pending' | 'error';
+  type: 'status';
 }
 
 /**
@@ -30,12 +30,12 @@ export interface StatusData {
  * Emitted by the process_file tool.
  */
 export interface FileStatusData {
-  type: 'file-status';
-  id: string;
   filename: string;
+  id: string;
   operation: 'read' | 'compress' | 'validate' | 'transform';
-  status: 'started' | 'completed' | 'error';
   size?: string;
+  status: 'started' | 'completed' | 'error';
+  type: 'file-status';
 }
 
 /**

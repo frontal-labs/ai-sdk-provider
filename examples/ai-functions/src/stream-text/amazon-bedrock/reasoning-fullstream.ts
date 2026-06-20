@@ -5,8 +5,8 @@ import {
   type ToolCallPart,
   type ToolResultPart,
 } from 'ai';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 run(async () => {
   const result = streamText({

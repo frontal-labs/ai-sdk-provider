@@ -35,9 +35,9 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-24">
+    <div className="flex min-h-screen flex-col items-center p-24">
       <div className="space-y-2">
-        <h2 className="text-3xl font-bold tracking-tighter text-center sm:text-4xl md:text-5xl">
+        <h2 className="text-center font-bold text-3xl tracking-tighter sm:text-4xl md:text-5xl">
           Image Generator
         </h2>
         <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
@@ -45,20 +45,20 @@ export default function Page() {
         </p>
       </div>
 
-      <div className="w-full max-w-sm pt-6 pb-8 space-y-2">
+      <div className="w-full max-w-sm space-y-2 pt-6 pb-8">
         <form className="flex space-x-2" onSubmit={handleSubmit}>
           <input
-            className="flex-1 max-w-lg px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="max-w-lg flex-1 rounded-md border border-gray-300 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:bg-gray-100"
+            disabled={isLoading}
+            onChange={e => setInputValue(e.target.value)}
             placeholder="Describe the image"
             type="text"
             value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-            disabled={isLoading}
           />
           <button
-            type="submit"
+            className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-blue-300"
             disabled={isLoading}
-            className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-blue-300 disabled:cursor-not-allowed"
+            type="submit"
           >
             Generate
           </button>
@@ -66,19 +66,19 @@ export default function Page() {
       </div>
 
       {error && (
-        <div className="p-4 mb-4 text-red-700 bg-red-100 border border-red-400 rounded-lg">
+        <div className="mb-4 rounded-lg border border-red-400 bg-red-100 p-4 text-red-700">
           {error}
         </div>
       )}
 
-      <div className="w-[512px] h-[512px] space-y-2">
+      <div className="h-[512px] w-[512px] space-y-2">
         {isLoading ? (
-          <div className="h-[512px] w-[512px] animate-pulse bg-gray-200 rounded-lg" />
+          <div className="h-[512px] w-[512px] animate-pulse rounded-lg bg-gray-200" />
         ) : (
           imageSrc && (
             <img
               alt="Generated Image"
-              className="object-cover overflow-hidden rounded-lg"
+              className="overflow-hidden rounded-lg object-cover"
               src={imageSrc}
             />
           )

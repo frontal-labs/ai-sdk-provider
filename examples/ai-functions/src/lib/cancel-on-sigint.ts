@@ -17,7 +17,9 @@
  */
 export function cancelOnSigint({
   gracePeriodMs = 5000,
-}: { gracePeriodMs?: number } = {}): AbortController {
+}: {
+  gracePeriodMs?: number;
+} = {}): AbortController {
   const ac = new AbortController();
 
   const onSigint = () => {

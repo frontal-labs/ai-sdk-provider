@@ -18,7 +18,6 @@ export default function LangGraphChat() {
 
   return (
     <ChatContainer
-      title="LangGraph Example"
       description={
         <>
           Uses LangGraph&apos;s <code>StateGraph</code> with{' '}
@@ -27,16 +26,17 @@ export default function LangGraphChat() {
           back with <code>toUIMessageStream</code>.
         </>
       }
+      error={error}
       messages={messages}
       onSend={text => sendMessage({ text })}
-      status={status}
-      error={error}
       placeholder="Ask anything..."
+      status={status}
       suggestions={[
         'What is LangGraph?',
         'Explain state machines',
         'How do agents work?',
       ]}
+      title="LangGraph Example"
     />
   );
 }

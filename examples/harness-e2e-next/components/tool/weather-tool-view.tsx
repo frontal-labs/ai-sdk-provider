@@ -1,6 +1,6 @@
-import type { WeatherUIToolInvocation } from '@/lib/tools/weather-tool';
-import HarnessToolView from '@/components/tool/harness-tool-view';
 import type { ChatAddToolApproveResponseFunction } from 'ai';
+import HarnessToolView from '@/components/tool/harness-tool-view';
+import type { WeatherUIToolInvocation } from '@/lib/tools/weather-tool';
 
 export default function WeatherView({
   invocation,
@@ -13,26 +13,25 @@ export default function WeatherView({
     return (
       <div className="mb-2">
         <HarnessToolView
-          toolName="Weather"
-          toolArg={invocation.input?.city}
           state={invocation.state}
+          toolArg={invocation.input?.city}
+          toolName="Weather"
         />
-        <div className="flex gap-2 ml-4">
+        <div className="ml-4 flex gap-2">
           <button
-            type="button"
-            className="px-2 py-1 text-xs text-white bg-green-600 rounded"
+            className="rounded bg-green-600 px-2 py-1 text-white text-xs"
             onClick={() =>
               addToolApprovalResponse?.({
                 id: invocation.approval.id,
                 approved: true,
               })
             }
+            type="button"
           >
             Approve
           </button>
           <button
-            type="button"
-            className="px-2 py-1 text-xs text-white bg-red-600 rounded"
+            className="rounded bg-red-600 px-2 py-1 text-white text-xs"
             onClick={() =>
               addToolApprovalResponse?.({
                 id: invocation.approval.id,
@@ -40,6 +39,7 @@ export default function WeatherView({
                 reason: 'User denied the weather lookup.',
               })
             }
+            type="button"
           >
             Deny
           </button>
@@ -51,29 +51,29 @@ export default function WeatherView({
   if (invocation.state === 'approval-responded') {
     return (
       <HarnessToolView
-        toolName="Weather"
-        toolArg={invocation.input?.city}
-        state={invocation.state}
         output={
           invocation.approval.approved
             ? 'Approved. Waiting for tool execution...'
             : `Denied${invocation.approval.reason ? `: ${invocation.approval.reason}` : ''}`
         }
+        state={invocation.state}
+        toolArg={invocation.input?.city}
+        toolName="Weather"
       />
     );
   }
 
   return (
     <HarnessToolView
-      toolName="Weather"
-      toolArg={invocation.input?.city}
-      state={invocation.state}
+      errorText={invocation.errorText}
       output={
         invocation.output?.state === 'loading'
           ? 'Fetching weather information...'
           : `Weather in ${invocation.input?.city}: ${invocation.output?.weather} (temperature: ${invocation.output?.temperature}°)`
       }
-      errorText={invocation.errorText}
+      state={invocation.state}
+      toolArg={invocation.input?.city}
+      toolName="Weather"
     />
   );
 }

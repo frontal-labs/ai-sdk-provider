@@ -1,14 +1,14 @@
 import {
-  anthropic,
   type AnthropicLanguageModelOptions,
+  anthropic,
 } from '@ai-sdk/anthropic';
 import {
   consumeStream,
   convertToModelMessages,
   createUIMessageStreamResponse,
+  type ModelMessage,
   streamText,
   toUIMessageStream,
-  type ModelMessage,
   type UIMessage,
 } from 'ai';
 import { readFileSync } from 'fs';
@@ -267,7 +267,7 @@ export async function POST(req: Request) {
               type: 'compact_20260112',
               trigger: {
                 type: 'input_tokens',
-                value: 50000,
+                value: 50_000,
               },
             },
           ],

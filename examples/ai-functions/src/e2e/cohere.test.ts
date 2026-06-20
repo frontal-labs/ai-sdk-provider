@@ -19,5 +19,5 @@ createFeatureTestSuite({
       createChatModel('command-light'),
     ],
   },
-  timeout: 30000,
+  timeout: 30_000,
 })();

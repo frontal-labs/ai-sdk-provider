@@ -31,34 +31,30 @@ mcpServer.registerTool(
       'openai/outputTemplate': WEATHER_WIDGET_URI,
     },
   },
-  async ({ location }) => {
-    return {
-      content: [
-        {
-          type: 'text',
-          text: `Weather in ${location}: Sunny, 22°C`,
-        },
-      ],
-    };
-  },
+  async ({ location }) => ({
+    content: [
+      {
+        type: 'text',
+        text: `Weather in ${location}: Sunny, 22°C`,
+      },
+    ],
+  }),
 );
 
 mcpServer.registerResource(
   'weather-widget',
   WEATHER_WIDGET_URI,
   {},
-  async () => {
-    return {
-      contents: [
-        {
-          uri: 'ui://widgets/weather.html',
-          mimeType: 'text/html+skybridge',
-          text: `<div>Weather widget</div>`,
-        },
-      ],
-      _meta: {},
-    };
-  },
+  async () => ({
+    contents: [
+      {
+        uri: 'ui://widgets/weather.html',
+        mimeType: 'text/html+skybridge',
+        text: '<div>Weather widget</div>',
+      },
+    ],
+    _meta: {},
+  }),
 );
 
 mcpServer.registerTool(
@@ -67,16 +63,14 @@ mcpServer.registerTool(
     description: 'Get current time',
     inputSchema: {},
   },
-  async () => {
-    return {
-      content: [
-        {
-          type: 'text',
-          text: `Current time: ${new Date().toISOString()}`,
-        },
-      ],
-    };
-  },
+  async () => ({
+    content: [
+      {
+        type: 'text',
+        text: `Current time: ${new Date().toISOString()}`,
+      },
+    ],
+  }),
 );
 
 app.post('/mcp', async (req, res) => {
@@ -96,7 +90,7 @@ app.post('/mcp', async (req, res) => {
       res.status(500).json({
         jsonrpc: '2.0',
         error: {
-          code: -32603,
+          code: -32_603,
           message: 'Internal server error',
         },
         id: null,

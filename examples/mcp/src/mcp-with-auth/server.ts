@@ -16,32 +16,28 @@ mcpServer.tool(
   {
     secretKey: z.string(),
   },
-  async ({ secretKey }) => {
-    return {
-      content: [
-        {
-          type: 'text',
-          text: `Secret data for key "${secretKey}": This is highly confidential information!`,
-        },
-      ],
-    };
-  },
+  async ({ secretKey }) => ({
+    content: [
+      {
+        type: 'text',
+        text: `Secret data for key "${secretKey}": This is highly confidential information!`,
+      },
+    ],
+  }),
 );
 
 // Another protected tool
 mcpServer.tool(
   'list-user-resources',
   'List all resources for the authenticated user',
-  async () => {
-    return {
-      content: [
-        {
-          type: 'text',
-          text: 'User Resources: [Resource A, Resource B, Resource C]',
-        },
-      ],
-    };
-  },
+  async () => ({
+    content: [
+      {
+        type: 'text',
+        text: 'User Resources: [Resource A, Resource B, Resource C]',
+      },
+    ],
+  }),
 );
 
 // Simple in-memory token store (for demo purposes)
@@ -67,7 +63,7 @@ function requireAuth(
     authHeader ? `Bearer ${authHeader.substring(7, 27)}...` : 'missing',
   );
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  if (!(authHeader && authHeader.startsWith('Bearer '))) {
     console.log('  → 401: No authorization header, sending WWW-Authenticate');
     res.status(401).set({
       'WWW-Authenticate':
@@ -152,7 +148,9 @@ app.get('/authorize', (req, res) => {
 
   const redirectUrl = new URL(redirect_uri as string);
   redirectUrl.searchParams.set('code', authCode);
-  if (state) redirectUrl.searchParams.set('state', state as string);
+  if (state) {
+    redirectUrl.searchParams.set('state', state as string);
+  }
 
   res.redirect(redirectUrl.toString());
 });

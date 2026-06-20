@@ -1,5 +1,5 @@
 import { anthropic } from '@ai-sdk/anthropic';
-import { ToolLoopAgent, dynamicTool, createAgentUIStreamResponse } from 'ai';
+import { createAgentUIStreamResponse, dynamicTool, ToolLoopAgent } from 'ai';
 import { z } from 'zod';
 
 function randomWeather() {

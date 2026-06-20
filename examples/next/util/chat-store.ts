@@ -82,7 +82,9 @@ async function getChatFile(id: string): Promise<string> {
   const chatDir = getChatDir();
   const chatFile = getSafeChatFilePath({ chatDir, id });
 
-  if (!existsSync(chatDir)) mkdirSync(chatDir, { recursive: true });
+  if (!existsSync(chatDir)) {
+    mkdirSync(chatDir, { recursive: true });
+  }
 
   if (!existsSync(chatFile)) {
     const blankChat: ChatData = {

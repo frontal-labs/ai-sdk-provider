@@ -1,6 +1,6 @@
+import { amazonBedrock } from '@ai-sdk/amazon-bedrock';
 import { generateText, tool } from 'ai';
 import { z } from 'zod';
-import { amazonBedrock } from '@ai-sdk/amazon-bedrock';
 import { run } from '../../lib/run';
 
 const weatherTool = tool({

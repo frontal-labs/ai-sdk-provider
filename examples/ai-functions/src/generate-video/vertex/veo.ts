@@ -1,6 +1,6 @@
 import {
-  googleVertex,
   type GoogleVertexVideoModelOptions,
+  googleVertex,
 } from '@ai-sdk/google-vertex';
 import { experimental_generateVideo } from 'ai';
 import { presentVideos } from '../../lib/present-video';
@@ -19,7 +19,7 @@ run(async () => {
       duration: 8,
       providerOptions: {
         vertex: {
-          pollTimeoutMs: 600000, // 10 minutes
+          pollTimeoutMs: 600_000, // 10 minutes
         } satisfies GoogleVertexVideoModelOptions,
       },
     }),

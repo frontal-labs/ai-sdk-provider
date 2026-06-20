@@ -1,6 +1,6 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
 import { Output, ToolLoopAgent } from 'ai';
 import { z } from 'zod';
@@ -32,7 +32,7 @@ const agent = new ToolLoopAgent({
     ...rest,
     instructions:
       `You are an expert in the following topic: ${options.topic}. ` +
-      `Contextualize the news with your knowledge about the topic and return the top 3 news items.`,
+      'Contextualize the news with your knowledge about the topic and return the top 3 news items.',
   }),
   onStepFinish: ({ request }) => {
     console.log();

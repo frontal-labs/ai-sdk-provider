@@ -1,10 +1,7 @@
-import {
-  amazonBedrock,
-  type AmazonBedrockLanguageModelChatOptions,
-} from '@ai-sdk/amazon-bedrock';
+import { amazonBedrock } from '@ai-sdk/amazon-bedrock';
 import { generateText, Output } from 'ai';
-import { z } from 'zod';
 import fs from 'fs';
+import { z } from 'zod';
 import { run } from '../../lib/run';
 
 run(async () => {

@@ -1,8 +1,8 @@
 import { openai } from '@ai-sdk/openai';
 import { generateText, isStepCount } from 'ai';
 import { resolve } from 'path';
-import { executeShellCommand } from '../../lib/shell-executor';
 import { run } from '../../lib/run';
+import { executeShellCommand } from '../../lib/shell-executor';
 
 run(async () => {
   const result = await generateText({

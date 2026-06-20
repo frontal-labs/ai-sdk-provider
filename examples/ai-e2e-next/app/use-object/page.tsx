@@ -10,13 +10,13 @@ export default function Page() {
   });
 
   return (
-    <div className="flex flex-col items-center min-h-screen p-4 m-4">
+    <div className="m-4 flex min-h-screen flex-col items-center p-4">
       <button
-        className="px-4 py-2 mt-4 text-white bg-blue-500 rounded-md disabled:bg-blue-200"
+        className="mt-4 rounded-md bg-blue-500 px-4 py-2 text-white disabled:bg-blue-200"
+        disabled={isLoading}
         onClick={async () => {
           submit('Messages during finals week.');
         }}
-        disabled={isLoading}
       >
         Generate notifications
       </button>
@@ -31,9 +31,9 @@ export default function Page() {
         <div className="mt-4 text-gray-500">
           <div>Loading...</div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={() => stop()}
+            type="button"
           >
             STOP
           </button>
@@ -42,18 +42,18 @@ export default function Page() {
 
       <div className="mt-4 text-gray-500">
         <button
-          type="button"
+          className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
           onClick={() => clear()}
-          className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+          type="button"
         >
           Clear
         </button>
       </div>
 
-      <div className="flex flex-col gap-4 mt-4">
+      <div className="mt-4 flex flex-col gap-4">
         {object?.notifications?.map((notification, index) => (
           <div
-            className="flex items-start gap-4 p-4 bg-gray-100 rounded-md dark:bg-gray-800"
+            className="flex items-start gap-4 rounded-md bg-gray-100 p-4 dark:bg-gray-800"
             key={index}
           >
             <div className="flex-1 space-y-1">
@@ -61,9 +61,9 @@ export default function Page() {
                 <p className="font-medium dark:text-white">
                   {notification?.name}
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-gray-500 text-sm dark:text-gray-400">
                   {notification?.minutesAgo}
-                  {notification?.minutesAgo != null ? ' minutes ago' : ''}
+                  {notification?.minutesAgo == null ? '' : ' minutes ago'}
                 </p>
               </div>
               <p className="text-gray-700 dark:text-gray-300">

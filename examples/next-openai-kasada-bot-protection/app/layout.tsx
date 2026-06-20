@@ -1,6 +1,6 @@
 import './globals.css';
-import Toaster from './toaster';
 import { KasadaClient } from '@/kasada/kasada-client';
+import Toaster from './toaster';
 
 export const metadata = {
   title: 'Create Next App',

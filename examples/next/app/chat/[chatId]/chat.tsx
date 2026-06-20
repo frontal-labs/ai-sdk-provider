@@ -1,10 +1,10 @@
 'use client';
 
-import { invalidateRouterCache } from '@/app/actions';
-import type { MyUIMessage } from '@/util/chat-schema';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import { useEffect, useRef } from 'react';
+import { invalidateRouterCache } from '@/app/actions';
+import type { MyUIMessage } from '@/util/chat-schema';
 import ChatInput from './chat-input';
 import Message from './message';
 
@@ -71,7 +71,7 @@ export default function ChatComponent({
   }, []);
 
   return (
-    <div className="flex flex-col py-24 mx-auto w-full max-w-md stretch">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
       {messages.map(message => (
         <Message
           key={message.id}
@@ -82,13 +82,7 @@ export default function ChatComponent({
         />
       ))}
       <ChatInput
-        status={status}
-        stop={() => {
-          // send stop with chat id to the new api route
-          fetch(`/api/chat/${chatData.id}/stream`, {
-            method: 'DELETE',
-          });
-        }}
+        inputRef={inputRef}
         onSubmit={text => {
           sendMessage({ text, metadata: { createdAt: Date.now() } });
 
@@ -96,7 +90,13 @@ export default function ChatComponent({
             window.history.pushState(null, '', `/chat/${chatData.id}`);
           }
         }}
-        inputRef={inputRef}
+        status={status}
+        stop={() => {
+          // send stop with chat id to the new api route
+          fetch(`/api/chat/${chatData.id}/stream`, {
+            method: 'DELETE',
+          });
+        }}
       />
     </div>
   );

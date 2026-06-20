@@ -1,10 +1,10 @@
-import { anthropicCodeExecutionFileUploadAgent } from '@/agent/anthropic/code-execution-file-upload-agent';
 import type { AnthropicMessageMetadata } from '@ai-sdk/anthropic';
 import {
   createAgentUIStreamResponse,
-  validateUIMessages,
   type UIMessage,
+  validateUIMessages,
 } from 'ai';
+import { anthropicCodeExecutionFileUploadAgent } from '@/agent/anthropic/code-execution-file-upload-agent';
 
 type AnthropicCodeExecutionFileUploadMessage = UIMessage<{
   containerId?: string;
@@ -15,14 +15,14 @@ function removeCodeExecutionToolParts(
 ) {
   return messages
     .map(message =>
-      message.role !== 'assistant'
-        ? message
-        : {
+      message.role === 'assistant'
+        ? {
             ...message,
             parts: message.parts.filter(
               part => part.type !== 'tool-code_execution',
             ),
-          },
+          }
+        : message,
     )
     .filter(message => message.parts.length > 0);
 }

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import {
-  togetherai,
   type TogetherAIImageModelOptions,
+  togetherai,
 } from '@ai-sdk/togetherai';
 import { generateImage } from 'ai';
 import { presentImages } from '../../lib/present-image';

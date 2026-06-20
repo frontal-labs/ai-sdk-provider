@@ -1,8 +1,8 @@
 import { google } from '@ai-sdk/google';
 import { isStepCount, streamText, tool } from 'ai';
-import { z } from 'zod';
 import * as fs from 'fs';
 import * as path from 'path';
+import { z } from 'zod';
 import { run } from '../../lib/run';
 
 async function fileToBase64(filePath: string): Promise<string> {
@@ -15,7 +15,10 @@ const imageAnalysisTool = tool({
   inputSchema: z.object({}),
   execute: async ({}) => {
     try {
-      const imagePath = path.join(__dirname, '../../../data/comic-cat.png');
+      const imagePath = path.join(
+        import.meta.dirname,
+        '../../../data/comic-cat.png',
+      );
       const base64Image = await fileToBase64(imagePath);
 
       return {
@@ -56,7 +59,7 @@ run(async () => {
       analyzeImage: imageAnalysisTool,
     },
     stopWhen: isStepCount(2),
-    prompt: `Whats in this image?`,
+    prompt: 'Whats in this image?',
   });
 
   for await (const part of result.stream) {

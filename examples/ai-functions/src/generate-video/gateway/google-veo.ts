@@ -1,4 +1,4 @@
-import { gateway, experimental_generateVideo } from 'ai';
+import { experimental_generateVideo, gateway } from 'ai';
 import { presentVideos } from '../../lib/present-video';
 import { run } from '../../lib/run';
 import { withSpinner } from '../../lib/spinner';

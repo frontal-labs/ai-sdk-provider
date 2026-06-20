@@ -1,9 +1,9 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { streamText, tool } from 'ai';
+import { z } from 'zod';
+import { print } from '../../lib/print';
 import { printFullStream } from '../../lib/print-full-stream';
 import { run } from '../../lib/run';
-import { print } from '../../lib/print';
-import { z } from 'zod';
 
 run(async () => {
   const result = streamText({

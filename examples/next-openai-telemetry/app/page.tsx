@@ -8,9 +8,9 @@ export default function Page() {
   const [error, setError] = useState<Error | null>(null);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 p-4">
       <button
-        className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
         onClick={async () => {
           try {
             setIsLoading(true);

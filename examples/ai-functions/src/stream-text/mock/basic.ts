@@ -10,7 +10,7 @@ run(async () => {
           { type: 'text-start', id: '0' },
           { type: 'text-delta', id: '0', delta: 'Hello' },
           { type: 'text-delta', id: '0', delta: ', ' },
-          { type: 'text-delta', id: '0', delta: `world!` },
+          { type: 'text-delta', id: '0', delta: 'world!' },
           { type: 'text-end', id: '0' },
           {
             type: 'finish',

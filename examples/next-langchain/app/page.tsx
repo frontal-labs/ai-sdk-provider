@@ -9,23 +9,23 @@ export default function Chat() {
 
   return (
     <ChatContainer
-      title="Basic Chat"
       description={
         <>
           Simple LangChain integration using <code>toBaseMessages</code> and{' '}
           <code>toUIMessageStream</code> to stream responses from ChatOpenAI.
         </>
       }
+      error={error}
       messages={messages}
       onSend={text => sendMessage({ text })}
-      status={status}
-      error={error}
       placeholder="Say something..."
+      status={status}
       suggestions={[
         'Explain how LangChain works',
         'Write a haiku about coding',
         'What can you help me with?',
       ]}
+      title="Basic Chat"
     />
   );
 }

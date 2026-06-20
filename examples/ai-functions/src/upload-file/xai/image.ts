@@ -1,6 +1,6 @@
+import fs from 'node:fs';
 import { xai } from '@ai-sdk/xai';
 import { generateText, uploadFile } from 'ai';
-import fs from 'node:fs';
 import { run } from '../../lib/run';
 
 run(async () => {

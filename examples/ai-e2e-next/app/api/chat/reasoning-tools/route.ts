@@ -1,16 +1,17 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
+  type InferUITools,
   streamText,
   toUIMessageStream,
-  type InferUITools,
   type UIDataTypes,
   type UIMessage,
 } from 'ai';
+
 const tools = {
   web_search: openai.tools.webSearch({
     searchContextSize: 'high',

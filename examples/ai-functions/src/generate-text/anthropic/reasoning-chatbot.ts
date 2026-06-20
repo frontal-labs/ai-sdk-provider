@@ -1,8 +1,8 @@
+import * as readline from 'node:readline/promises';
 import { createAnthropic } from '@ai-sdk/anthropic';
 import { generateText, isStepCount, type ModelMessage } from 'ai';
-import * as readline from 'node:readline/promises';
-import { weatherTool } from '../../tools/weather-tool';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 const anthropic = createAnthropic({
   // example fetch wrapper that logs the input to the API call:
@@ -31,7 +31,7 @@ run(async () => {
     const { steps, responseMessages } = await generateText({
       model: anthropic('claude-sonnet-4-5-20250929'),
       tools: { weatherTool },
-      instructions: `You are a helpful, respectful and honest assistant.`,
+      instructions: 'You are a helpful, respectful and honest assistant.',
       messages,
       stopWhen: isStepCount(5),
       reasoning: 'medium',

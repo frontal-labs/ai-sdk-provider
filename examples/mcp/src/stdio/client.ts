@@ -1,7 +1,7 @@
+import { createMCPClient } from '@ai-sdk/mcp';
 import { openai } from '@ai-sdk/openai';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { generateText, isStepCount } from 'ai';
-import { createMCPClient } from '@ai-sdk/mcp';
 import 'dotenv/config';
 import { z } from 'zod';
 

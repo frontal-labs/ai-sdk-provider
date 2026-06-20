@@ -14,23 +14,23 @@ export default function ShellView({
   switch (invocation.state) {
     case 'approval-requested':
       return (
-        <div className="p-2 mb-2 bg-white rounded-xl border border-gray-300 shadow-lg">
-          <div className="px-6 py-3 bg-gray-100 rounded-t-xl border-b border-gray-300">
-            <div className="overflow-hidden tracking-wide text-black whitespace-nowrap text-xxs font-small text-ellipsis">
+        <div className="mb-2 rounded-xl border border-gray-300 bg-white p-2 shadow-lg">
+          <div className="rounded-t-xl border-gray-300 border-b bg-gray-100 px-6 py-3">
+            <div className="overflow-hidden text-ellipsis whitespace-nowrap font-small text-black text-xxs tracking-wide">
               Shell Command Approval Required
             </div>
           </div>
 
           <div className="p-6">
             <div className="mb-4">
-              <div className="mb-2 text-sm font-medium text-black">
+              <div className="mb-2 font-medium text-black text-sm">
                 Commands to execute:
               </div>
               <div className="space-y-2">
                 {commands.map((cmd, index) => (
                   <pre
+                    className="overflow-x-auto whitespace-pre-wrap rounded-lg border border-gray-300 bg-gray-100 p-4 text-black text-sm"
                     key={index}
-                    className="overflow-x-auto p-4 text-sm text-black whitespace-pre-wrap bg-gray-100 rounded-lg border border-gray-300"
                   >
                     {index + 1}. {cmd}
                   </pre>
@@ -40,7 +40,7 @@ export default function ShellView({
 
             <div className="flex gap-2">
               <button
-                className="px-4 py-2 text-white bg-blue-500 rounded transition-colors hover:bg-blue-600"
+                className="rounded bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
                 onClick={() =>
                   addToolApprovalResponse({
                     id: invocation.approval.id,
@@ -51,7 +51,7 @@ export default function ShellView({
                 Approve
               </button>
               <button
-                className="px-4 py-2 text-white bg-red-500 rounded transition-colors hover:bg-red-600"
+                className="rounded bg-red-500 px-4 py-2 text-white transition-colors hover:bg-red-600"
                 onClick={() =>
                   addToolApprovalResponse({
                     id: invocation.approval.id,
@@ -68,23 +68,23 @@ export default function ShellView({
 
     case 'approval-responded':
       return (
-        <div className="p-2 mb-2 bg-white rounded-xl border border-gray-300 shadow-lg">
-          <div className="px-6 py-3 bg-gray-100 rounded-t-xl border-b border-gray-300">
-            <div className="overflow-hidden tracking-wide text-black whitespace-nowrap text-xxs font-small text-ellipsis">
+        <div className="mb-2 rounded-xl border border-gray-300 bg-white p-2 shadow-lg">
+          <div className="rounded-t-xl border-gray-300 border-b bg-gray-100 px-6 py-3">
+            <div className="overflow-hidden text-ellipsis whitespace-nowrap font-small text-black text-xxs tracking-wide">
               Shell Command Approval
             </div>
           </div>
 
           <div className="p-6">
             <div className="mb-4">
-              <div className="mb-2 text-sm font-medium text-black">
+              <div className="mb-2 font-medium text-black text-sm">
                 Commands:
               </div>
               <div className="space-y-2">
                 {commands.map((cmd, index) => (
                   <pre
+                    className="overflow-x-auto whitespace-pre-wrap rounded-lg border border-gray-300 bg-gray-100 p-4 text-black text-sm"
                     key={index}
-                    className="overflow-x-auto p-4 text-sm text-black whitespace-pre-wrap bg-gray-100 rounded-lg border border-gray-300"
                   >
                     {index + 1}. {cmd}
                   </pre>
@@ -93,7 +93,7 @@ export default function ShellView({
             </div>
 
             <div
-              className={`text-sm font-medium ${
+              className={`font-medium text-sm ${
                 invocation.approval.approved ? 'text-green-600' : 'text-red-600'
               }`}
             >
@@ -103,13 +103,13 @@ export default function ShellView({
         </div>
       );
 
-    case 'output-available':
+    case 'output-available': {
       const outputs = invocation.output?.output || [];
 
       return (
-        <div className="p-2 mb-2 bg-white rounded-xl border border-gray-300 shadow-lg">
-          <div className="px-6 py-3 bg-gray-100 rounded-t-xl border-b border-gray-300">
-            <div className="overflow-hidden tracking-wide text-black whitespace-nowrap text-xxs font-small text-ellipsis">
+        <div className="mb-2 rounded-xl border border-gray-300 bg-white p-2 shadow-lg">
+          <div className="rounded-t-xl border-gray-300 border-b bg-gray-100 px-6 py-3">
+            <div className="overflow-hidden text-ellipsis whitespace-nowrap font-small text-black text-xxs tracking-wide">
               Shell Execution Results
             </div>
           </div>
@@ -121,12 +121,12 @@ export default function ShellView({
                 const outcome = output?.outcome;
 
                 return (
-                  <div key={index} className="space-y-2">
+                  <div className="space-y-2" key={index}>
                     <div>
-                      <div className="mb-2 text-sm font-medium text-black">
+                      <div className="mb-2 font-medium text-black text-sm">
                         Command {index + 1}:
                       </div>
-                      <pre className="overflow-x-auto p-4 text-sm text-black whitespace-pre-wrap bg-gray-100 rounded-lg border border-gray-300">
+                      <pre className="overflow-x-auto whitespace-pre-wrap rounded-lg border border-gray-300 bg-gray-100 p-4 text-black text-sm">
                         {cmd}
                       </pre>
                     </div>
@@ -134,14 +134,14 @@ export default function ShellView({
                     {outcome && (
                       <div className="space-y-2">
                         {outcome.type === 'timeout' ? (
-                          <div className="p-3 bg-red-50 border border-red-300 rounded-lg">
-                            <div className="text-sm font-medium text-red-600">
+                          <div className="rounded-lg border border-red-300 bg-red-50 p-3">
+                            <div className="font-medium text-red-600 text-sm">
                               ⏱ Timeout
                             </div>
                           </div>
                         ) : (
-                          <div className="p-3 bg-gray-100 border border-gray-300 rounded-lg">
-                            <div className="text-xs text-black mb-1">
+                          <div className="rounded-lg border border-gray-300 bg-gray-100 p-3">
+                            <div className="mb-1 text-black text-xs">
                               Exit Code: {outcome.exitCode}
                             </div>
                           </div>
@@ -149,11 +149,11 @@ export default function ShellView({
 
                         {output.stdout && (
                           <div>
-                            <div className="mb-2 text-sm font-medium text-black">
+                            <div className="mb-2 font-medium text-black text-sm">
                               Output:
                             </div>
-                            <div className="p-3 bg-gray-100 rounded-lg border border-gray-300">
-                              <div className="font-mono text-sm text-black whitespace-pre-wrap">
+                            <div className="rounded-lg border border-gray-300 bg-gray-100 p-3">
+                              <div className="whitespace-pre-wrap font-mono text-black text-sm">
                                 {output.stdout}
                               </div>
                             </div>
@@ -162,11 +162,11 @@ export default function ShellView({
 
                         {output.stderr && (
                           <div>
-                            <div className="mb-2 text-sm font-medium text-black">
+                            <div className="mb-2 font-medium text-black text-sm">
                               Error:
                             </div>
-                            <div className="p-3 bg-red-50 rounded-lg border border-red-300">
-                              <div className="font-mono text-sm text-red-600 whitespace-pre-wrap">
+                            <div className="rounded-lg border border-red-300 bg-red-50 p-3">
+                              <div className="whitespace-pre-wrap font-mono text-red-600 text-sm">
                                 {output.stderr}
                               </div>
                             </div>
@@ -181,26 +181,27 @@ export default function ShellView({
           </div>
         </div>
       );
+    }
 
     case 'output-denied':
       return (
-        <div className="p-2 mb-2 bg-white rounded-xl border border-gray-300 shadow-lg">
-          <div className="px-6 py-3 bg-gray-100 rounded-t-xl border-b border-gray-300">
-            <div className="overflow-hidden tracking-wide text-black whitespace-nowrap text-xxs font-small text-ellipsis">
+        <div className="mb-2 rounded-xl border border-gray-300 bg-white p-2 shadow-lg">
+          <div className="rounded-t-xl border-gray-300 border-b bg-gray-100 px-6 py-3">
+            <div className="overflow-hidden text-ellipsis whitespace-nowrap font-small text-black text-xxs tracking-wide">
               Shell Command Denied
             </div>
           </div>
 
           <div className="p-6">
             <div className="mb-4">
-              <div className="mb-2 text-sm font-medium text-black">
+              <div className="mb-2 font-medium text-black text-sm">
                 Commands:
               </div>
               <div className="space-y-2">
                 {commands.map((cmd, index) => (
                   <pre
+                    className="overflow-x-auto whitespace-pre-wrap rounded-lg border border-gray-300 bg-gray-100 p-4 text-black text-sm"
                     key={index}
-                    className="overflow-x-auto p-4 text-sm text-black whitespace-pre-wrap bg-gray-100 rounded-lg border border-gray-300"
                   >
                     {index + 1}. {cmd}
                   </pre>
@@ -208,7 +209,7 @@ export default function ShellView({
               </div>
             </div>
 
-            <div className="text-sm font-medium text-red-600">
+            <div className="font-medium text-red-600 text-sm">
               Execution was denied by user.
             </div>
           </div>
@@ -217,10 +218,10 @@ export default function ShellView({
 
     case 'output-error':
       return (
-        <div className="p-2 mb-2 bg-red-50 rounded-xl border border-red-300 shadow-lg">
+        <div className="mb-2 rounded-xl border border-red-300 bg-red-50 p-2 shadow-lg">
           <div className="p-6">
-            <div className="mb-2 text-sm font-medium text-red-600">Error:</div>
-            <div className="text-sm text-black">{invocation.errorText}</div>
+            <div className="mb-2 font-medium text-red-600 text-sm">Error:</div>
+            <div className="text-black text-sm">{invocation.errorText}</div>
           </div>
         </div>
       );

@@ -1,5 +1,5 @@
 import { amazonBedrock } from '@ai-sdk/amazon-bedrock';
-import { streamText, tool, isStepCount } from 'ai';
+import { isStepCount, streamText, tool } from 'ai';
 import { z } from 'zod';
 import { run } from '../../lib/run';
 
@@ -23,7 +23,7 @@ run(async () => {
           activeTools: [],
         };
       }
-      return undefined;
+      return;
     },
     toolChoice: 'auto',
     prompt: 'What is the weather in Toronto, Calgary, and Vancouver?',

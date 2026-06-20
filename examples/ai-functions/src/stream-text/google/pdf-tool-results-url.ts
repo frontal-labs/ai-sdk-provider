@@ -1,11 +1,11 @@
 import { google } from '@ai-sdk/google';
 import { isStepCount, streamText, tool } from 'ai';
-import { run } from '../../lib/run';
 import { z } from 'zod';
+import { run } from '../../lib/run';
 
 run(async () => {
   const readPDFDocument = tool({
-    description: `Read and return a PDF document`,
+    description: 'Read and return a PDF document',
     inputSchema: z.object({}),
     execute: async () => {
       return {

@@ -40,7 +40,7 @@ run(async () => {
     process.stdout.write(textPart);
   }
   console.log('\n=== Other Outputs ===');
-  console.dir(await result.toolCalls, { depth: Infinity });
-  console.dir(await result.toolResults, { depth: Infinity });
-  console.dir(await result.sources, { depth: Infinity });
+  console.dir(await result.toolCalls, { depth: Number.POSITIVE_INFINITY });
+  console.dir(await result.toolResults, { depth: Number.POSITIVE_INFINITY });
+  console.dir(await result.sources, { depth: Number.POSITIVE_INFINITY });
 });

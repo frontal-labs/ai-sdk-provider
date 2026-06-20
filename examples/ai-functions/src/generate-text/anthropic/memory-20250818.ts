@@ -1,7 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic';
-import { isStepCount, generateText } from 'ai';
-import { run } from '../../lib/run';
+import { generateText, isStepCount } from 'ai';
 import { anthropicLocalFsMemoryTool } from '../../lib/anthropic-local-fs-memory-tool';
+import { run } from '../../lib/run';
 
 run(async () => {
   const result = await generateText({
@@ -16,5 +16,5 @@ Acknowledge by saying "stored".
     stopWhen: isStepCount(10),
   });
 
-  console.dir(result.content, { depth: Infinity });
+  console.dir(result.content, { depth: Number.POSITIVE_INFINITY });
 });

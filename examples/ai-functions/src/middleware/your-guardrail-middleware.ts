@@ -9,14 +9,14 @@ export const yourGuardrailMiddleware: LanguageModelV3Middleware = {
     const { content, ...rest } = await doGenerate();
 
     // filtering approach, e.g. for PII or other sensitive information:
-    const cleanedContent: Array<LanguageModelV3Content> = content.map(part => {
-      return part.type === 'text'
+    const cleanedContent: Array<LanguageModelV3Content> = content.map(part =>
+      part.type === 'text'
         ? {
             type: 'text',
             text: part.text.replace(/badword/g, '<REDACTED>'),
           }
-        : part;
-    });
+        : part,
+    );
 
     return {
       content: cleanedContent,

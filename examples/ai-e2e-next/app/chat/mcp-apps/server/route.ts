@@ -595,7 +595,7 @@ async function requestHandler(req: NextRequest) {
       {
         jsonrpc: '2.0',
         error: {
-          code: -32000,
+          code: -32_000,
           message: 'Method not allowed.',
         },
         id: null,

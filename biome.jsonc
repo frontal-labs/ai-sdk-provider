@@ -1,0 +1,99 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/react",
+    "ultracite/biome/next"
+  ],
+  "files": {
+    "includes": [
+      "!!.changeset",
+      "!!CHANGELOG.md",
+      "!!**/CHANGELOG.md",
+      "!!**/*.html",
+      "!!**/*.mjs",
+      "!!**/__fixtures__",
+      "!!**/__snapshots__",
+      "!!**/__testfixtures__",
+      "!!**/tsconfig*.json",
+      "!!**/turbo.json",
+      "!!tools/tsconfig",
+      "!!packages/codemod/src/test/__testfixtures__/import-LanguageModelV2-from-provider-package.output.ts"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "asNeeded",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "quoteStyle": "single",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "css": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "correctness": {
+        "noUnusedVariables": "error"
+      },
+      "style": {
+        "useImportType": "error"
+      },
+      "suspicious": {
+        "noTemplateCurlyInString": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["packages/codemod/src/test/__testfixtures__/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noRedeclare": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["examples/**", "**/*.test.ts"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/vue/**"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "useHookAtTopLevel": "off"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
+import { type MistralLanguageModelChatOptions, mistral } from '@ai-sdk/mistral';
 import { streamText, tool } from 'ai';
 import { z } from 'zod';
-import { mistral, type MistralLanguageModelChatOptions } from '@ai-sdk/mistral';
 import { run } from '../../lib/run';
 
 run(async () => {
@@ -15,9 +15,8 @@ run(async () => {
             .string()
             .describe('The city and state, e.g. San Francisco, CA'),
         }),
-        execute: async ({ location }: { location: string }) => {
-          return `Weather in ${location}: 72°F, sunny`;
-        },
+        execute: async ({ location }: { location: string }) =>
+          `Weather in ${location}: 72°F, sunny`,
       }),
     },
     providerOptions: {

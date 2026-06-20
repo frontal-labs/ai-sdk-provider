@@ -1,4 +1,4 @@
-import { xai, type XaiLanguageModelResponsesOptions } from '@ai-sdk/xai';
+import { type XaiLanguageModelResponsesOptions, xai } from '@ai-sdk/xai';
 import { streamText } from 'ai';
 import { run } from '../../lib/run';
 

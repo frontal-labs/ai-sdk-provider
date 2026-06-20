@@ -50,9 +50,9 @@ const VARIANT_LABELS: Record<string, string> = Object.fromEntries(
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-4 pt-12 pb-24 mx-auto w-full max-w-5xl">
-      <h1 className="text-xl font-bold">Harness examples</h1>
-      <ul className="flex flex-col gap-4 pl-0 list-none">
+    <main className="mx-auto flex w-full max-w-5xl flex-col gap-4 pt-12 pb-24">
+      <h1 className="font-bold text-xl">Harness examples</h1>
+      <ul className="flex list-none flex-col gap-4 pl-0">
         {HARNESSES.map(h => (
           <li key={h.slug}>
             <span className="font-semibold">{h.label}</span>
@@ -60,8 +60,8 @@ export default function Home() {
               {h.variants.map(variant => (
                 <li key={variant}>
                   <Link
-                    href={`/harness/${h.slug}/${variant}`}
                     className="text-blue-600 underline"
+                    href={`/harness/${h.slug}/${variant}`}
                   >
                     {VARIANT_LABELS[variant] ?? variant}
                   </Link>

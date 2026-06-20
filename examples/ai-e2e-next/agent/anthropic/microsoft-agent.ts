@@ -1,11 +1,11 @@
 // anthropic-microsoft-agent.ts
 import { createAnthropic } from '@ai-sdk/anthropic';
-import { ToolLoopAgent, type InferAgentUIMessage } from 'ai';
+import { type InferAgentUIMessage, ToolLoopAgent } from 'ai';
 export function createAnthropicMicrosoftAgent() {
   const resourceName = process.env.ANTHROPIC_MICROSOFT_RESOURCE_NAME;
   const apiKey = process.env.ANTHROPIC_MICROSOFT_API_KEY;
 
-  if (!resourceName || !apiKey) {
+  if (!(resourceName && apiKey)) {
     throw new Error('undefined resource or key.');
   }
 

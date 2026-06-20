@@ -1,9 +1,9 @@
 'use client';
 
-import ChatInput from '@/components/chat-input';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import { useLayoutEffect, useRef } from 'react';
+import ChatInput from '@/components/chat-input';
 
 export default function Chat() {
   const renderCount = useRef(0);
@@ -17,12 +17,12 @@ export default function Chat() {
   });
 
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      <h4 className="pb-4 text-xl font-bold text-gray-900 md:text-xl">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h4 className="pb-4 font-bold text-gray-900 text-xl md:text-xl">
         useChat throttle example
       </h4>
       {messages.map(m => (
-        <div key={m.id} className="whitespace-pre-wrap">
+        <div className="whitespace-pre-wrap" key={m.id}>
           {m.role === 'user' ? 'User: ' : 'AI: '}
           {m.parts
             .map(part => (part.type === 'text' ? part.text : ''))
@@ -30,7 +30,7 @@ export default function Chat() {
         </div>
       ))}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

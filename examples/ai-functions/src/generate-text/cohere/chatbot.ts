@@ -1,8 +1,8 @@
-import { generateText, type ModelMessage } from 'ai';
 import * as readline from 'node:readline/promises';
-import { weatherTool } from '../../tools/weather-tool';
 import { cohere } from '@ai-sdk/cohere';
+import { generateText, type ModelMessage } from 'ai';
 import { run } from '../../lib/run';
+import { weatherTool } from '../../tools/weather-tool';
 
 const terminal = readline.createInterface({
   input: process.stdin,
@@ -24,7 +24,8 @@ run(async () => {
       await generateText({
         model: cohere('command-r-plus'),
         tools: { weatherTool },
-        instructions: `You are a helpful, respectful and honest assistant. If the weather is requested use the `,
+        instructions:
+          'You are a helpful, respectful and honest assistant. If the weather is requested use the ',
         messages,
       });
 

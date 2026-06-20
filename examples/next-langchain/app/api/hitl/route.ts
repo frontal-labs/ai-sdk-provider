@@ -1,11 +1,10 @@
-import { createUIMessageStreamResponse, type UIMessage } from 'ai';
-import { NextResponse } from 'next/server';
-
-import { createAgent, humanInTheLoopMiddleware } from 'langchain';
-import { ChatOpenAI } from '@langchain/openai';
-import { tool } from '@langchain/core/tools';
 import { toBaseMessages, toUIMessageStream } from '@ai-sdk/langchain';
-import { MemorySaver, Command } from '@langchain/langgraph';
+import { tool } from '@langchain/core/tools';
+import { Command, MemorySaver } from '@langchain/langgraph';
+import { ChatOpenAI } from '@langchain/openai';
+import { createUIMessageStreamResponse, type UIMessage } from 'ai';
+import { createAgent, humanInTheLoopMiddleware } from 'langchain';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
 /**
@@ -143,7 +142,9 @@ function extractApprovalResponses(messages: UIMessage[]): Array<{
   }> = [];
 
   for (const message of messages) {
-    if (message.role !== 'assistant') continue;
+    if (message.role !== 'assistant') {
+      continue;
+    }
 
     for (const part of message.parts) {
       // Check for dynamic-tool parts with approval-responded state

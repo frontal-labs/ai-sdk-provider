@@ -10,24 +10,25 @@ export default function TestOpenAIResponses() {
   });
 
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      <h1 className="mb-4 text-xl font-bold">
+    <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
+      <h1 className="mb-4 font-bold text-xl">
         OpenAI Responses Block-Based Streaming Test
       </h1>
 
       {messages.map(m => (
-        <div key={m.id} className="whitespace-pre-wrap mb-4">
-          <div className="font-semibold mb-1">
+        <div className="mb-4 whitespace-pre-wrap" key={m.id}>
+          <div className="mb-1 font-semibold">
             {m.role === 'user' ? 'User:' : 'AI:'}
           </div>
           {m.parts.map((part, index) => {
             if (part.type === 'text') {
               return <div key={index}>{part.text}</div>;
-            } else if (part.type === 'reasoning') {
+            }
+            if (part.type === 'reasoning') {
               return (
                 <div
+                  className="mt-2 border-blue-300 border-l-2 bg-blue-50 p-2 text-blue-800 text-sm"
                   key={index}
-                  className="mt-2 p-2 bg-blue-50 border-l-2 border-blue-300 text-blue-800 text-sm"
                 >
                   <strong>Reasoning:</strong> {part.text}
                 </div>
@@ -41,9 +42,9 @@ export default function TestOpenAIResponses() {
         <div className="mt-4 text-gray-500">
           {status === 'submitted' && <div>Loading...</div>}
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={stop}
+            type="button"
           >
             Stop
           </button>
@@ -54,16 +55,16 @@ export default function TestOpenAIResponses() {
         <div className="mt-4">
           <div className="text-red-500">An error occurred.</div>
           <button
-            type="button"
-            className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+            className="mt-4 rounded-md border border-blue-500 px-4 py-2 text-blue-500"
             onClick={() => regenerate()}
+            type="button"
           >
             Retry
           </button>
         </div>
       )}
 
-      <ChatInput status={status} onSubmit={text => sendMessage({ text })} />
+      <ChatInput onSubmit={text => sendMessage({ text })} status={status} />
     </div>
   );
 }

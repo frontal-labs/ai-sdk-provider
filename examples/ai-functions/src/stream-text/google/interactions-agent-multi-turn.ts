@@ -1,6 +1,6 @@
 import {
-  google,
   type GoogleLanguageModelInteractionsOptions,
+  google,
 } from '@ai-sdk/google';
 import { streamText } from 'ai';
 import { cancelOnSigint } from '../../lib/cancel-on-sigint';

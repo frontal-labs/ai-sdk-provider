@@ -1,4 +1,4 @@
-import assert from 'node:assert';
+import assert from 'node:assert/strict';
 import { mock, test } from 'node:test';
 
 import { verifyChangesets } from './index.js';
@@ -30,7 +30,7 @@ test('happy path', async () => {
 
   const readFile = mockReadFile(
     async () =>
-      `---\nai: patch\n@ai-sdk/provider: patch\n---\n## Test changeset`,
+      '---\nai: patch\n@ai-sdk/provider: patch\n---\n## Test changeset',
   );
   const lstat = mockLstat();
 
@@ -124,10 +124,10 @@ test('minor update', async () => {
 
   const readFile = mockReadFile(async path => {
     if (path.endsWith('patch-update.md')) {
-      return `---\nai: patch\n---\n## Test changeset`;
+      return '---\nai: patch\n---\n## Test changeset';
     }
 
-    return `---\n@ai-sdk/provider: minor\n---\n## Test changeset`;
+    return '---\n@ai-sdk/provider: minor\n---\n## Test changeset';
   });
   const lstat = mockLstat();
 
@@ -171,10 +171,10 @@ test('minor update - with "minor" label', async () => {
 
   const readFile = mock.fn(async path => {
     if (path.endsWith('patch-update.md')) {
-      return `---\nai: patch\n---\n## Test changeset`;
+      return '---\nai: patch\n---\n## Test changeset';
     }
 
-    return `---\n@ai-sdk/provider: minor\n---\n## Test changeset`;
+    return '---\n@ai-sdk/provider: minor\n---\n## Test changeset';
   });
 
   const message = await verifyChangesets(event, env, readFile);
@@ -200,10 +200,10 @@ test('major update - with "major" label', async () => {
 
   const readFile = mock.fn(async path => {
     if (path.endsWith('patch-update.md')) {
-      return `---\nai: patch\n---\n## Test changeset`;
+      return '---\nai: patch\n---\n## Test changeset';
     }
 
-    return `---\n@ai-sdk/provider: major\n---\n## Test changeset`;
+    return '---\n@ai-sdk/provider: major\n---\n## Test changeset';
   });
 
   const message = await verifyChangesets(event, env, readFile);
@@ -228,7 +228,7 @@ test('major update - allowed when pre-release mode is active', async () => {
       return '{"mode":"pre","tag":"beta"}';
     }
 
-    return `---\n@ai-sdk/provider: major\n---\n## Test changeset`;
+    return '---\n@ai-sdk/provider: major\n---\n## Test changeset';
   });
   const lstat = mockLstat();
 
@@ -276,9 +276,9 @@ test('major update - rejected when not in pre-release mode', async () => {
     CHANGED_FILES: '.changeset/minor-update.md',
   };
 
-  const readFile = mockReadFile(async () => {
-    return `---\n@ai-sdk/provider: minor\n---\n## Test changeset`;
-  });
+  const readFile = mockReadFile(
+    async () => '---\n@ai-sdk/provider: minor\n---\n## Test changeset',
+  );
   const lstat = mockLstat();
 
   await assert.rejects(

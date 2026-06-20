@@ -1,8 +1,8 @@
 import { openai } from '@ai-sdk/openai';
 import {
   generateText,
-  wrapLanguageModel,
   type LanguageModelMiddleware,
+  wrapLanguageModel,
 } from 'ai';
 import { run } from '../../lib/run';
 

@@ -26,7 +26,7 @@ run(async () => {
     },
     tools: {
       create: tool({
-        description: `Tool for creating a document`,
+        description: 'Tool for creating a document',
         inputSchema: jsonSchema({
           type: 'object',
           properties: {

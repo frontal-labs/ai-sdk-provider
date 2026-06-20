@@ -1,18 +1,18 @@
 import {
-  openai,
   type OpenAILanguageModelResponsesOptions,
+  openai,
 } from '@ai-sdk/openai';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
+  type InferUITools,
   isStepCount,
   streamText,
   tool,
   toUIMessageStream,
-  validateUIMessages,
-  type InferUITools,
   type UIDataTypes,
   type UIMessage,
+  validateUIMessages,
 } from 'ai';
 import { z } from 'zod';
 
@@ -108,7 +108,7 @@ export async function POST(req: Request) {
       } satisfies OpenAILanguageModelResponsesOptions,
     },
     onStepFinish({ request }) {
-      console.dir(request.body, { depth: Infinity });
+      console.dir(request.body, { depth: Number.POSITIVE_INFINITY });
     },
   });
 

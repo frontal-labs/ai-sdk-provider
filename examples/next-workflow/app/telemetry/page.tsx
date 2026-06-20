@@ -140,7 +140,9 @@ export default function TelemetryPage() {
   });
 
   useEffect(() => {
-    if (telemetryRunId == null) return;
+    if (telemetryRunId == null) {
+      return;
+    }
 
     const poll = async () => {
       const response = await fetch(
@@ -184,8 +186,8 @@ export default function TelemetryPage() {
     <div className="min-h-screen bg-gray-50">
       <header className="border-b bg-white p-4">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-xl font-semibold">WorkflowAgent Telemetry E2E</h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <h1 className="font-semibold text-xl">WorkflowAgent Telemetry E2E</h1>
+          <p className="mt-1 text-gray-600 text-sm">
             Deterministic harness for the stable telemetry API work tracked in
             #15074.
           </p>
@@ -199,18 +201,18 @@ export default function TelemetryPage() {
             <div className="mt-3 space-y-2">
               {scenarios.map(item => (
                 <button
-                  key={item.id}
-                  type="button"
-                  disabled={running}
-                  onClick={() => startScenario(item.id)}
                   className={`w-full rounded border p-3 text-left transition ${
                     scenario === item.id
                       ? 'border-blue-500 bg-blue-50'
                       : 'border-gray-200 bg-white hover:bg-gray-50'
                   } disabled:opacity-50`}
+                  disabled={running}
+                  key={item.id}
+                  onClick={() => startScenario(item.id)}
+                  type="button"
                 >
                   <div className="font-medium">{item.title}</div>
-                  <div className="mt-1 text-xs text-gray-600">
+                  <div className="mt-1 text-gray-600 text-xs">
                     {item.description}
                   </div>
                 </button>
@@ -241,7 +243,7 @@ export default function TelemetryPage() {
           <section className="rounded-lg border bg-white">
             <div className="border-b p-3">
               <h2 className="font-semibold">Expected Telemetry</h2>
-              <p className="text-xs text-gray-600">
+              <p className="text-gray-600 text-xs">
                 These checks intentionally track stable telemetry integration
                 events. Before #15074 is implemented, the agent callback and
                 workflow rows can appear while telemetry rows remain missing.
@@ -250,16 +252,16 @@ export default function TelemetryPage() {
             <div className="grid gap-2 p-3 sm:grid-cols-2 lg:grid-cols-3">
               {status?.expectations.map(expectation => (
                 <div
-                  key={expectation.name}
                   className={`rounded border px-3 py-2 text-sm ${
                     expectation.met
                       ? 'border-green-200 bg-green-50 text-green-800'
                       : 'border-gray-200 bg-gray-50 text-gray-500'
                   }`}
+                  key={expectation.name}
                 >
                   {expectation.met ? 'PASS' : 'TODO'} {expectation.name}
                 </div>
-              )) ?? <div className="text-sm text-gray-500">No run yet.</div>}
+              )) ?? <div className="text-gray-500 text-sm">No run yet.</div>}
             </div>
             {status != null && (
               <div className="border-t p-3 text-sm">
@@ -280,12 +282,12 @@ export default function TelemetryPage() {
                     ],
                   ].map(([label, met]) => (
                     <div
-                      key={String(label)}
                       className={`rounded border px-3 py-2 ${
                         met
                           ? 'border-green-200 bg-green-50 text-green-800'
                           : 'border-amber-200 bg-amber-50 text-amber-800'
                       }`}
+                      key={String(label)}
                     >
                       {met ? 'PASS' : 'CHECK'} {label}
                     </div>
@@ -300,20 +302,20 @@ export default function TelemetryPage() {
               <div className="border-b p-3 font-semibold">Chat</div>
               <div className="max-h-[460px] overflow-y-auto p-3">
                 {messages.length === 0 && (
-                  <p className="text-sm text-gray-500">
+                  <p className="text-gray-500 text-sm">
                     Choose a scenario to start.
                   </p>
                 )}
                 {messages.map(message => (
-                  <div key={message.id} className="mb-3">
-                    <div className="mb-1 text-xs font-semibold uppercase text-gray-500">
+                  <div className="mb-3" key={message.id}>
+                    <div className="mb-1 font-semibold text-gray-500 text-xs uppercase">
                       {message.role}
                     </div>
                     <div className="rounded bg-gray-50 p-3 text-sm">
                       {message.parts.map((part, index) => {
                         if (part.type === 'text') {
                           return (
-                            <div key={index} className="whitespace-pre-wrap">
+                            <div className="whitespace-pre-wrap" key={index}>
                               {part.text}
                             </div>
                           );
@@ -328,8 +330,8 @@ export default function TelemetryPage() {
                             const approvalId = p.approval.id;
                             return (
                               <div
-                                key={index}
                                 className="rounded border border-amber-200 bg-amber-50 p-3"
+                                key={index}
                               >
                                 <div className="font-medium text-amber-900">
                                   Approval required for {toolName}
@@ -339,20 +341,19 @@ export default function TelemetryPage() {
                                 </pre>
                                 <div className="mt-2 flex gap-2">
                                   <button
-                                    type="button"
-                                    className="rounded bg-green-600 px-3 py-1 text-xs text-white"
+                                    className="rounded bg-green-600 px-3 py-1 text-white text-xs"
                                     onClick={() =>
                                       addToolApprovalResponse({
                                         id: approvalId,
                                         approved: true,
                                       })
                                     }
+                                    type="button"
                                   >
                                     Approve
                                   </button>
                                   <button
-                                    type="button"
-                                    className="rounded bg-red-600 px-3 py-1 text-xs text-white"
+                                    className="rounded bg-red-600 px-3 py-1 text-white text-xs"
                                     onClick={() =>
                                       addToolApprovalResponse({
                                         id: approvalId,
@@ -360,6 +361,7 @@ export default function TelemetryPage() {
                                         reason: 'Denied by telemetry e2e page.',
                                       })
                                     }
+                                    type="button"
                                   >
                                     Deny
                                   </button>
@@ -369,8 +371,8 @@ export default function TelemetryPage() {
                           }
                           return (
                             <pre
-                              key={index}
                               className="mt-2 overflow-x-auto rounded border bg-white p-2 text-xs"
+                              key={index}
                             >
                               {JSON.stringify(p, null, 2)}
                             </pre>
@@ -392,8 +394,8 @@ export default function TelemetryPage() {
                 {status?.events.length ? (
                   status.events.map(event => (
                     <div
-                      key={event.id}
                       className="mb-2 rounded border bg-gray-50 p-2"
+                      key={event.id}
                     >
                       <div>
                         <span className="text-gray-500">#{event.id}</span>{' '}
@@ -408,7 +410,7 @@ export default function TelemetryPage() {
                     </div>
                   ))
                 ) : (
-                  <p className="text-sm text-gray-500">No events yet.</p>
+                  <p className="text-gray-500 text-sm">No events yet.</p>
                 )}
               </div>
             </div>
@@ -422,7 +424,7 @@ export default function TelemetryPage() {
                   <div key={index}>{entry}</div>
                 ))
               ) : (
-                <p className="text-sm text-gray-500">
+                <p className="text-gray-500 text-sm">
                   No transport events yet.
                 </p>
               )}

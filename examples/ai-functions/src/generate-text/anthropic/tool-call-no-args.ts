@@ -1,8 +1,8 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { generateText, tool } from 'ai';
 import { z } from 'zod';
-import { run } from '../../lib/run';
 import { print } from '../../lib/print';
+import { run } from '../../lib/run';
 
 run(async () => {
   const result = await generateText({

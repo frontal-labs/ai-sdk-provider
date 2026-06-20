@@ -1,10 +1,10 @@
 import { anthropic, createAnthropic } from '@ai-sdk/anthropic';
-import { generateText, isStepCount, registerTelemetry } from 'ai';
 import { LegacyOpenTelemetry } from '@ai-sdk/otel';
 import { LangfuseSpanProcessor } from '@langfuse/otel';
 import { NodeSDK } from '@opentelemetry/sdk-node';
-import { run } from '../../lib/run';
+import { generateText, isStepCount, registerTelemetry } from 'ai';
 import { z } from 'zod';
+import { run } from '../../lib/run';
 
 const sdk = new NodeSDK({
   spanProcessors: [new LangfuseSpanProcessor()],
@@ -27,12 +27,10 @@ run(async () => {
         inputSchema: z.object({
           city: z.string(),
         }),
-        execute: async ({ city }) => {
-          return {
-            temperature: 50,
-            condition: 'sunny',
-          };
-        },
+        execute: async ({ city }) => ({
+          temperature: 50,
+          condition: 'sunny',
+        }),
       },
     },
     reasoning: 'medium',
