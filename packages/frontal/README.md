@@ -1,15 +1,15 @@
-# AI SDK - OpenAI Compatible Provider
+# AI SDK - Frontal Provider
 
-The OpenAI Compatible provider is a lightweight package for working with providers that expose an OpenAI-compatible API.
+The Frontal provider is a lightweight package for working with providers that expose an OpenAI-compatible API through our brand and AI gateway.
 
 > **Deploying to Vercel?** With Vercel's AI Gateway you can access hundreds of models from any provider — no additional packages, API keys, or extra cost. [Get started with AI Gateway](https://vercel.com/ai-gateway).
 
 ## Setup
 
-The provider is available in the `@ai-sdk/openai-compatible` module. You can install it with
+The provider is available in the `ai-sdk-frontal` module. You can install it with
 
 ```bash
-npm i @ai-sdk/openai-compatible
+npm i ai-sdk-frontal
 ```
 
 ## Skill for Coding Agents
@@ -22,20 +22,20 @@ npx skills add vercel/ai
 
 ## Provider Instance
 
-You can import the provider creation method `createOpenAICompatible` from `@ai-sdk/openai-compatible`:
+You can import the provider creation method `createFrontal` from `ai-sdk-frontal`:
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from 'ai-sdk-frontal';
 ```
 
 ## Example
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from 'ai-sdk-frontal';
 import { generateText } from 'ai';
 
 const { text } = await generateText({
-  model: createOpenAICompatible({
+  model: createFrontal({
     baseURL: 'https://api.example.com/v1',
     name: 'example',
     apiKey: process.env.MY_API_KEY,
@@ -49,11 +49,11 @@ const { text } = await generateText({
 You can further customize headers if desired. For example, here is an alternate implementation to pass along api key authentication:
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from 'ai-sdk-frontal';
 import { generateText } from 'ai';
 
 const { text } = await generateText({
-  model: createOpenAICompatible({
+  model: createFrontal({
     baseURL: 'https://api.example.com/v1',
     name: 'example',
     headers: {
@@ -67,7 +67,7 @@ const { text } = await generateText({
 ### Including model ids for auto-completion
 
 ```ts
-import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { createFrontal } from 'ai-sdk-frontal';
 import { generateText } from 'ai';
 
 type ExampleChatModelIds =
@@ -85,7 +85,7 @@ type ExampleEmbeddingModelIds =
   | 'bert-base-uncased'
   | (string & {});
 
-const model = createOpenAICompatible<
+const model = createFrontal<
   ExampleChatModelIds,
   ExampleCompletionModelIds,
   ExampleEmbeddingModelIds
@@ -105,4 +105,4 @@ const { text } = await generateText({
 });
 ```
 
-For more examples, see the [OpenAI Compatible Provider](https://ai-sdk.dev/providers/openai-compatible-providers) documentation.
+For more examples, see the [Frontal Provider](https://ai-sdk.dev/providers/frontal) documentation.

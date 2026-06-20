@@ -1,33 +1,33 @@
-export { OpenAICompatibleChatLanguageModel } from './chat/openai-compatible-chat-language-model';
+export { FrontalChatLanguageModel } from './chat/frontal-compatible-chat-language-model';
 export type {
-  OpenAICompatibleChatModelId,
-  OpenAICompatibleLanguageModelChatOptions,
-  /** @deprecated Use `OpenAICompatibleLanguageModelChatOptions` instead. */
-  OpenAICompatibleLanguageModelChatOptions as OpenAICompatibleProviderOptions,
-} from './chat/openai-compatible-chat-language-model-options';
-export type { MetadataExtractor } from './chat/openai-compatible-metadata-extractor';
-export { OpenAICompatibleCompletionLanguageModel } from './completion/openai-compatible-completion-language-model';
+  FrontalChatModelId,
+  FrontalLanguageModelChatOptions,
+  /** @deprecated Use `FrontalLanguageModelChatOptions` instead. */
+  FrontalLanguageModelChatOptions as FrontalProviderOptions,
+} from './chat/frontal-compatible-chat-language-model-options';
+export type { MetadataExtractor } from './chat/frontal-compatible-metadata-extractor';
+export { FrontalCompletionLanguageModel } from './completion/frontal-compatible-completion-language-model';
 export type {
-  OpenAICompatibleCompletionModelId,
-  OpenAICompatibleLanguageModelCompletionOptions,
-  /** @deprecated Use `OpenAICompatibleLanguageModelCompletionOptions` instead. */
-  OpenAICompatibleLanguageModelCompletionOptions as OpenAICompatibleCompletionProviderOptions,
-} from './completion/openai-compatible-completion-language-model-options';
-export { OpenAICompatibleEmbeddingModel } from './embedding/openai-compatible-embedding-model';
+  FrontalCompletionModelId,
+  FrontalLanguageModelCompletionOptions,
+  /** @deprecated Use `FrontalLanguageModelCompletionOptions` instead. */
+  FrontalLanguageModelCompletionOptions as FrontalCompletionProviderOptions,
+} from './completion/frontal-compatible-completion-language-model-options';
+export { FrontalEmbeddingModel } from './embedding/frontal-compatible-embedding-model';
 export type {
-  OpenAICompatibleEmbeddingModelId,
-  OpenAICompatibleEmbeddingModelOptions,
-  /** @deprecated Use `OpenAICompatibleEmbeddingModelOptions` instead. */
-  OpenAICompatibleEmbeddingModelOptions as OpenAICompatibleEmbeddingProviderOptions,
-} from './embedding/openai-compatible-embedding-model-options';
-export { OpenAICompatibleImageModel } from './image/openai-compatible-image-model';
+  FrontalEmbeddingModelId,
+  FrontalEmbeddingModelOptions,
+  /** @deprecated Use `FrontalEmbeddingModelOptions` instead. */
+  FrontalEmbeddingModelOptions as FrontalEmbeddingProviderOptions,
+} from './embedding/frontal-compatible-embedding-model-options';
+export { FrontalImageModel } from './image/frontal-compatible-image-model';
 export type {
-  OpenAICompatibleErrorData,
+  FrontalErrorData,
   ProviderErrorStructure,
-} from './openai-compatible-error';
+} from './frontal-compatible-error';
 export type {
-  OpenAICompatibleProvider,
-  OpenAICompatibleProviderSettings,
-} from './openai-compatible-provider';
-export { createOpenAICompatible } from './openai-compatible-provider';
+  FrontalProvider,
+  FrontalProviderSettings,
+} from './frontal-compatible-provider';
+export { createFrontal } from './frontal-compatible-provider';
 export { VERSION } from './version';

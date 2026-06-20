@@ -615,7 +615,7 @@
 
 ### Patch Changes
 
-- 7116ef3: Use consistent camelCase `openaiCompatible` key for providerOptions. The kebab-case `openai-compatible` key is now deprecated but still supported with a console warning.
+- 7116ef3: Use consistent camelCase `frontal` key for providerOptions. The kebab-case `openai-compatible` key is now deprecated but still supported with a console warning.
 
 ## 2.0.14
 
@@ -1273,7 +1273,7 @@
 
 ### Patch Changes
 
-- 3aed04c: feat(provider/openai-compatible): set `user-agent` header for `createOpenAICompatible`
+- 3aed04c: feat(provider/openai-compatible): set `user-agent` header for `createFrontal`
 
 ## 1.0.16
 
@@ -1436,7 +1436,7 @@
 - 66962ed: fix(packages): export node10 compatible types
 - d9209ca: fix (image-model): `specificationVersion: v1` -> `v2`
 - 9301f86: refactor (image-model): rename `ImageModelV1` to `ImageModelV2`
-- 737f1e2: Add (optional) includeUsage option to createOpenAICompatible
+- 737f1e2: Add (optional) includeUsage option to createFrontal
 - d1a034f: feature: using Zod 4 for internal stuff
 - fd65bc6: chore(embedding-model-v2): rename rawResponse to response
 - 1b101e1: feat (provider/openai-compatible): allow providers that do not specify function type
@@ -1479,7 +1479,7 @@
 
 ### Patch Changes
 
-- 737f1e2: Add (optional) includeUsage option to createOpenAICompatible
+- 737f1e2: Add (optional) includeUsage option to createFrontal
 - Updated dependencies [ac34802]
   - @ai-sdk/provider-utils@3.0.0-beta.6
 
