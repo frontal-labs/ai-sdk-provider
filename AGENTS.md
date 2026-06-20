@@ -60,7 +60,7 @@ pnpm build          # Build all packages
 | `pnpm install`           | Install dependencies                                              |
 | `pnpm build`             | Build all packages                                                |
 | `pnpm test`              | Run all tests (excludes examples)                                 |
-| `pnpm check`             | Run linting (oxlint) and formatting (oxfmt) checks                |
+| `pnpm check`             | Run linting and formatting (Biome) checks                         |
 | `pnpm fix`               | Fix linting and formatting issues                                 |
 | `pnpm type-check:full`   | TypeScript type checking (includes examples)                      |
 | `pnpm changeset`         | Add a changeset for your PR                                       |
@@ -121,9 +121,9 @@ pnpm tsx src/stream-text/openai/basic.ts    # Run a specific example
 
 ### Formatting
 
-- **Formatter**: oxfmt (via `pnpm fix` or `ultracite fix`)
-- **Linter**: oxlint (via `pnpm check` or `ultracite check`)
-- **Config**: `.oxfmtrc.jsonc` (formatter) and `.oxlintrc.json` (linter)
+- **Formatter**: Biome (via `pnpm fix` or `ultracite fix`)
+- **Linter**: Biome (via `pnpm check` or `ultracite check`)
+- **Config**: `biome.jsonc`
 - **Pre-commit hook**: Runs `pnpm install` if `package.json` changes are staged
 
 ### Testing
