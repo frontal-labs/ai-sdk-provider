@@ -38,7 +38,7 @@
     "prepare": "husky",
     "update-references": "update-ts-references && node tools/split-ts-references.mjs",
     "type-check": "tsc --build",
-    "type-check:full": "tsc --build tsconfig.with-examples.json",
+    "type-check:full": "tsc --build",
     "publint": "turbo publint",
     "test": "turbo test --concurrency 16 --filter=!@example/*",
     "test:ci": "turbo test --concurrency 16 --filter=!@example/* --filter=!ai --filter=!@ai-sdk/codemod --only",
