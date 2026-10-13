@@ -1,14 +1,8 @@
-<picture>
-  <source srcset="./banner-dark.png" media="(prefers-color-scheme: dark)">
-  <source srcset="./banner.png" media="(prefers-color-scheme: light)">
-  <img src="./banner-dark.png" alt="Frontal Website Banner">
-</picture>
-
 # AI SDK - Frontal Provider
 
-The Frontal provider is a lightweight package for working with providers that expose an OpenAI-compatible API through our brand and AI gateway.
+![Frontal Banner](./banner.jpg)
 
-> **Deploying to Frontal?** With Frontal's AI Gateway you can access hundreds of models from any provider — no additional packages, API keys, or extra cost. [Get started with AI Gateway](https://frontal.ai/gateway).
+The Frontal provider is a lightweight package for working with providers that expose an OpenAI-compatible API through our brand and AI gateway.
 
 ## Setup
 
@@ -111,4 +105,6 @@ const { text } = await generateText({
 });
 ```
 
-For more examples, see the [Frontal Provider](https://frontal.ai/providers/frontal) documentation.
+## License
+
+MIT
